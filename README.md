@@ -68,6 +68,58 @@ If one of the required features are not present, it tries to load a correspondin
 In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
 since chrome supports both features, it will load no additional files for viewer 2 on chrome.
 
+## Object Documentation
+
+### Views
+
+#### _view.js
+This is the basic view of DX. It implements an update function, for automated lazy loading of his template.
+
+Example for the use of _view.js
+```javascript
+View.extend({
+
+    el: $('#menu'),
+
+    // template name without file extension, will be lazy loaded from /templates
+    template: 'myTemplate',
+
+    render: function() {
+        this.update();
+    },
+
+    leave: function() {
+        this.$el.empty();
+    }
+});
+ ```
+
+#### _responsive.js
+The responsive view extends our basic view.
+
+It is important to note that the render function of a normal backbone.js view is occupied, so don't overwrite it. Use the new draw functions instead.
+
+Example use of _responsive.js
+```javascript
+ResponsiveView.extend({
+
+    draw: function() {
+        // Default behaviour, will be called for every state first
+    },
+
+    drawMobile: function() {
+        // For mobile only
+    },
+
+    drawTablet: function() {
+        // For mobile and tablets only
+    },
+
+    drawDesktop: function() {
+        // For every smaller and this state, in this case equivalent to <draw>
+    }
+});
+```
 
 ## Used Libraries
 

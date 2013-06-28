@@ -8,7 +8,6 @@ define([
 
     return {
         load: function(resourceId, require, load) {
-
             var path, viewList, viewIds;
 
             viewList = [];

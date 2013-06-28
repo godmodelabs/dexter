@@ -2,19 +2,15 @@ define([
     'jquery',
     'mustache',
     'views/_responsive',
-    'collections/column',
-    'models/article',
-    'text!templates/options.html'
-], function($, Mustache, ResponsiveView, ColumnCollection, ModelArticle, template) {
+], function($, Mustache, ResponsiveView) {
 
     return ResponsiveView.extend({
 
         el: $('#menu'),
 
-        template: template,
+        template: 'options',
 
         draw: function() {
-            console.log('enter options');
             this.update();
         },
 

@@ -3,15 +3,13 @@ define([
     'mustache',
     'views/_responsive',
     'collections/column',
-    'models/article',
-    'text!templates/column.html'
-], function($, Mustache, ResponsiveView, ColumnCollection, ModelArticle, template) {
+], function($, Mustache, ResponsiveView, ColumnCollection) {
 
     return ResponsiveView.extend({
 
         el: $('#content'),
 
-        template: template,
+        template: 'column',
 
         templateData: function() {
             return {
