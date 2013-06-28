@@ -5,9 +5,6 @@ a responsive JavaScript framework based on backbone.js and requireJS
 
 ## Features
 
-### Install script
-todo doc
-
 ### MV*
 todo doc
 
@@ -54,6 +51,9 @@ define([ /* ... */], function(MyCollection) {
 
 ### Shim support
 To enhance the use of shims, DX integrates a plugin for requireJS. Combined with the awesome Modernizr, it delivers a powerful conditional loader.
+
+### Install script
+todo doc
 
 ```javascript
 define([
@@ -103,7 +103,7 @@ since chrome supports both features, it will load no additional files for viewer
 - [James Burke] for the beloved [RequireJS]
 - [Jonathan Fielding] for his very nice [Simple State Manager]
 
-and of course every library contributor listed above, awesome work!
+and of course every contributor of the libraries listed above, awesome work!
 
 [Jonathan Fielding]: <https://github.com/jonathan-fielding>
 [Simple State Manager]: <https://github.com/jonathan-fielding/SimpleStateManager/>
