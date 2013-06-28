@@ -71,42 +71,49 @@ since chrome supports both features, it will load no additional files for viewer
 
 ## Used Libraries
 
-- bower
-- Backbone.js
-- RequireJS
-- Mustache
-- jQuery
-- Modernizr
-- Mocha
-- Chai
-- Karma
-- Istanbul
+- [Bower]
+- [Backbone.js]
+- [RequireJS]
+- [Mustache]
+- [jQuery]
+- [Modernizr]
+- [mocha]
+- [Chai]
+- [Karma]
 
 ## Todos
-Test: responsive view
-Test: base view
-Test: shim plugin
-Test: viewLoader plugin
-Test: console shim
-Test: indexOf
-Test: getKeys
-Test: applyMaybe
+- Test: responsive view
+- Test: base view
+- Test: shim plugin
+- Test: viewLoader plugin
+- Test: console shim
+- Test: indexOf
+- Test: getKeys
+- Test: applyMaybe
 
 ## Ideas
-Extend backbone.js Router
-Script: automatic installation of new components
-Script: create a new view
-CSS: css file loading via javascript, without media queries, dependent on current state
-HTML: template loading via plugin, dependent on current state
+- Extend backbone.js Router
+- Script: automatic installation of new components
+- Script: create a new view
+- CSS: css file loading via javascript, without media queries, dependent on current state
+- HTML: template loading via plugin, dependent on current state
 
 ## Special thanks to:
-The contributors of [backbone]
-[james-burke] for the beloved [requirejs]
-[jonathan-fielding] for his very nice [ssm]
+- The contributors of [Backbone.js]
+- [James Burke] for the beloved [RequireJS]
+- [Jonathan Fielding] for his very nice [Simple State Manager]
+
 and of course every library contributor listed above, awesome work!
 
-[jonathan-fielding]: <https://github.com/jonathan-fielding> "Jonathan Fielding"
-[ssm]: <https://github.com/jonathan-fielding/SimpleStateManager/> "Simple State Manager"
-[backbone]: <https://github.com/documentcloud/backbone/> "Backbone.js"
-[james-burke]: <https://github.com/jrburke> "James Burke"
-[requirejs]: <https://github.com/jrburke/requirejs> "RequireJS"
+[Jonathan Fielding]: <https://github.com/jonathan-fielding>
+[Simple State Manager]: <https://github.com/jonathan-fielding/SimpleStateManager/>
+[Backbone.js]: <https://github.com/documentcloud/backbone/>
+[James Burke]: <https://github.com/jrburke>
+[RequireJS]: <https://github.com/jrburke/requirejs>
+[Bower]: <http://bower.io/>
+[Mustache]: <http://mustache.github.io/>
+[jQuery]: <http://jquery.com/>
+[Modernizr]: <http://modernizr.com/>
+[mocha]: <http://visionmedia.github.io/mocha/>
+[Chai]: <http://chaijs.com/>
+[Karma]: <http://karma-runner.github.io/0.8/index.html>
