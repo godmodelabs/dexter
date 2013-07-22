@@ -9,7 +9,7 @@ a responsive JavaScript framework based on backbone.js and requireJS
 todo doc
 
 ### Responsive JS
-One of the key features of DX is the native integration of SimpleStateManager for true responsive JavaScript execution defined by states.
+One of the key features of DX is the native integration of [Simple State Manager] for true responsive JavaScript execution defined by states.
 
 /configs/states.conf.js
 ```javascript
@@ -52,9 +52,6 @@ define([ /* ... */], function(MyCollection) {
 ### Shim support
 To enhance the use of shims, DX integrates a plugin for requireJS. Combined with the awesome Modernizr, it delivers a powerful conditional loader.
 
-### Install script
-todo doc
-
 ```javascript
 define([
     'shim!Array.prototype.indexOf',
@@ -67,6 +64,9 @@ define([
 If one of the required features are not present, it tries to load a corresponding *.shim.js file from /js/libs.
 In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
 since chrome supports both features, it will load no additional files for viewer 2 on chrome.
+
+### Install script
+todo doc
 
 ## Object Documentation
 
