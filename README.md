@@ -29,20 +29,20 @@ define([ /* ... */], function(MyCollection) {
 
     return ResponsiveView.extend({
 
-        draw: function() {
+        enter: function() {
             // Default behaviour, will be called for every state first
         },
 
-        drawMobile: function() {
+        enterMobile: function() {
             // For mobile only
         },
 
-        drawTablet: function() {
+        enterTablet: function() {
             // For mobile and tablets only
         },
 
-        drawDesktop: function() {
-            // For every smaller and this state, in this case equivalent to <draw>
+        enterDesktop: function() {
+            // For every smaller and this state, in this case equivalent to <enter>
         }
     });
 
@@ -97,26 +97,26 @@ View.extend({
 #### _responsive.js
 The responsive view extends our basic view.
 
-It is important to note that the render function of a normal backbone.js view is occupied, so don't overwrite it. Use the new draw functions instead.
+It is important to note that the render function of a normal backbone.js view is occupied, so don't overwrite it. Use the new enter functions instead.
 
 Example use of _responsive.js
 ```javascript
 ResponsiveView.extend({
 
-    draw: function() {
+    enter: function() {
         // Default behaviour, will be called for every state first
     },
 
-    drawMobile: function() {
+    enterMobile: function() {
         // For mobile only
     },
 
-    drawTablet: function() {
+    enterTablet: function() {
         // For mobile and tablets only
     },
 
-    drawDesktop: function() {
-        // For every smaller and this state, in this case equivalent to <draw>
+    enterDesktop: function() {
+        // For every smaller and this state, in this case equivalent to <enter>
     }
 });
 ```

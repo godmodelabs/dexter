@@ -13,14 +13,14 @@ define([
     'shim!console'
 ], function($, _, Backbone, Mustache, applyMaybe) {
 
-    function updateTemplate(view, callback) {
+    function updateTemplate(view, callback, updateCallback) {
         require(['text!templates/'+view.template+'.html'], function(template) {
 
             view._templateFile = template;
             view._isTemplateLoaded = true;
 
             if (typeof callback === 'function') {
-                callback.call(view);
+                callback.call(view, updateCallback);
             }
         });
     }
@@ -32,14 +32,18 @@ define([
         /**
          *
          */
-        update: function() {
+        update: function(callback) {
             var template, data;
+
+            if (typeof callback !== 'function') {
+                callback = function() {};
+            }
 
             /*
              * Basic view uses lazy template loading.
              */
             if (!this._isTemplateLoaded) {
-                updateTemplate(this, this.update);
+                updateTemplate(this, this.update, callback);
                 return;
             }
 
@@ -55,6 +59,7 @@ define([
             }
 
             this.$el.html(template);
+            callback();
         }
     });
 

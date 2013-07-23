@@ -1,11 +1,11 @@
 define([
     'underscore',
     'backbone',
-    'models/article'
-], function(_, Backbone, ArticleModel) {
+    'models/listitem'
+], function(_, Backbone, ListItem) {
 
     return Backbone.Collection.extend({
-        model: ArticleModel
+        model: ListItem
     });
 
 });

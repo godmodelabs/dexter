@@ -32,7 +32,9 @@ define([
          *
          */
         render: function() {
-            var id, state;
+            var id, state, self;
+
+            self = this;
 
             /*
              * Prepare SimpleStateManager.
@@ -42,15 +44,15 @@ define([
                     state = {
                         id: id,
                         width: states[id],
-                        onEnter: (function(id, view) {
+                        onEnter: (function(id) {
                             return function() {
                                 var i, l;
 
                                 for (i=0, l=sortedStates.indexOf(id); i<=l; i++) {
-                                    applyMaybe(view, 'draw'+sortedStates[i]);
+                                    applyMaybe(self, 'enter'+sortedStates[i]);
                                 }
                             }
-                        })(id, this)
+                        })(id)
                     };
                     ssm.removeState(state.id);
                     ssm.addState(state);
@@ -60,8 +62,10 @@ define([
             /*
              * Call appropriate state functions.
              */
-            applyMaybe(this, 'draw');
-            ssm.ready();
+            applyMaybe(self, 'update', [function() {
+                applyMaybe(self, 'enter');
+                ssm.ready();
+            }]);
         }
     });
 
