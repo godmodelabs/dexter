@@ -14,7 +14,8 @@ define([
             viewIds = [];
 
             for (path in routes) {
-                if (routes.hasOwnProperty(path)) {
+                if (routes.hasOwnProperty(path) &&
+                    routes[path] !== '') {
                     viewIds.push(routes[path]);
                     viewList.push('views/'+routes[path]);
                 }

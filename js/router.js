@@ -24,8 +24,11 @@ define([
             self = this;
             self.obj = new AppRouter;
             viewCache = {};
-            defaultView = new viewList[routes['*path']]();
-            viewCache[routes['*path']] = defaultView;
+
+            if (routes['*path'] !== '') {
+                defaultView = new viewList[routes['*path']]();
+                viewCache[routes['*path']] = defaultView;
+            }
 
             /*
              * Match the route to his corresponding view and
@@ -47,7 +50,7 @@ define([
                                 v = viewCache[viewRoute];
                             }
 
-                            if (defaultView !== v) {
+                            if (defaultView && defaultView !== v) {
                                 defaultView.render();
                             }
                             self.currentView = v;
