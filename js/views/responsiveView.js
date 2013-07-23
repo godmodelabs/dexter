@@ -7,11 +7,12 @@ define([
 
     return ResponsiveView.extend({
 
-        name: 'view',
+        name: 'responsiveView',
 
         templateData: function() {
             return {
-                list: this.list.models
+                list: this.list.models,
+                name: this.name
             };
         },
 
@@ -33,15 +34,24 @@ define([
         },
 
         enter: function() {
+            console.log('enter');
         },
 
-        enterMobile: function() {},
+        enterMobile: function() {
+            console.log('enter mobile');
+        },
 
-        enterTablet: function() {},
+        enterTablet: function() {
+            console.log('enter tablet');
+        },
 
-        enterDesktop: function() {},
+        enterDesktop: function() {
+            console.log('enter desktop');
+        },
 
-        leave: function() {}
+        leave: function() {
+            this.clear();
+        }
     });
 
 });

@@ -29,6 +29,8 @@ define([ /* ... */], function(MyCollection) {
 
     return ResponsiveView.extend({
 
+        name: 'myView',
+
         enter: function() {
             // Default behaviour, will be called for every state first
         },
@@ -79,14 +81,9 @@ Example for the use of _view.js
 ```javascript
 View.extend({
 
-    el: $('#menu'),
+    name: 'myView',
 
-    // template name without file extension, will be lazy loaded from /templates
-    template: 'myTemplate',
-
-    render: function() {
-        this.update();
-    },
+    render: function() {},
 
     leave: function() {
         this.$el.empty();
