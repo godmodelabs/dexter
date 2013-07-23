@@ -14,7 +14,7 @@ define([
 ], function($, _, Backbone, Mustache, applyMaybe) {
 
     function updateTemplate(view, callback, updateCallback) {
-        require(['text!templates/'+view.template+'.html'], function(template) {
+        require(['text!templates/'+view.name+'.html'], function(template) {
 
             view._templateFile = template;
             view._isTemplateLoaded = true;
@@ -28,6 +28,25 @@ define([
     return Backbone.View.extend({
 
         _isTemplateLoaded: false,
+
+        /**
+         *
+         * @returns {HTMLElement}
+         */
+        el: function() {
+            return $('#'+this.name);
+        },
+
+        /**
+         *
+         */
+        render: function() {
+            var self = this;
+
+            applyMaybe(self, 'update', [function() {
+                applyMaybe(self, 'enter');
+            }]);
+        },
 
         /**
          *
@@ -60,6 +79,13 @@ define([
 
             this.$el.html(template);
             callback();
+        },
+
+        /**
+         *
+         */
+        clear: function() {
+            this.$el.html('');
         }
     });
 
