@@ -34,19 +34,19 @@ define([
         },
 
         enter: function() {
-            console.log('enter');
+
         },
 
         enterMobile: function() {
-            console.log('enter mobile');
+
         },
 
         enterTablet: function() {
-            console.log('enter tablet');
+
         },
 
         enterDesktop: function() {
-            console.log('enter desktop');
+
         },
 
         leave: function() {

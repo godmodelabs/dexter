@@ -15,9 +15,12 @@ define([
         },
 
         initialize: function() {
+
         },
 
-        enter: function() {},
+        enter: function() {
+
+        },
 
         leave: function() {
             this.clear();
