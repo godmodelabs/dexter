@@ -10,13 +10,11 @@ todo doc
 
 ### Views
 ```javascript
+// file: /js/views/myView.js
 define([ /* ... */ ], function(View) {
 
     return View.extend({
-
         name: 'myView',
-        subViews: ['mySubView'],
-
     });
 
 });
@@ -24,7 +22,8 @@ define([ /* ... */ ], function(View) {
 
 ```html
 <!-- file: /templates/myView.html -->
-<p>Hello there, i'm proud to present myself to you! I will be loaded and displayed inside /index.html</p>
+<p>Hello there, i'm proud to present myself to you!</p>
+<p>I will be loaded and displayed inside /index.html</p>
 ```
 
 ### Subviews
@@ -34,10 +33,8 @@ Each view can incorporate any number of other views.
 define([ /* ... */ ], function(View) {
 
     return View.extend({
-
         name: 'myView',
         subViews: ['mySubView'],
-
     });
 
 });
@@ -45,7 +42,7 @@ define([ /* ... */ ], function(View) {
 
 ```html
 <!-- file: /templates/myView.html -->
-<p>Hello again! I'm using one of the other views to reuse some work!</p>
+<p>Hello again! I'm injecting one of the other views to reuse some work!</p>
 <div id="subView"></div>
 ```
 
@@ -73,7 +70,6 @@ define(function() {
 define([ /* ... */ ], function(MyCollection) {
 
     return ResponsiveView.extend({
-
         name: 'myView',
 
         enter: function() {
@@ -129,8 +125,8 @@ This is the basic view of DX. It implements an update function, for automated la
 
 Example for the use of _view.js
 ```javascript
+// example file: /js/views/myView.js
 View.extend({
-
     name: 'myView',
 
     render: function() {},
@@ -141,6 +137,11 @@ View.extend({
 });
  ```
 
+```html
+<!-- file: /templates/myView.html -->
+<p>I don't like redundancy.</p>
+```
+
 #### _responsive.js
 The responsive view extends our basic view.
 
@@ -148,7 +149,9 @@ It is important to note that the render function of a normal backbone.js view is
 
 Example use of _responsive.js
 ```javascript
+// example file: /js/views/myResponsiveView.js
 ResponsiveView.extend({
+    name: 'responsiveView',
 
     enter: function() {
         // Default behaviour, will be called for every state first
@@ -166,6 +169,11 @@ ResponsiveView.extend({
         // For every smaller and this state, in this case equivalent to <enter>
     }
 });
+```
+
+```html
+<!-- file: /templates/myResponsiveView.html -->
+<p>Me neither.</p>
 ```
 
 ## Used Libraries
