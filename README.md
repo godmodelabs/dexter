@@ -123,7 +123,7 @@ todo doc
 #### _view.js
 This is the basic view of DX. It implements an update function, for automated lazy loading of his template.
 It is important to note that the render function of a normal backbone.js view is occupied, so don't overwrite it. Use the new enter functions instead.
-If you need to prepare data the HTML is loaded, use initialize.
+If you need to prepare data before the HTML is loaded, use initialize.
 
 Example for the use of _view.js
 ```javascript
