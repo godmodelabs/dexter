@@ -7,6 +7,7 @@ define([
     return View.extend({
 
         name: 'view',
+        subViews: ['subView'],
 
         templateData: function() {
             return {
@@ -19,11 +20,12 @@ define([
         },
 
         enter: function() {
-
+            console.log(this.name + ' enter');
         },
 
         leave: function() {
             this.clear();
+            console.log(this.name + ' leave');
         }
     });
 

@@ -8,11 +8,56 @@ a responsive JavaScript framework based on backbone.js and requireJS
 ### MV*
 todo doc
 
+### Views
+```javascript
+define([ /* ... */ ], function(View) {
+
+    return View.extend({
+
+        name: 'myView',
+        subViews: ['mySubView'],
+
+    });
+
+});
+```
+
+```html
+<!-- file: /templates/myView.html -->
+<p>Hello there, i'm proud to present myself to you! I will be loaded and displayed inside /index.html</p>
+```
+
+### Subviews
+Each view can incorporate any number of other views.
+
+```javascript
+define([ /* ... */ ], function(View) {
+
+    return View.extend({
+
+        name: 'myView',
+        subViews: ['mySubView'],
+
+    });
+
+});
+```
+
+```html
+<!-- file: /templates/myView.html -->
+<p>Hello again! I'm using one of the other views to reuse some work!</p>
+<div id="subView"></div>
+```
+
+Views used as subviews can itself again contain subviews. One warning though, don't use too deep constructs to maintain
+high performance, the subviews will be rendered after the parent view to fulfill dependencies on DOM nodes and can slow
+the application.
+
 ### Responsive JS
 One of the key features of DX is the native integration of [Simple State Manager] for true responsive JavaScript execution defined by states.
 
-/configs/states.conf.js
 ```javascript
+// file: /configs/states.conf.js
 define(function() {
     return {
         // <state name>: <minimum page width>
@@ -23,9 +68,9 @@ define(function() {
 });
 ```
 
-/js/views/myView.js
 ```javascript
-define([ /* ... */], function(MyCollection) {
+// file: /js/views/myResponsiveView.js
+define([ /* ... */ ], function(MyCollection) {
 
     return ResponsiveView.extend({
 
@@ -49,6 +94,11 @@ define([ /* ... */], function(MyCollection) {
     });
 
 });
+```
+
+```html
+<!-- file: /templates/myResponsiveView.html -->
+<p>I'm more fancy than the boring basic view.</p>
 ```
 
 ### Shim support

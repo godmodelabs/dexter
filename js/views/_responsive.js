@@ -31,10 +31,12 @@ define([
         /**
          *
          */
-        render: function() {
+        render: function(callback) {
+            console.log('render '+this.name);
             var id, state, self;
 
             self = this;
+            callback = callback || function() {};
 
             /*
              * Prepare SimpleStateManager.
@@ -63,7 +65,7 @@ define([
              * Call appropriate state functions.
              */
             applyMaybe(self, 'update', [function() {
-                applyMaybe(self, 'enter');
+                callback();
                 ssm.ready();
             }]);
         }

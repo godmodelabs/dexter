@@ -8,6 +8,7 @@ define([
     return ResponsiveView.extend({
 
         name: 'responsiveView',
+        subViews: ['subView'],
 
         templateData: function() {
             return {
@@ -34,7 +35,7 @@ define([
         },
 
         enter: function() {
-
+            console.log(this.name + ' enter');
         },
 
         enterMobile: function() {
@@ -51,6 +52,7 @@ define([
 
         leave: function() {
             this.clear();
+            console.log(this.name + ' leave');
         }
     });
 

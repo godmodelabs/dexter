@@ -1,7 +1,7 @@
 {
-  "name": "new.jandaya.de",
-  "version": "0.0.0",
-  "description": "ERROR: No README.md file found!",
+  "name": "dexter",
+  "version": "0.1.0",
+  "description": "a responsive JavaScript framework based on backbone.js and requireJS",
   "main": "index.html",
   "directories": {
     "test": "test"
@@ -16,9 +16,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://tlukacs@git.dc1.boerse-go.de/new.jandaya.de.git"
+    "url": "https://github.com/godmodelabs/dexter.git"
   },
   "author": "Thomas Lukacs",
-  "license": "Commercial License",
+  "license": "MIT license",
   "gitHead": "d5a8efca80cc8f82b36956eba5cc962488e09501"
 }

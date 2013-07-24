@@ -28,6 +28,7 @@ define([
     return Backbone.View.extend({
 
         _isTemplateLoaded: false,
+        subViews: [],
 
         /**
          *
@@ -40,11 +41,12 @@ define([
         /**
          *
          */
-        render: function() {
-            var self = this;
+        render: function(callback) {
+            console.log('render '+this.name);
+            callback = callback || function() {};
 
-            applyMaybe(self, 'update', [function() {
-                applyMaybe(self, 'enter');
+            applyMaybe(this, 'update', [function() {
+                callback();
             }]);
         },
 
@@ -54,9 +56,7 @@ define([
         update: function(callback) {
             var template, data;
 
-            if (typeof callback !== 'function') {
-                callback = function() {};
-            }
+            callback = callback || function() {};
 
             /*
              * Basic view uses lazy template loading.
