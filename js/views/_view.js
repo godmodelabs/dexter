@@ -42,7 +42,6 @@ define([
          *
          */
         render: function(callback) {
-            console.log('render '+this.name);
             callback = callback || function() {};
 
             applyMaybe(this, 'update', [function() {

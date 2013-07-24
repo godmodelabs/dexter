@@ -47,7 +47,7 @@ define([ /* ... */ ], function(View) {
 ```
 
 Views used as subviews can itself again contain subviews. One warning though, don't use too deep constructs to maintain
-high performance, the subviews will be rendered after the parent view to fulfill dependencies on DOM nodes and can slow
+high performance, subviews will be rendered after the parent view to fulfill dependencies on DOM nodes and can slow
 the application.
 
 ### Responsive JS
@@ -98,7 +98,7 @@ define([ /* ... */ ], function(MyCollection) {
 ```
 
 ### Shim support
-To enhance the use of shims, DX integrates a plugin for requireJS. Combined with the awesome Modernizr, it delivers a powerful conditional loader.
+To enhance the use of shims, DX integrates a plugin for requireJS. Combined with the awesome [Modernizr], it delivers a powerful conditional loader.
 
 ```javascript
 define([
@@ -122,6 +122,8 @@ todo doc
 
 #### _view.js
 This is the basic view of DX. It implements an update function, for automated lazy loading of his template.
+It is important to note that the render function of a normal backbone.js view is occupied, so don't overwrite it. Use the new enter functions instead.
+If you need to prepare data the HTML is loaded, use initialize.
 
 Example for the use of _view.js
 ```javascript
@@ -129,7 +131,8 @@ Example for the use of _view.js
 View.extend({
     name: 'myView',
 
-    render: function() {},
+    initialize: function() {},
+    enter: function() {},
 
     leave: function() {
         this.$el.empty();
@@ -144,8 +147,6 @@ View.extend({
 
 #### _responsive.js
 The responsive view extends our basic view.
-
-It is important to note that the render function of a normal backbone.js view is occupied, so don't overwrite it. Use the new enter functions instead.
 
 Example use of _responsive.js
 ```javascript

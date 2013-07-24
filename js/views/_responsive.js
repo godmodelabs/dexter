@@ -32,7 +32,6 @@ define([
          *
          */
         render: function(callback) {
-            console.log('render '+this.name);
             var id, state, self;
 
             self = this;
