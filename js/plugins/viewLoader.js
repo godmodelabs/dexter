@@ -3,12 +3,14 @@
  */
 
 define([
+    'libs/debug',
     'configs/routes.conf',
     'libs/unique'
-], function(routes, unique) {
+], function(debug, routes, unique) {
+    debug = debug('DX');
 
     function getViewList(require, list, ret, callback) {
-        var views, i, j, v, sv, subViewList;
+        var views, i, j, view, subView, subViewList;
 
         subViewList = [];
 
@@ -16,17 +18,17 @@ define([
             views = Array.prototype.slice.call(arguments, 0);
 
             for (i=views.length; i--;) {
-                v = new views[i]();
+                view = views[i];
 
-                if (!v.name) { continue; }
+                if (!view.prototype.name) { continue; }
 
-                if (sv = v.subViews) {
-                    for (j=sv.length; j--;) {
-                        subViewList.push('views/'+sv[j]);
+                if (subView = view.prototype.subViews) {
+                    for (j=subView.length; j--;) {
+                        subViewList.push('views/'+subView[j]);
                     }
                 }
 
-                ret[v.name] = views[i];
+                ret[view.prototype.name] = views[i];
             }
 
             subViewList = unique(subViewList);

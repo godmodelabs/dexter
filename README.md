@@ -50,6 +50,10 @@ Views used as subviews can itself again contain subviews. One warning though, do
 high performance, subviews will be rendered after the parent view to fulfill dependencies on DOM nodes and can slow
 the application.
 
+### Templating
+DX uses [Mustache] to provide an easy to use templating engine. Mustache was chosen over other libraries to keep logic
+out of templates and inside the views.
+
 ### Responsive JS
 One of the key features of DX is the native integration of [Simple State Manager] for true responsive JavaScript execution defined by states.
 
@@ -67,7 +71,7 @@ define(function() {
 
 ```javascript
 // file: /js/views/myResponsiveView.js
-define([ /* ... */ ], function(MyCollection) {
+define([ /* ... */ ], function(ResponsiveView) {
 
     return ResponsiveView.extend({
         name: 'myView',
@@ -133,10 +137,7 @@ View.extend({
 
     initialize: function() {},
     enter: function() {},
-
-    leave: function() {
-        this.$el.empty();
-    }
+    leave: function() {}
 });
  ```
 

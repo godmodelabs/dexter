@@ -5,85 +5,133 @@
  */
 
 define([
+    'libs/debug',
     'jquery',
     'underscore',
     'backbone',
     'mustache',
-    'libs/applyMaybe',
-    'shim!console'
-], function($, _, Backbone, Mustache, applyMaybe) {
+    'libs/applyMaybe'
+], function(debug, $, _, Backbone, Mustache, applyMaybe) {
+    debug = debug('DX');
 
-    function updateTemplate(view, callback, updateCallback) {
+    function getTemplate(view) {
+        debug('get template for #'+view.name);
+
         require(['text!templates/'+view.name+'.html'], function(template) {
+            debug('got template for #'+view.name);
 
             view._templateFile = template;
             view._isTemplateLoaded = true;
+            view._isTemplateLoading = false;
 
-            if (typeof callback === 'function') {
-                callback.call(view, updateCallback);
-            }
+            view.update.call(view);
         });
     }
 
     return Backbone.View.extend({
 
         _isTemplateLoaded: false,
+        _isTemplateLoading: false,
+        _updateCallbacks: null,
+        _templateFile: null,
+
         subViews: [],
 
         /**
          *
          * @returns {HTMLElement}
          */
-        el: function() {
+        el: function el() {
             return $('#'+this.name);
         },
 
         /**
          *
          */
-        render: function(callback) {
+        render: function render(callback) {
+            var self;
+
+            self = this;
             callback = callback || function() {};
 
-            applyMaybe(this, 'update', [function() {
+            self.update(function renderUpdate() {
+
+                self.$cachedEl = self.$el.html();
+                debug('cache html for #'+self.name+': '+self.$cachedEl.substr(0,20)+'...');
+
                 callback();
-            }]);
+            });
         },
 
         /**
          *
          */
-        update: function(callback) {
-            var template, data;
+        update: function update(callback) {
+            debug('update #'+this.name+' with template? '+this._isTemplateLoaded+' with callback? '+(typeof callback==='function'));
 
-            callback = callback || function() {};
+            var template, data, self;
+
+            self = this;
+
+            /*
+             * Callback stack.
+             */
+
+            if (!self._updateCallbacks) {
+                self._updateCallbacks = [];
+            }
+            if (callback) {
+                self._updateCallbacks.push(callback);
+                debug('put update callback on stack for #'+self.name+' -> '+self._updateCallbacks.length);
+            }
 
             /*
              * Basic view uses lazy template loading.
              */
-            if (!this._isTemplateLoaded) {
-                updateTemplate(this, this.update, callback);
+
+            if (!self._isTemplateLoaded) {
+
+                if (!self._isTemplateLoading) {
+                    self._isTemplateLoading = true;
+                    getTemplate(self);
+                }
                 return;
             }
 
-            data = applyMaybe(this, 'templateData');
+            data = applyMaybe(self, 'templateData');
 
             /*
              * If we got data from the view, render it with mustache.
              */
+
             if (data === null) {
-                template = this._templateFile;
+                template = self._templateFile;
             } else {
-                template = Mustache.render(this._templateFile, data);
+                template = Mustache.render(self._templateFile, data);
             }
 
-            this.$el.html(template);
-            callback();
+            self.$el.html(template);
+
+            /*
+             * Update sub views.
+             */
+
+            self.router.loadSubViews(this, function() {
+
+                while(self._updateCallbacks.length) {
+                    var callback = self._updateCallbacks.shift();
+
+                    debug('call update callback for #'+self.name+' -> '+self._updateCallbacks.length);
+
+                    callback.call(self);
+                }
+            });
         },
 
         /**
          *
          */
-        clear: function() {
+        clear: function clear() {
             this.$el.html('');
         }
     });

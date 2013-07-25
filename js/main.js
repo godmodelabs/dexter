@@ -33,6 +33,9 @@ require.config({
         },
         ssm: {
             exports: "ssm"
+        },
+        'libs/debug': {
+            exports: "debug"
         }
     },
 

@@ -1,8 +1,10 @@
 define([
+    'libs/debug',
     'jquery',
     'mustache',
     'views/_view'
-], function($, Mustache, View) {
+], function(debug, $, Mustache, View) {
+    debug = debug('EXAMPLE');
 
     return View.extend({
 
@@ -20,12 +22,12 @@ define([
         },
 
         enter: function() {
-            console.log(this.name + ' enter');
+            debug('enter #'+this.name);
         },
 
         leave: function() {
             this.clear();
-            console.log(this.name + ' leave');
+            debug('leave #'+this.name);
         }
     });
 

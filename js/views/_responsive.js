@@ -5,6 +5,7 @@
  */
 
 define([
+    'libs/debug',
     'jquery',
     'underscore',
     'backbone',
@@ -14,7 +15,8 @@ define([
     'libs/getKeys',
     'libs/applyMaybe',
     'shim!Array.prototype.indexOf'
-], function($, _, Backbone, View, states, ssm, getKeys, applyMaybe) {
+], function(debug, $, _, Backbone, View, states, ssm, getKeys, applyMaybe) {
+    debug = debug('DX');
 
     var sortedStates;
 
@@ -32,6 +34,8 @@ define([
          *
          */
         render: function(callback) {
+            debug('render #'+this.name);
+
             var id, state, self;
 
             self = this;
@@ -63,10 +67,15 @@ define([
             /*
              * Call appropriate state functions.
              */
-            applyMaybe(self, 'update', [function() {
+
+            self.update(function renderUpdate() {
+
+                self.$cachedEl = self.$el.html();
+                debug('cache html for #'+self.name+': '+self.$cachedEl.substr(0,20)+'...');
+
                 callback();
                 ssm.ready();
-            }]);
+            });
         }
     });
 

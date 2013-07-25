@@ -1,9 +1,11 @@
 define([
+    'libs/debug',
     'jquery',
     'mustache',
     'views/_responsive',
     'collections/list',
-], function($, Mustache, ResponsiveView, List) {
+], function(debug, $, Mustache, ResponsiveView, List) {
+    debug = debug('EXAMPLE');
 
     return ResponsiveView.extend({
 
@@ -35,7 +37,7 @@ define([
         },
 
         enter: function() {
-            console.log(this.name + ' enter');
+            debug('enter #'+this.name);
         },
 
         enterMobile: function() {
@@ -52,7 +54,7 @@ define([
 
         leave: function() {
             this.clear();
-            console.log(this.name + ' leave');
+            debug('leave #'+this.name);
         }
     });
 
