@@ -10,8 +10,9 @@ define([
     'underscore',
     'backbone',
     'mustache',
-    'libs/applyMaybe'
-], function(debug, $, _, Backbone, Mustache, applyMaybe) {
+    'libs/applyMaybe',
+    'libs/step'
+], function(debug, $, _, Backbone, Mustache, applyMaybe, Step) {
     debug = debug('DX');
 
     function getTemplate(view) {
@@ -57,7 +58,10 @@ define([
             self.update(function renderUpdate() {
 
                 self.$cachedEl = self.$el.html();
-                debug('cache html for #'+self.name+': '+self.$cachedEl.substr(0,20)+'...');
+                debug.colored('cache html for #'+self.name+': '+self.$cachedEl.substr(0,20).replace(/\n|\r|\t/g, '')+'...', 'lightgray');
+
+                debug.colored('enter #'+self.name+' ['+(self.parameters||'')+']', '#22dd22');
+                applyMaybe(self, 'enter');
 
                 callback();
             });
@@ -116,16 +120,24 @@ define([
              * Update sub views.
              */
 
-            self.router.loadSubViews(this, function() {
+            Step(
+                function subViews() {
+                    if (self.subViews.length > 0) {
+                        self.router.loadSubViews(self, this);
+                    } else {
+                        return true;
+                    }
+                },
+                function () {
+                    while(self._updateCallbacks.length) {
+                        var callback = self._updateCallbacks.shift();
 
-                while(self._updateCallbacks.length) {
-                    var callback = self._updateCallbacks.shift();
+                        debug('call update callback for #'+self.name+' -> '+self._updateCallbacks.length);
 
-                    debug('call update callback for #'+self.name+' -> '+self._updateCallbacks.length);
-
-                    callback.call(self);
+                        callback.call(self);
+                    }
                 }
-            });
+            );
         },
 
         /**

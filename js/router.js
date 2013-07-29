@@ -39,18 +39,12 @@ define([
          *
          */
         init: function() {
-            var view, viewRoute, self, defaultView;
+            var view, viewRoute, self, params;
 
             self = this;
             self.obj = new AppRouter;
             self.viewCache = {};
             self.viewList = viewList;
-
-            if (routes['*path'] !== '') {
-                defaultView = new self.viewList[routes['*path']]();
-                defaultView.router = this;
-                self.viewCache[routes['*path']] = defaultView;
-            }
 
             /*
              * Match the route to his corresponding view and
@@ -66,6 +60,7 @@ define([
                             debug('---------- navigation to >'+route+' ----------');
 
                             if (self.currentView !== null) {
+                                debug.colored('leave #'+self.currentView.name, '#aaddaa');
                                 applyMaybe(self.currentView, 'leave');
                             }
 
@@ -77,23 +72,15 @@ define([
                                 view = self.viewCache[viewRoute];
                             }
 
-                            /*
-                             * Update default view.
-                             */
-
-                            if (defaultView && defaultView !== view) {
-                                defaultView.render.call(defaultView);
-                            }
+                            params = Array.prototype.slice.call(arguments);
+                            view.parameters = params;
 
                             /*
                              * Render desired view with his subviews afterwards.
                              */
 
                             view.render.call(view, function routerRender() {
-                                debug('desired view with subviews rendered');
-
                                 self.currentView = view;
-                                applyMaybe(view, 'enter');
                             });
                         });
 
@@ -199,7 +186,7 @@ define([
                 if (remainingViews.hasOwnProperty(i)) {
                     remainingViews[i].$el = $('#'+remainingViews[i].name);
 
-                    debug('get cached html for #'+remainingViews[i].name);
+                    debug.colored('get cached html for #'+remainingViews[i].name, 'lightgray');
 
                     remainingViews[i].$el.html(remainingViews[i].$cachedEl);
 
@@ -264,8 +251,6 @@ define([
             view.$el = $('#'+view.name);
 
             view.render.call(view, function subViewRendered() {
-                debug('subview #'+view.name+' rendered');
-
                 delete views[keys[0]];
                 self.renderViewsSync(views, callback);
             });
