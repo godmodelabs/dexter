@@ -39,24 +39,39 @@
  */
 
 function debug(name) {
-    if (!debug.enabled(name)) return function(){};
+    var obj;
 
-    return function(fmt){
-        var curr = new Date;
-        var ms = curr - (debug[name] || curr);
-        debug[name] = curr;
+    if (!debug.enabled(name)) {
+        obj = function() {}
 
-        fmt = name
-            + ' '
-            + fmt
-            + ' +' + debug.humanize(ms);
+    } else {
+        obj = function(fmt){
+            var curr = new Date;
+            var ms = curr - (debug[name] || curr);
+            debug[name] = curr;
 
-        // This hackery is required for IE8
-        // where `console.log` doesn't have 'apply'
-        window.console
-            && console.log
-        && Function.prototype.apply.call(console.log, console, arguments);
+            fmt = name
+                + ' '
+                + fmt
+                + ' +' + debug.humanize(ms);
+
+            // This hackery is required for IE8
+            // where `console.log` doesn't have 'apply'
+            window.console
+                && console.log
+            && Function.prototype.apply.call(console.log, console, arguments);
+        };
     }
+    /*
+     * color plugin by thomas lukacs
+     */
+    obj.colored = function() {
+        var args = Array.prototype.slice.call(arguments);
+        var color = args.pop();
+        this.apply(window, Array.prototype.concat('%c '+args.shift(), 'color:'+color, args));
+    };
+
+    return obj;
 }
 
 /**
