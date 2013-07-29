@@ -18,7 +18,9 @@ require.config({
         // Plugins
         text: './plugins/text',
         viewLoader: './plugins/viewLoader',
-        shim: './plugins/shim'
+        shim: './plugins/shim',
+        json: '../components/requirejs-plugins/lib/require/json',
+        noext: '../components/requirejs-plugins/lib/require/noext'
     },
     shim: {
         underscore: {
@@ -28,14 +30,14 @@ require.config({
             exports: 'Modernizr'
         },
         backbone: {
-            deps: ["underscore", "jquery"],
-            exports: "Backbone"
+            deps: ['underscore', 'jquery'],
+            exports: 'Backbone'
         },
         ssm: {
-            exports: "ssm"
+            exports: 'ssm'
         },
         'libs/debug': {
-            exports: "debug"
+            exports: 'debug'
         }
     },
 
