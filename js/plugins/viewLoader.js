@@ -5,7 +5,8 @@
 define([
     'libs/debug',
     'configs/routes.conf',
-    'libs/unique'
+    'libs/unique',
+    'shim!Object.keys'
 ], function(debug, routes, unique) {
     debug = debug('DX');
 
@@ -56,7 +57,11 @@ define([
                 }
             }
 
-            getViewList(require, viewList, ret, load);
+            debug('get view list');
+            getViewList(require, viewList, ret, function(ret) {
+                debug('got view list:\n#'+Object.keys(ret).join(', \n#'));
+                load(ret);
+            });
         }
     }
 
