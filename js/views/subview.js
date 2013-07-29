@@ -17,14 +17,15 @@ define([
         },
 
         initialize: function() {
+
         },
 
         enter: function() {
-            debug('enter #'+this.name);
+
         },
 
         leave: function() {
-            debug('leave #'+this.name);
+
         }
     });
 
