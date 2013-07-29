@@ -21,12 +21,11 @@ define([
         },
 
         enter: function() {
-            debug('enter #'+this.name);
+
         },
 
         leave: function() {
             this.clear();
-            debug('leave #'+this.name);
         }
     });
 

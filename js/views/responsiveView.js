@@ -37,7 +37,7 @@ define([
         },
 
         enter: function() {
-            debug('enter #'+this.name);
+
         },
 
         enterMobile: function() {
@@ -54,7 +54,6 @@ define([
 
         leave: function() {
             this.clear();
-            debug('leave #'+this.name);
         }
     });
 
