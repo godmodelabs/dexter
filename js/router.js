@@ -11,8 +11,10 @@ define([
     'viewLoader!',
     'libs/applyMaybe',
     'libs/intersect',
-    'shim!Object.keys'
-], function(debug, $, _, Backbone, routes, viewList, applyMaybe, intersect) {
+    'libs/debugBar',
+    'libs/getUrlVars',
+    'shim!Object.keys',
+], function(debug, $, _, Backbone, routes, viewList, applyMaybe, intersect, debugBar) {
     debug = debug('DX');
 
     var AppRouter = Backbone.Router.extend({
@@ -57,7 +59,9 @@ define([
                     (function(route, viewRoute) {
 
                         self.obj.on('route:'+route, function() {
-                            debug('---------- navigation to >'+route+' ----------');
+                            params = Array.prototype.slice.call(arguments);
+
+                            debug('---------- navigation to '+route+' ['+params+'] ----------');
 
                             if (self.currentView !== null) {
                                 debug.colored('leave #'+self.currentView.name, '#aaddaa');
@@ -72,7 +76,6 @@ define([
                                 view = self.viewCache[viewRoute];
                             }
 
-                            params = Array.prototype.slice.call(arguments);
                             view.parameters = params;
 
                             /*
@@ -114,6 +117,14 @@ define([
                     self.obj.navigate(url, { trigger: true });
                 }
             });
+
+            /*
+             * Debugging tool
+             */
+
+            if ($.getUrlVar('debug')) {
+                debugBar(self.viewCache);
+            }
         },
 
         /**
@@ -150,7 +161,7 @@ define([
          * @param [callback]
          */
         loadSubViews: function(view, callback) {
-            debug('load subviews of #'+view.name+' via router');
+            debug.colored('load subviews of #'+view.name+' via router', '#9394cc');
 
             var i, lastSubViews, subViews, keys,
                 intersection, remainingViews, leavingViews, enteringViews;
@@ -179,7 +190,7 @@ define([
              */
 
             if (Object.keys(remainingViews).length > 0) {
-                debug('remaining subviews: '+Object.keys(remainingViews));
+                debug.colored('remaining subviews: '+Object.keys(remainingViews), '#9394cc');
             }
 
             for (i in remainingViews) {
@@ -198,7 +209,7 @@ define([
              */
 
             if (Object.keys(leavingViews).length > 0) {
-                debug('leaving subviews: '+Object.keys(leavingViews));
+                debug.colored('leaving subviews: '+Object.keys(leavingViews), '#9394cc');
             }
 
             for (i in leavingViews) {
@@ -216,7 +227,7 @@ define([
                 callback();
 
             } else {
-                debug('new subviews: '+Object.keys(enteringViews));
+                debug.colored('new subviews: '+Object.keys(enteringViews), '#9394cc');
 
                 this.renderViewsSync(jQuery.extend({}, enteringViews), function() {
                     keys = Object.keys(enteringViews);

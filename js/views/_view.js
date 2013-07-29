@@ -16,10 +16,10 @@ define([
     debug = debug('DX');
 
     function getTemplate(view) {
-        debug('get template for #'+view.name);
+        debug.colored('get template for #'+view.name, '#dada65');
 
         require(['text!templates/'+view.name+'.html'], function(template) {
-            debug('got template for #'+view.name);
+            debug.colored('got template for #'+view.name, '#dada65');
 
             view._templateFile = template;
             view._isTemplateLoaded = true;
@@ -50,6 +50,8 @@ define([
          *
          */
         render: function render(callback) {
+            debug.colored('render #'+this.name, '#d952dc');
+
             var self;
 
             self = this;
@@ -71,7 +73,7 @@ define([
          *
          */
         update: function update(callback) {
-            debug('update #'+this.name+' with template? '+this._isTemplateLoaded+' with callback? '+(typeof callback==='function'));
+            debug.colored('update #'+this.name+' [template? '+this._isTemplateLoaded+' callback? '+(typeof callback==='function')+']', '#d992dc');
 
             var template, data, self;
 
@@ -86,7 +88,7 @@ define([
             }
             if (callback) {
                 self._updateCallbacks.push(callback);
-                debug('put update callback on stack for #'+self.name+' -> '+self._updateCallbacks.length);
+                debug.colored('put update callback on stack for #'+self.name+' -> '+self._updateCallbacks.length, '#d992dc');
             }
 
             /*
@@ -132,7 +134,7 @@ define([
                     while(self._updateCallbacks.length) {
                         var callback = self._updateCallbacks.shift();
 
-                        debug('call update callback for #'+self.name+' -> '+self._updateCallbacks.length);
+                        debug.colored('call update callback for #'+self.name+' -> '+self._updateCallbacks.length, '#d992dc');
 
                         callback.call(self);
                     }
