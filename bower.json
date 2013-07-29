@@ -14,6 +14,7 @@
         "requirejs": "2.1.6",
         "modernizr": "2.6.2",
         "mustache": "0.7.2",
-        "SimpleStateManager": "1.0.0"
+        "SimpleStateManager": "1.0.0",
+        "requirejs-plugins": "1.0.2"
     }
 }
