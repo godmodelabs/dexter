@@ -77,6 +77,7 @@ define(function() {
                     $this = $(this);
                     id = $this.attr('data-target');
 
+                    window.view = viewCache[id];
                     console.log(viewCache[id]);
                     $debugBar.find('.views').trigger('click');
                 });
