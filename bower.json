@@ -1,12 +1,12 @@
 {
-  "name": "new.jandaya.de",
-  "version": "0.0.0",
-  "main": "index.html",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "components"
-  ],
+    "name": "dexter",
+    "version": "0.1.1",
+    "main": "index.html",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "components"
+    ],
     "dependencies": {
         "jquery": "1.9.1",
         "underscore": "1.4.4",

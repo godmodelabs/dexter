@@ -2,20 +2,20 @@ define([
     'libs/debug',
     'jquery',
     'mustache',
-    'views/_responsive',
+    'views/dXResponsive',
     'collections/list',
-], function(debug, $, Mustache, ResponsiveView, List) {
+], function(debug, $, Mustache, dXResponsiveView, List) {
     debug = debug('EXAMPLE');
 
-    return ResponsiveView.extend({
+    return dXResponsiveView.extend({
 
-        name: 'responsiveView',
-        subViews: ['subView'],
+        dXName: 'responsiveView',
+        dXSubViews: ['subView'],
 
-        templateData: function() {
+        dXTemplateData: function() {
             return {
                 list: this.list.models,
-                name: this.name
+                name: this.dXName
             };
         },
 
@@ -29,31 +29,20 @@ define([
             this.list.add({ title: 'luigi..' });
 
             this.list.on('add', function() {
-                self.update();
+                self.dXUpdate();
             });
             this.list.on('change', function() {
-                self.update();
+                self.dXUpdate();
             });
         },
 
-        enter: function() {
-
-        },
-
-        enterMobile: function() {
-
-        },
-
-        enterTablet: function() {
-
-        },
-
-        enterDesktop: function() {
-
-        },
+        enter: function() {},
+        enterMobile: function() {},
+        enterTablet: function() {},
+        enterDesktop: function() {},
 
         leave: function() {
-            this.clear();
+            this.dXClear();
         }
     });
 

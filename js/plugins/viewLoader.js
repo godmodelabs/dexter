@@ -21,15 +21,15 @@ define([
             for (i=views.length; i--;) {
                 view = views[i];
 
-                if (!view.prototype.name) { continue; }
+                if (!view.prototype.dXName) { continue; }
 
-                if (subView = view.prototype.subViews) {
+                if (subView = view.prototype.dXSubViews) {
                     for (j=subView.length; j--;) {
                         subViewList.push('views/'+subView[j]);
                     }
                 }
 
-                ret[view.prototype.name] = views[i];
+                ret[view.prototype.dXName] = views[i];
             }
 
             subViewList = unique(subViewList);

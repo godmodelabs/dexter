@@ -7,15 +7,14 @@
 define([
     'libs/debug',
     'jquery',
-    'underscore',
     'backbone',
-    'views/_view',
+    'views/dXView',
     'configs/states.conf',
     'ssm',
     'libs/getKeys',
     'libs/applyMaybe',
     'shim!Array.prototype.indexOf'
-], function(debug, $, _, Backbone, View, states, ssm, getKeys, applyMaybe) {
+], function(debug, $, Backbone, dXView, states, ssm, getKeys, applyMaybe) {
     debug = debug('DX');
 
     var viewList, isSSMPrepared, isRender;
@@ -24,13 +23,18 @@ define([
     isSSMPrepared = false;
     isRender = false;
 
-    return View.extend({
+    return dXView.extend({
+
+        /**
+         *
+         */
+        dXSsmState: null,
 
         /**
          *
          */
         render: function(callback) {
-            debug.colored('render #'+this.name, '#d952dc');
+            debug.colored('render #'+this.dXName, '#d952dc');
 
             var id, state, self;
 
@@ -55,13 +59,13 @@ define([
                                         if (viewList.hasOwnProperty(viewName)) {
                                             view = viewList[viewName];
 
-                                            view.ssmState = state;
+                                            view.dXSsmState = state;
 
                                             if (!isRender) {
-                                                debug.colored('enter #'+view.name+' ['+(view.parameters||'')+']', '#22dd22');
+                                                debug.colored('enter #'+view.dXName+' ['+(view.dXParameters||'')+']', '#22dd22');
                                                 applyMaybe(view, 'enter');
 
-                                                debug.colored('enter ('+state+') #'+view.name+' ['+(view.parameters||'')+']', '#22dd22');
+                                                debug.colored('enter ('+state+') #'+view.dXName+' ['+(view.dXParameters||'')+']', '#22dd22');
                                                 applyMaybe(view, 'enter'+state);
                                             }
                                         }
@@ -76,26 +80,23 @@ define([
                 isSSMPrepared = true;
             }
 
-            viewList[this.name] = this;
+            viewList[this.dXName] = this;
 
             /*
              * Call appropriate state functions.
              */
 
-            self.update(function renderUpdate() {
-
-                self.$cachedEl = self.$el.html();
-                debug.colored('cache html for #'+self.name+': '+self.$cachedEl.substr(0,20).replace(/\n|\r|\t/g, '')+'...', 'lightgray');
+            self.dXUpdate(function renderUpdate() {
 
                 isRender = true;
                 ssm.ready();
                 isRender = false;
 
-                debug.colored('enter #'+self.name+' ['+(self.parameters||'')+']', '#22dd22');
+                debug.colored('enter #'+self.dXName+' ['+(self.dXParameters||'')+']', '#22dd22');
                 applyMaybe(self, 'enter');
 
-                debug.colored('enter ('+self.ssmState+') #'+self.name+' ['+(self.parameters||'')+']', '#22dd22');
-                applyMaybe(self, 'enter'+self.ssmState);
+                debug.colored('enter ('+self.dXSsmState+') #'+self.dXName+' ['+(self.dXParameters||'')+']', '#22dd22');
+                applyMaybe(self, 'enter'+self.dXSsmState);
 
                 callback();
             });

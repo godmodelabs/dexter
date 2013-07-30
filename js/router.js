@@ -5,7 +5,6 @@
 define([
     'libs/debug',
     'jquery',
-    'underscore',
     'backbone',
     'configs/routes.conf',
     'viewLoader!',
@@ -14,7 +13,7 @@ define([
     'libs/debugBar',
     'libs/getUrlVars',
     'shim!Object.keys',
-], function(debug, $, _, Backbone, routes, viewList, applyMaybe, intersect, debugBar) {
+], function(debug, $, Backbone, routes, viewList, applyMaybe, intersect, debugBar) {
     debug = debug('DX');
 
     var AppRouter = Backbone.Router.extend({
@@ -41,7 +40,7 @@ define([
          *
          */
         init: function() {
-            var view, viewRoute, self, params;
+            var view, viewName, self, params, path;
 
             self = this;
             self.obj = new AppRouter;
@@ -50,33 +49,35 @@ define([
 
             /*
              * Match the route to his corresponding view and
-             * render it dynamically. The <defaultView.render> function
-             * will be called on every route change.
+             * render it dynamically.
              */
 
-            for (viewRoute in self.viewList) {
-                if (self.viewList.hasOwnProperty(viewRoute)) {
-                    (function(route, viewRoute) {
+            for (viewName in self.viewList) {
+                if (self.viewList.hasOwnProperty(viewName)) {
+                    (function(viewName) {
 
-                        self.obj.on('route:'+route, function() {
+                        self.obj.on('route:'+viewName, function() {
+
                             params = Array.prototype.slice.call(arguments);
+                            path = Backbone.history.fragment;
+                            self.currentPath = path;
 
-                            debug('---------- navigation to '+route+' ['+params+'] ----------');
+                            debug.colored('navigate to /'+path+' \n    #'+viewName+' ['+params+']', '#7dd');
 
                             if (self.currentView !== null) {
-                                debug.colored('leave #'+self.currentView.name, '#aaddaa');
+                                debug.colored('leave #'+self.currentView.dXName, '#aaddaa');
                                 applyMaybe(self.currentView, 'leave');
                             }
 
-                            if (!(viewRoute in self.viewCache)) {
-                                view = new self.viewList[viewRoute]();
+                            if (!(viewName in self.viewCache)) {
+                                view = new self.viewList[viewName]();
                                 view.router = self;
-                                self.viewCache[viewRoute] = view;
+                                self.viewCache[viewName] = view;
                             } else {
-                                view = self.viewCache[viewRoute];
+                                view = self.viewCache[viewName];
                             }
 
-                            view.parameters = params;
+                            view.dXParameters = params;
 
                             /*
                              * Render desired view with his subviews afterwards.
@@ -87,7 +88,7 @@ define([
                             });
                         });
 
-                    })(viewRoute, viewRoute);
+                    })(viewName);
                 }
             }
 
@@ -147,7 +148,7 @@ define([
                 }
 
                 list[viewList[i]] = subView;
-                remaining = remaining.concat(subView.subViews);
+                remaining = remaining.concat(subView.dXSubViews);
             }
 
             if (remaining.length > 0) {
@@ -161,7 +162,7 @@ define([
          * @param [callback]
          */
         loadSubViews: function(view, callback) {
-            debug.colored('load subviews of #'+view.name+' via router', '#9394cc');
+            debug.colored('load subviews of #'+view.dXName+' via router', '#9394cc');
 
             var i, lastSubViews, subViews, keys,
                 intersection, remainingViews, leavingViews, enteringViews;
@@ -171,9 +172,9 @@ define([
             callback = callback || function() {};
 
             if (this.currentView) {
-                this.getSubViewList(this.currentView.subViews, lastSubViews);
+                this.getSubViewList(this.currentView.dXSubViews, lastSubViews);
             }
-            this.getSubViewList(view.subViews, subViews);
+            this.getSubViewList(view.dXSubViews, subViews);
 
             /*
              * Figure out, which subview is new, will be obsolete or remains in the application.
@@ -195,9 +196,9 @@ define([
 
             for (i in remainingViews) {
                 if (remainingViews.hasOwnProperty(i)) {
-                    remainingViews[i].$el = $('#'+remainingViews[i].name);
+                    remainingViews[i].$el = $('#'+remainingViews[i].dXName);
 
-                    debug.colored('get cached html for #'+remainingViews[i].name, 'lightgray');
+                    debug.colored('get cached html for #'+remainingViews[i].dXName, 'lightgray');
 
                     remainingViews[i].$el.html(remainingViews[i].$cachedEl);
 
@@ -259,7 +260,7 @@ define([
 
             view = views[keys[0]];
 
-            view.$el = $('#'+view.name);
+            view.$el = $('#'+view.dXName);
 
             view.render.call(view, function subViewRendered() {
                 delete views[keys[0]];

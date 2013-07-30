@@ -11,10 +11,10 @@ todo doc
 ### Views
 ```javascript
 // file: /js/views/myView.js
-define([ /* ... */ ], function(View) {
+define([ /* ... */ ], function(dXView) {
 
-    return View.extend({
-        name: 'myView',
+    return dXView.extend({
+        dXName: 'myView',
     });
 
 });
@@ -30,11 +30,11 @@ define([ /* ... */ ], function(View) {
 Each view can incorporate any number of other views.
 
 ```javascript
-define([ /* ... */ ], function(View) {
+define([ /* ... */ ], function(dXView) {
 
-    return View.extend({
-        name: 'myView',
-        subViews: ['mySubView'],
+    return dXView.extend({
+        dXName: 'myView',
+        dXSubViews: ['mySubView'],
     });
 
 });
@@ -71,10 +71,10 @@ define(function() {
 
 ```javascript
 // file: /js/views/myResponsiveView.js
-define([ /* ... */ ], function(ResponsiveView) {
+define([ /* ... */ ], function(dXResponsiveView) {
 
-    return ResponsiveView.extend({
-        name: 'myView',
+    return dXResponsiveView.extend({
+        dXName: 'myView',
 
         enter: function() {
             // Default behaviour, will be called for every state first
@@ -124,16 +124,16 @@ todo doc
 
 ### Views
 
-#### _view.js
-This is the basic view of DX. It implements an update function, for automated lazy loading of his template.
+#### dXView.js
+This is the basic view of DX.
 It is important to note that the render function of a normal backbone.js view is occupied, so don't overwrite it. Use the new enter functions instead.
 If you need to prepare data before the HTML is loaded, use initialize.
 
-Example for the use of _view.js
+Example for the use of dXView.js
 ```javascript
 // example file: /js/views/myView.js
-View.extend({
-    name: 'myView',
+dXView.extend({
+    dXName: 'myView',
 
     initialize: function() {},
     enter: function() {},
@@ -146,14 +146,14 @@ View.extend({
 <p>I don't like redundancy.</p>
 ```
 
-#### _responsive.js
+#### dXResponsive.js
 The responsive view extends our basic view.
 
-Example use of _responsive.js
+Example use of dXResponsive.js
 ```javascript
 // example file: /js/views/myResponsiveView.js
-ResponsiveView.extend({
-    name: 'responsiveView',
+dXResponsiveView.extend({
+    dXName: 'responsiveView',
 
     enter: function() {
         // Default behaviour, will be called for every state first

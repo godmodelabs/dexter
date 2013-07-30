@@ -2,30 +2,26 @@ define([
     'libs/debug',
     'jquery',
     'mustache',
-    'views/_view'
-], function(debug, $, Mustache, View) {
+    'views/dXView'
+], function(debug, $, Mustache, dXView) {
     debug = debug('EXAMPLE');
 
-    return View.extend({
+    return dXView.extend({
 
-        name: 'secondView',
+        dXName: 'secondView',
 
-        templateData: function() {
+        dXTemplateData: function() {
             return {
-                name: this.name
+                name: this.dXName
             };
         },
 
-        initialize: function() {
+        initialize: function() {},
 
-        },
-
-        enter: function() {
-
-        },
+        enter: function() {},
 
         leave: function() {
-            this.clear();
+            this.dXClear();
         }
     });
 
