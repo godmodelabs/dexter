@@ -67,11 +67,12 @@ define([
                             if (self.currentView !== null) {
                                 debug.colored('leave #'+self.currentView.dXName, '#aaddaa');
                                 applyMaybe(self.currentView, 'leave');
+                                self.currentView.dXisActive = false;
                             }
 
                             if (!(viewName in self.viewCache)) {
+                                self.viewList[viewName].prototype.router = self;
                                 view = new self.viewList[viewName]();
-                                view.router = self;
                                 self.viewCache[viewName] = view;
                             } else {
                                 view = self.viewCache[viewName];
@@ -84,6 +85,15 @@ define([
                              */
 
                             view.render.call(view, function routerRender() {
+
+                                /*
+                                 * Empty previous view.
+                                 */
+
+                                if (self.currentView) {
+                                    self.currentView.$el.empty();
+                                }
+
                                 self.currentView = view;
                             });
                         });
@@ -135,24 +145,18 @@ define([
          * @param list
          */
         getSubViewList: function(viewList, list) {
-            var remaining, i, subView;
-
-            remaining = [];
+            var i, subView;
 
             for (i=viewList.length; i--;) {
                 subView = this.viewCache[viewList[i]];
                 if (!subView) {
+                    this.viewList[viewList[i]].prototype.router = this;
                     subView = new this.viewList[viewList[i]]();
                     subView.router = this;
                     this.viewCache[viewList[i]] = subView;
                 }
 
                 list[viewList[i]] = subView;
-                remaining = remaining.concat(subView.dXSubViews);
-            }
-
-            if (remaining.length > 0) {
-                this.getSubViewList(remaining, list);
             }
         },
 
@@ -164,7 +168,7 @@ define([
         loadSubViews: function(view, callback) {
             debug.colored('load subviews of #'+view.dXName+' via router', '#9394cc');
 
-            var i, lastSubViews, subViews, keys,
+            var i, lastSubViews, subViews, remainingView,
                 intersection, remainingViews, leavingViews, enteringViews;
 
             lastSubViews = {};
@@ -196,11 +200,12 @@ define([
 
             for (i in remainingViews) {
                 if (remainingViews.hasOwnProperty(i)) {
-                    remainingViews[i].$el = $('#'+remainingViews[i].dXName);
+                    remainingView = remainingViews[i];
 
-                    debug.colored('get cached html for #'+remainingViews[i].dXName, 'lightgray');
+                    remainingView.$el = $('[data-dXId='+remainingView.dXName+']');
 
-                    remainingViews[i].$el.html(remainingViews[i].$cachedEl);
+                    debug.colored('get cached subview #'+remainingView.dXName, 'lightgray');
+                    remainingView.$el.append(remainingView.$cachedEl);
 
                 }
             }
@@ -216,6 +221,7 @@ define([
             for (i in leavingViews) {
                 if (leavingViews.hasOwnProperty(i)) {
                     applyMaybe(leavingViews[i], 'leave');
+                    leavingViews[i].dXisActive = false;
                 }
             }
 
@@ -229,16 +235,7 @@ define([
 
             } else {
                 debug.colored('new subviews: '+Object.keys(enteringViews), '#9394cc');
-
-                this.renderViewsSync(jQuery.extend({}, enteringViews), function() {
-                    keys = Object.keys(enteringViews);
-
-                    for (i=keys.length; i--;) {
-                        applyMaybe(enteringViews[keys[i]], 'enter');
-                    }
-
-                    callback();
-                });
+                this.renderViewsSync(jQuery.extend({}, enteringViews), callback);
             }
         },
 
@@ -260,7 +257,7 @@ define([
 
             view = views[keys[0]];
 
-            view.$el = $('#'+view.dXName);
+            view.$el = $('[data-dXId='+view.dXName+']');
 
             view.render.call(view, function subViewRendered() {
                 delete views[keys[0]];

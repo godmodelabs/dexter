@@ -21,9 +21,7 @@ define([
 
         enter: function() {},
 
-        leave: function() {
-            this.dXClear();
-        }
+        leave: function() {}
     });
 
 });

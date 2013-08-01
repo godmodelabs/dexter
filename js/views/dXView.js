@@ -23,6 +23,7 @@ define([
         dXIsTemplateLoading: false,
         dXUpdateCallbacks: null,
         dXTemplateFile: null,
+        dXisActive: false,
 
         dXSubViews: [],
 
@@ -30,13 +31,15 @@ define([
          *
          * @returns {HTMLElement}
          */
+
         el: function el() {
-            return $('#'+this.dXName);
+            return $('[data-dXId='+this.dXName+']');
         },
 
         /**
          *
          */
+
         render: function render(callback) {
             debug.colored('render #'+this.dXName, '#d952dc');
 
@@ -47,8 +50,7 @@ define([
 
             self.dXUpdate(function renderUpdate() {
 
-                debug.colored('enter #'+self.dXName+' ['+(self.dXParameters||'')+']', '#22dd22');
-                applyMaybe(self, 'enter');
+                self.dXCallEnter();
 
                 callback();
             });
@@ -56,11 +58,13 @@ define([
 
         /**
          *
+         * @param callback
          */
+
         dXUpdate: function dXUpdate(callback) {
             debug.colored('update #'+this.dXName+' [template? '+this.dXIsTemplateLoaded+' callback? '+(typeof callback==='function')+']', '#d992dc');
 
-            var template, data, self;
+            var i, template, data, self, viewName, view, $view;
 
             self = this;
 
@@ -92,6 +96,23 @@ define([
             data = applyMaybe(self, 'dXTemplateData');
 
             /*
+             * save subviews
+             */
+
+            for (i=self.dXSubViews.length; i--;) {
+                viewName = self.dXSubViews[i];
+                $view = $('[data-dXId='+viewName+']');
+                if ($view.length > 0) {
+                    view = self.router.viewCache[viewName];
+                    if (view) {
+                        view.$cachedEl = $view.children().detach();
+                        debug.colored('detach subview #'+viewName+' for #'+self.dXName, 'lightgray');
+
+                    }
+                }
+            }
+
+            /*
              * If we got data from the view, render it with mustache.
              */
 
@@ -102,6 +123,7 @@ define([
             }
 
             self.$el.html(template);
+            self.dXisActive = true;
 
             /*
              * Update sub views.
@@ -114,10 +136,6 @@ define([
                     } else {
                         return true;
                     }
-                },
-                function cacheHTML() {
-                    self.dXCache();
-                    return true;
                 },
                 function callCallbacks() {
                     while(self.dXUpdateCallbacks.length) {
@@ -134,40 +152,32 @@ define([
         /**
          *
          */
-        dXClear: function dXClear() {
-            this.$el.html('');
+
+        dXCallEnter: function dXCallEnter() {
+            debug.colored('enter #'+this.dXName+' ['+(this.dXParameters||'')+']', '#22dd22');
+            applyMaybe(this, 'enter');
         },
 
         /**
          *
          */
-        dXCache: function cache() {
-            this.$cachedEl = this.$el.html();
 
-            var peak = this.$cachedEl.substr(0,20).replace(/\n|\r|\t/g, '');
-            debug.colored('cache html for #'+this.dXName+': '+peak+'...', 'lightgray');
-        },
-
-        /**
-         * 
-         */
         dXGetTemplate: function dXGetTemplate() {
             debug.colored('get template for #'+this.dXName, '#dada65');
-            
+
             var self;
 
             self = this;
 
-            require(['text!templates/'+self.dXName+'.html'], function(template) {
+            require(['text!templates/'+self.dXName+'.html'], function dXGetTemplateCallback(template) {
                 debug.colored('got template for #'+self.dXName, '#dada65');
-    
+
                 self.dXTemplateFile = template;
                 self.dXIsTemplateLoaded = true;
                 self.dXIsTemplateLoading = false;
-    
+
                 self.dXUpdate();
             });
         }
     });
-
 });

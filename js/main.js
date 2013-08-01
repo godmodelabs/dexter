@@ -7,20 +7,20 @@ require.config({
         configs: '../configs',
 
         // Bower components
-        jquery: '../components/jquery/jquery',
-        underscore: '../components/underscore/underscore-min',
-        backbone: '../components/backbone/backbone-min',
-        modernizr: '../components/modernizr/modernizr',
-        mustache: '../components/mustache/mustache',
+        jquery: '../bower_components/jquery/jquery',
+        underscore: '../bower_components/underscore/underscore-min',
+        backbone: '../bower_components/backbone/backbone-min',
+        modernizr: '../bower_components/modernizr/modernizr',
+        mustache: '../bower_components/mustache/mustache',
         chai: '../node_modules/chai/chai',
-        ssm: '../components/SimpleStateManager/js/ssm.min',
+        ssm: '../bower_components/SimpleStateManager/js/ssm.min',
 
         // Plugins
         text: './plugins/text',
         viewLoader: './plugins/viewLoader',
         shim: './plugins/shim',
-        json: '../components/requirejs-plugins/lib/require/json',
-        noext: '../components/requirejs-plugins/lib/require/noext'
+        json: '../bower_components/requirejs-plugins/lib/require/json',
+        noext: '../bower_components/requirejs-plugins/lib/require/noext'
     },
     shim: {
         underscore: {

@@ -28,11 +28,13 @@ define([
         /**
          *
          */
+
         dXSsmState: null,
 
         /**
          *
          */
+
         render: function(callback) {
             debug.colored('render #'+this.dXName, '#d952dc');
 
@@ -61,12 +63,8 @@ define([
 
                                             view.dXSsmState = state;
 
-                                            if (!isRender) {
-                                                debug.colored('enter #'+view.dXName+' ['+(view.dXParameters||'')+']', '#22dd22');
-                                                applyMaybe(view, 'enter');
-
-                                                debug.colored('enter ('+state+') #'+view.dXName+' ['+(view.dXParameters||'')+']', '#22dd22');
-                                                applyMaybe(view, 'enter'+state);
+                                            if (!isRender && view.dXisActive) {
+                                                view.dXCallEnterResp();
                                             }
                                         }
                                     }
@@ -88,19 +86,24 @@ define([
 
             self.dXUpdate(function renderUpdate() {
 
+                self.dXCallEnter();
+                self.dXCallEnterResp();
+
                 isRender = true;
                 ssm.ready();
                 isRender = false;
 
-                debug.colored('enter #'+self.dXName+' ['+(self.dXParameters||'')+']', '#22dd22');
-                applyMaybe(self, 'enter');
-
-                debug.colored('enter ('+self.dXSsmState+') #'+self.dXName+' ['+(self.dXParameters||'')+']', '#22dd22');
-                applyMaybe(self, 'enter'+self.dXSsmState);
-
                 callback();
             });
+        },
+
+        /**
+         *
+         */
+
+        dXCallEnterResp: function dXCallEnterResp() {
+            debug.colored('enter ('+this.dXSsmState+') #'+this.dXName+' ['+(this.dXParameters||'')+']', '#22dd22');
+            applyMaybe(this, 'enter'+this.dXSsmState);
         }
     });
-
 });

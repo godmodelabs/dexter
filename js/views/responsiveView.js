@@ -2,7 +2,7 @@ define([
     'libs/debug',
     'jquery',
     'mustache',
-    'views/dXResponsive',
+    'views/dXResponsiveView',
     'collections/list',
 ], function(debug, $, Mustache, dXResponsiveView, List) {
     debug = debug('EXAMPLE');
@@ -41,9 +41,7 @@ define([
         enterTablet: function() {},
         enterDesktop: function() {},
 
-        leave: function() {
-            this.dXClear();
-        }
+        leave: function() {}
     });
 
 });

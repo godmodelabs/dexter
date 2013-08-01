@@ -17,13 +17,13 @@ requirejs.config({
         configs: '../configs',
 
         // Bower components
-        jquery: '../components/jquery/jquery',
-        underscore: '../components/underscore/underscore',
-        backbone: '../components/backbone/backbone',
-        modernizr: '../components/modernizr/modernizr',
-        mustache: '../components/mustache/mustache',
+        jquery: '../bower_components/jquery/jquery',
+        underscore: '../bower_components/underscore/underscore',
+        backbone: '../bower_components/backbone/backbone',
+        modernizr: '../bower_components/modernizr/modernizr',
+        mustache: '../bower_components/mustache/mustache',
         chai: '../node_modules/chai/chai',
-        ssm: '../components/SimpleStateManager/js/ssm.min',
+        ssm: '../bower_components/SimpleStateManager/js/ssm.min',
 
         // Plugins
         text: './plugins/text',
