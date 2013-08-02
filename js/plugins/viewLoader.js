@@ -57,9 +57,9 @@ define([
                 }
             }
 
-            debug('get view list');
+            debug.colored('get view list', '#dada65');
             getViewList(require, viewList, ret, function(ret) {
-                debug('got view list:\n#'+Object.keys(ret).join(', \n#'));
+                debug.colored('got view list:\n   #'+Object.keys(ret).join(',\n   #'), '#dada65');
                 load(ret);
             });
         }
