@@ -23,7 +23,10 @@ define([
         dXIsTemplateLoading: false,
         dXUpdateCallbacks: null,
         dXTemplateFile: null,
-        dXisActive: false,
+        dXIsActive: false,
+
+        dXIsSetLoading: true,
+        dXIsClearLoading: true,
 
         dXSubViews: [],
 
@@ -123,7 +126,7 @@ define([
             }
 
             self.$el.html(template);
-            self.dXisActive = true;
+            self.dXIsActive = true;
 
             /*
              * Update sub views.

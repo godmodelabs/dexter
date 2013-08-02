@@ -8,12 +8,13 @@ define([
     'backbone',
     'configs/routes.conf',
     'viewLoader!',
+    'text!templates/loading.html',
     'libs/applyMaybe',
     'libs/intersect',
     'libs/debugBar',
     'libs/getUrlVars',
-    'shim!Object.keys',
-], function(debug, $, Backbone, routes, viewList, applyMaybe, intersect, debugBar) {
+    'shim!Object.keys'
+], function(debug, $, Backbone, routes, viewList, tLoading, applyMaybe, intersect, debugBar) {
     debug = debug('DX');
 
     var AppRouter = Backbone.Router.extend({
@@ -40,7 +41,7 @@ define([
          *
          */
         init: function() {
-            var view, viewName, self, params, path;
+            var view, viewName, self;
 
             self = this;
             self.obj = new AppRouter;
@@ -56,7 +57,12 @@ define([
                 if (self.viewList.hasOwnProperty(viewName)) {
                     (function(viewName) {
 
+                        /*
+                         * Manage route changes.
+                         */
+
                         self.obj.on('route:'+viewName, function() {
+                            var params, path;
 
                             params = Array.prototype.slice.call(arguments);
                             path = Backbone.history.fragment;
@@ -64,10 +70,16 @@ define([
 
                             debug.colored('navigate to /'+path+' \n    #'+viewName+' ['+params+']', '#7dd');
 
+                            /*
+                             * Leave the current view, get or create the desired view
+                             * instance and render it with his subviews. The route
+                             * arguments are stored at <dXParameters>.
+                             */
+
                             if (self.currentView !== null) {
                                 debug.colored('leave #'+self.currentView.dXName, '#aaddaa');
                                 applyMaybe(self.currentView, 'leave');
-                                self.currentView.dXisActive = false;
+                                self.currentView.dXIsActive = false;
                             }
 
                             if (!(viewName in self.viewCache)) {
@@ -80,18 +92,28 @@ define([
 
                             view.dXParameters = params;
 
-                            /*
-                             * Render desired view with his subviews afterwards.
-                             */
-
                             view.render.call(view, function routerRender() {
 
                                 /*
-                                 * Empty previous view.
+                                 * Empty previous view, set the loading screen
+                                 * behaviour if it is enabled in the view config
+                                 * and update the current view reference.
                                  */
 
                                 if (self.currentView) {
                                     self.currentView.$el.empty();
+                                }
+
+                                if (view.dXIsSetLoading) {
+                                    view.$el.append(tLoading);
+                                }
+
+                                if (view.dXIsClearLoading) {
+                                    (function($el) {
+                                        setTimeout(function() {
+                                            $el.find('.loading').remove();
+                                        }, 0);
+                                    })(view.$el);
                                 }
 
                                 self.currentView = view;
@@ -221,7 +243,7 @@ define([
             for (i in leavingViews) {
                 if (leavingViews.hasOwnProperty(i)) {
                     applyMaybe(leavingViews[i], 'leave');
-                    leavingViews[i].dXisActive = false;
+                    leavingViews[i].dXIsActive = false;
                 }
             }
 

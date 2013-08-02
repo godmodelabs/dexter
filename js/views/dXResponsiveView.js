@@ -63,7 +63,7 @@ define([
 
                                             view.dXSsmState = state;
 
-                                            if (!isRender && view.dXisActive) {
+                                            if (!isRender && view.dXIsActive) {
                                                 view.dXCallEnterResp();
                                             }
                                         }
