@@ -13,7 +13,7 @@ define(function() {
      */
     var applyMaybe = function applyMaybe(obj, fname, args, scope){
         if (typeof obj[fname] === 'function') {
-            return obj[fname].apply(scope || obj, args);
+            return obj[fname].apply(scope || obj, args || []);
         }
         return null;
     };

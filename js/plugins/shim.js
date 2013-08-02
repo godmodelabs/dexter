@@ -27,7 +27,7 @@ define(function() {
             if (!exists(name)) {
                 var file = name.split('.');
                 require([
-                    '../libs/'+file[file.length-1]+'.shim'
+                    'libs/'+file[file.length-1]+'.shim'
                 ], function() {
                     load();
                 });
