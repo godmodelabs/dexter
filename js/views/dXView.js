@@ -10,8 +10,9 @@ define([
     'backbone',
     'mustache',
     'libs/applyMaybe',
-    'libs/step'
-], function(debug, $, Backbone, Mustache, applyMaybe, Step) {
+    'libs/step',
+    'text!templates/loading.html'
+], function(debug, $, Backbone, Mustache, applyMaybe, Step, tLoading) {
     debug = debug('DX');
 
     /**
@@ -67,9 +68,17 @@ define([
         dXUpdate: function dXUpdate(callback) {
             debug.colored('update #'+this.dXName+' [template? '+this.dXIsTemplateLoaded+' callback? '+(typeof callback==='function')+']', '#d992dc');
 
-            var i, template, data, self, viewName, view, $view;
+            var i, template, data, self, subview, subviewName, $subview;
 
             self = this;
+
+            /*
+             * Set loading screen for the first call of <dXUpdate>.
+             */
+
+            if (self.dXIsSetLoading) {
+                self.dXSetLoading();
+            }
 
             /*
              * Callback stack.
@@ -96,28 +105,11 @@ define([
                 return;
             }
 
-            data = applyMaybe(self, 'dXTemplateData');
-
-            /*
-             * save subviews
-             */
-
-            for (i=self.dXSubViews.length; i--;) {
-                viewName = self.dXSubViews[i];
-                $view = $('[data-dXId='+viewName+']');
-                if ($view.length > 0) {
-                    view = self.router.viewCache[viewName];
-                    if (view) {
-                        view.$cachedEl = $view.children().detach();
-                        debug.colored('detach subview #'+viewName+' for #'+self.dXName, 'lightgray');
-
-                    }
-                }
-            }
-
             /*
              * If we got data from the view, render it with mustache.
              */
+
+            data = applyMaybe(self, 'dXTemplateData');
 
             if (data === null) {
                 template = self.dXTemplateFile;
@@ -125,11 +117,63 @@ define([
                 template = Mustache.render(self.dXTemplateFile, data);
             }
 
+            /*
+             * Cache subviews to prevent additional rendering.
+             */
+
+            for (i=self.dXSubViews.length; i--;) {
+                subviewName = self.dXSubViews[i];
+                $subview = $('[data-dXId='+subviewName+']');
+                if ($subview.length > 0) {
+                    subview = self.router.viewCache[subviewName];
+                    if (subview) {
+                        subview.$cachedEl = $subview.children().detach();
+                        debug.colored('detach subview #'+subviewName+' for #'+self.dXName, 'lightgray');
+
+                    }
+                }
+            }
+
+            /*
+             * Leave and empty the current view if we are routing.
+             */
+
+            if (self.router.isRouting) {
+                if (self.router.currentView !== null) {
+                    debug.colored('leave #'+self.router.currentView.dXName, '#aaddaa');
+                    applyMaybe(self.router.currentView, 'leave');
+                    self.router.currentView.dXIsActive = false;
+                    self.router.currentView.$el.empty();
+                }
+                self.router.isRouting = false;
+            }
+
+            /*
+             * Show the desired, updated view.
+             */
+
             self.$el.html(template);
+
+            /*
+             * Set loading screen for the rest of the rendering process.
+             */
+
+            if (self.dXIsSetLoading) {
+                self.$el.prepend(tLoading);
+            }
+
+            if (self.dXIsClearLoading) {
+                (function(self) {
+                    setTimeout(function() {
+                        self.dXClearLoading();
+                    }, 0);
+                })(self);
+            }
+
             self.dXIsActive = true;
 
             /*
-             * Update sub views.
+             * Update subviews.
              */
 
             Step(
@@ -156,8 +200,28 @@ define([
          *
          */
 
+        dXSetLoading: function() {
+            if (!this.dXIsLoading) {
+                this.$el.prepend(tLoading);
+                this.dXIsLoading = true;
+            }
+        },
+
+        /**
+         *
+         */
+
+        dXClearLoading: function() {
+            this.$el.find('.loading').remove();
+            this.dXIsLoading = false;
+        },
+
+        /**
+         *
+         */
+
         dXCallEnter: function dXCallEnter() {
-            debug.colored('enter #'+this.dXName+' ['+(this.dXParameters||'')+']', '#22dd22');
+            debug.colored('enter #'+this.dXName+' ['+(this.router.parameters||'')+']', '#22dd22');
             applyMaybe(this, 'enter');
         },
 

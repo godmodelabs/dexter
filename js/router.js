@@ -8,13 +8,12 @@ define([
     'backbone',
     'configs/routes.conf',
     'viewLoader!',
-    'text!templates/loading.html',
     'libs/applyMaybe',
     'libs/intersect',
     'libs/debugBar',
     'libs/getUrlVars',
     'shim!Object.keys'
-], function(debug, $, Backbone, routes, viewList, tLoading, applyMaybe, intersect, debugBar) {
+], function(debug, $, Backbone, routes, viewList, applyMaybe, intersect, debugBar) {
     debug = debug('DX');
 
     var AppRouter = Backbone.Router.extend({
@@ -33,9 +32,11 @@ define([
          */
         currentView: null,
 
-        viewCache: null,
+        viewCache: {},
 
         viewList: null,
+
+        parameters: null,
 
         /**
          *
@@ -45,7 +46,6 @@ define([
 
             self = this;
             self.obj = new AppRouter;
-            self.viewCache = {};
             self.viewList = viewList;
 
             /*
@@ -62,60 +62,35 @@ define([
                          */
 
                         self.obj.on('route:'+viewName, function() {
-                            var params, path;
-
-                            params = Array.prototype.slice.call(arguments);
-                            path = Backbone.history.fragment;
-                            self.currentPath = path;
-
-                            debug.colored('navigate to /'+path+' \n    #'+viewName+' ['+params+']', '#7dd');
 
                             /*
-                             * Leave the current view, get or create the desired view
-                             * instance and render it with his subviews. The route
-                             * arguments are stored at <dXParameters>.
+                             * Store the route parameters in <router.parameters> for the
+                             * views. The <isRouting> flag will be used to clear and leave
+                             * the currentView after initializing the new view with his
+                             * template in <dXUpdate>.
                              */
 
-                            if (self.currentView !== null) {
-                                debug.colored('leave #'+self.currentView.dXName, '#aaddaa');
-                                applyMaybe(self.currentView, 'leave');
-                                self.currentView.dXIsActive = false;
-                            }
+                            self.isRouting = true;
+                            self.parameters = Array.prototype.slice.call(arguments);
+                            self.path = Backbone.history.fragment;
+
+                            debug.colored('navigate to /'+self.path+' \n    #'+viewName+' ['+self.parameters+']', '#7dd');
+
+                            /*
+                             * Get or create the desired view instance and render
+                             * it with his subviews.
+                             */
 
                             if (!(viewName in self.viewCache)) {
                                 self.viewList[viewName].prototype.router = self;
                                 view = new self.viewList[viewName]();
                                 self.viewCache[viewName] = view;
+
                             } else {
                                 view = self.viewCache[viewName];
                             }
 
-                            view.dXParameters = params;
-
                             view.render.call(view, function routerRender() {
-
-                                /*
-                                 * Empty previous view, set the loading screen
-                                 * behaviour if it is enabled in the view config
-                                 * and update the current view reference.
-                                 */
-
-                                if (self.currentView) {
-                                    self.currentView.$el.empty();
-                                }
-
-                                if (view.dXIsSetLoading) {
-                                    view.$el.append(tLoading);
-                                }
-
-                                if (view.dXIsClearLoading) {
-                                    (function($el) {
-                                        setTimeout(function() {
-                                            $el.find('.loading').remove();
-                                        }, 0);
-                                    })(view.$el);
-                                }
-
                                 self.currentView = view;
                             });
                         });
