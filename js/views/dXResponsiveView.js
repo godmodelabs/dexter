@@ -46,6 +46,7 @@ define([
             /*
              * Prepare SimpleStateManager.
              */
+
             if(!isSSMPrepared) {
                 for (id in states) {
                     if (states.hasOwnProperty(id)) {
@@ -87,11 +88,12 @@ define([
             self.dXUpdate(function renderUpdate() {
 
                 self.dXCallEnter();
-                self.dXCallEnterResp();
 
                 isRender = true;
                 ssm.ready();
                 isRender = false;
+
+                self.dXCallEnterResp();
 
                 callback();
             });
@@ -102,7 +104,7 @@ define([
          */
 
         dXCallEnterResp: function dXCallEnterResp() {
-            debug.colored('enter ('+this.dXSsmState+') #'+this.dXName+' ['+(this.dXParameters||'')+']', '#22dd22');
+            debug.colored('enter ('+this.dXSsmState+') #'+this.dXName+' ['+(this.parameters||'')+']', '#22dd22');
             applyMaybe(this, 'enter'+this.dXSsmState);
         }
     });
