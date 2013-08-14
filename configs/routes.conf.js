@@ -2,12 +2,10 @@ define(function() {
 
     return {
         // <path>: <viewname>
-        'responsiveView': 'responsiveView',
-        'view': 'view',
-        'secondView': 'secondView',
+        'options': 'options',
 
         // default view, will be called for every path, '' for no default
-       '*path': ''
+        '*path': 'list'
     }
 
 });

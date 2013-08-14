@@ -6,214 +6,253 @@
 
 define([
     'libs/debug',
+    'underscore',
     'jquery',
     'backbone',
     'mustache',
-    'libs/applyMaybe',
-    'libs/step',
-    'text!templates/loading.html'
-], function(debug, $, Backbone, Mustache, applyMaybe, Step, tLoading) {
+    'libs/uuid',
+    'libs/applyMaybe'
+], function(
+    debug,
+    _, $,
+    Backbone,
+    mustache,
+    uuid,
+    applyMaybe
+) {
+
     debug = debug('DX');
 
     /**
      *
      */
-    return Backbone.View.extend({
 
-        dXIsTemplateLoaded: false,
-        dXIsTemplateLoading: false,
-        dXUpdateCallbacks: null,
-        dXTemplateFile: null,
-        dXIsActive: false,
+    return Backbone.Epoxy.View.extend({
 
-        dXIsSetLoading: true,
-        dXIsClearLoading: true,
+        /**
+         *
+         * @returns {String}
+         */
+
+        el: function el() {
+            return this.dXScope += ' [data-dX='+this.dXName+']';
+        },
+
+        /**
+         *
+         */
+
+        initialize: function initialize() {
+            //debug('init '+this.dXName);
+
+            // Generate unique id for this view
+            this.dXId = 'dX-' + uuid();
+
+            // Call enter now, to insert template for data bindings
+            this.dXEnter();
+        },
+
+        /**
+         *
+         */
+
+        dXId: null,
+
+        /**
+         *
+         */
+
+        dXScope: '',
+
+        /**
+         *
+         */
+
+        dXCache: null,
+
+        /**
+         *
+         */
+
+        dXSubViewCache: {},
+
+        /**
+         *
+         */
 
         dXSubViews: [],
 
         /**
          *
-         * @returns {HTMLElement}
          */
 
-        el: function el() {
-            return $('[data-dXId='+this.dXName+']');
+        dXConfig: {
+            clearViewOnLeave: true,
+            setLoading: true,
+            clearLoading: true
         },
 
         /**
          *
+         * @returns {Object}
          */
 
-        render: function render(callback) {
-            debug.colored('render #'+this.dXName, '#d952dc');
+        dXGetSubViews: function dXGetSubViews() {
+            var i, subView, subViews, subViewName;
 
-            var self;
+            subViews = {};
 
-            self = this;
-            callback = callback || function() {};
+            for (i=this.dXSubViews.length; i--;) {
+                subViewName = this.dXSubViews[i];
 
-            self.dXUpdate(function renderUpdate() {
+                if (subViewName in this.dXSubViewCache) {
+                    subView = this.dXSubViewCache[subViewName];
+                    if ('dXEnter' in subView) {
+                        subView.dXEnter();
+                    }
 
-                self.dXCallEnter();
-
-                callback();
-            });
-        },
-
-        /**
-         *
-         * @param callback
-         */
-
-        dXUpdate: function dXUpdate(callback) {
-            debug.colored('update #'+this.dXName+' [template? '+this.dXIsTemplateLoaded+' callback? '+(typeof callback==='function')+']', '#d992dc');
-
-            var i, template, data, self, subview, subviewName, $subview;
-
-            self = this;
-
-            /*
-             * Set loading screen for the first call of <dXUpdate>.
-             */
-
-            if (self.dXIsSetLoading) {
-                self.dXSetLoading();
-            }
-
-            /*
-             * Callback stack.
-             */
-
-            if (!self.dXUpdateCallbacks) {
-                self.dXUpdateCallbacks = [];
-            }
-            if (callback) {
-                self.dXUpdateCallbacks.push(callback);
-                debug.colored('put update callback on stack for #'+self.dXName+' -> '+self.dXUpdateCallbacks.length, '#d992dc');
-            }
-
-            /*
-             * Basic view uses lazy template loading.
-             */
-
-            if (!self.dXIsTemplateLoaded) {
-
-                if (!self.dXIsTemplateLoading) {
-                    self.dXIsTemplateLoading = true;
-                    self.dXGetTemplate();
+                } else {
+                    subView = require('views/'+this.dXSubViews[i]);
+                    subView.prototype.router = this.router;
+                    subView = subView.extend({ dXScope: '#'+this.dXId });
+                    subView = new subView();
                 }
-                return;
+
+                subViews[subViewName] = subView;
+            }
+
+            return this.dXSubViewCache = subViews;
+        },
+
+        /**
+         *
+         */
+
+        dXEnter: function dXEnter(propagate) {
+            debug.lightgreen('prepare #'+this.dXName+' ['+(this.router.parameters||'')+']');
+
+            var template;
+
+            /*
+             * Prepend loading screen, if configured. The template
+             * is preloaded as configured in dexter.conf.js.
+             */
+
+            if (this.dXConfig.setLoading) {
+                this.dXSetLoading();
             }
 
             /*
-             * If we got data from the view, render it with mustache.
+             * Insert view template. We can use synchronous require
+             * here, because the templates are already loaded by the
+             * templateLoader plugin. Used cached nodes if available.
              */
 
-            data = applyMaybe(self, 'dXTemplateData');
+            if (!this.dXCache) {
+                template = require('text!templates/'+this.dXName+'.html');
 
-            if (data === null) {
-                template = self.dXTemplateFile;
+                if ('dXTemplateData' in this) {
+
+                    try {
+                        template = mustache.render(template,
+                            typeof this.dXTemplateData === 'function'?
+                                this.dXTemplateData() : this.dXTemplateData);
+
+                    } catch(err) {
+                        debug.palevioletred('stopped #'+this.dXName+': '+err);
+                        return;
+                    }
+                }
+
             } else {
-                template = Mustache.render(self.dXTemplateFile, data);
+                debug.lightgray('get cached template for #'+this.dXName);
+                template = this.dXCache;
             }
 
             /*
-             * Cache subviews to prevent additional rendering.
+             * Empty container and insert template. Set unique id for
+             * further dom access.
              */
 
-            for (i=self.dXSubViews.length; i--;) {
-                subviewName = self.dXSubViews[i];
-                $subview = $('[data-dXId='+subviewName+']');
-                if ($subview.length > 0) {
-                    subview = self.router.viewCache[subviewName];
-                    if (subview) {
-                        subview.$cachedEl = $subview.children().detach();
-                        debug.colored('detach subview #'+subviewName+' for #'+self.dXName, 'lightgray');
+            this.dXInsert(template);
 
-                    }
-                }
+            /*
+             * Reinsert loading screen after emptying the container.
+             */
+
+            if (this.dXConfig.setLoading) {
+                this.dXSetLoading();
             }
 
             /*
-             * Leave and empty the current view if we are routing.
+             * Load subviews.
              */
 
-            if (self.router.isRouting) {
-                if (self.router.currentView !== null) {
-                    debug.colored('leave #'+self.router.currentView.dXName, '#aaddaa');
-                    applyMaybe(self.router.currentView, 'leave');
-                    self.router.currentView.dXIsActive = false;
-                    self.router.currentView.$el.empty();
-                }
-                self.router.isRouting = false;
+            if (propagate !== false) {
+                this.dXGetSubViews();
             }
 
             /*
-             * Show the desired, updated view.
+             * Remove loading screen if configured.
              */
 
-            self.$el.html(template);
-
-            /*
-             * Set loading screen for the rest of the rendering process.
-             */
-
-            if (self.dXIsSetLoading) {
-                self.$el.prepend(tLoading);
+            if (this.dXConfig.clearLoading) {
+                this.dXClearLoading();
             }
 
-            if (self.dXIsClearLoading) {
-                (function(self) {
-                    setTimeout(function() {
-                        self.dXClearLoading();
-                    }, 0);
-                })(self);
-            }
+            // Call enter functions
+            var self = this;
+            setTimeout(function() {
+                self.dXCallEnter();
+            }, 0);
+        },
 
-            self.dXIsActive = true;
+        /**
+         *
+         * @param template
+         */
 
-            /*
-             * Update subviews.
-             */
-
-            Step(
-                function subViews() {
-                    if (self.dXSubViews.length > 0) {
-                        self.router.loadSubViews(self, this);
-                    } else {
-                        return true;
-                    }
-                },
-                function callCallbacks() {
-                    while(self.dXUpdateCallbacks.length) {
-                        var callback = self.dXUpdateCallbacks.shift();
-
-                        debug.colored('call update callback for #'+self.dXName+' -> '+self.dXUpdateCallbacks.length, '#d992dc');
-
-                        callback.call(self);
-                    }
-                }
-            );
+        dXInsert: function dXInsert(template) {
+            this.$el
+                .empty()
+                .append(template)
+                .attr('id', this.dXId)
+                .removeAttr('data-dX');
         },
 
         /**
          *
          */
 
-        dXSetLoading: function() {
-            if (!this.dXIsLoading) {
-                this.$el.prepend(tLoading);
-                this.dXIsLoading = true;
+        dXLeave: function dXLeave(propagate) {
+            debug.palevioletred('leave #'+this.dXName);
+
+            var i, subView;
+
+            // Call leave functions
+            this.dXCallLeave();
+
+            /*
+             * Tell subviews to leave.
+             */
+
+            if (propagate !== false) {
+                for (i=this.dXSubViews.length; i--;) {
+                    subView = this.dXSubViewCache[this.dXSubViews[i]];
+
+                    if ('dXLeave' in subView) {
+                        subView.dXLeave();
+                    }
+                }
             }
-        },
 
-        /**
-         *
-         */
+            /*
+             * Cache html.
+             */
 
-        dXClearLoading: function() {
-            this.$el.find('.loading').remove();
-            this.dXIsLoading = false;
+            if (this.dXConfig.clearViewOnLeave) {
+                this.dXCache = this.$el.children().detach();
+            }
         },
 
         /**
@@ -221,7 +260,7 @@ define([
          */
 
         dXCallEnter: function dXCallEnter() {
-            debug.colored('enter #'+this.dXName+' ['+(this.router.parameters||'')+']', '#22dd22');
+            debug.green('enter #'+this.dXName+' ['+(this.router?this.router.parameters||'':'')+']');
             applyMaybe(this, 'enter');
         },
 
@@ -229,22 +268,26 @@ define([
          *
          */
 
-        dXGetTemplate: function dXGetTemplate() {
-            debug.colored('get template for #'+this.dXName, '#dada65');
+        dXCallLeave: function dXCallLeave() {
+            applyMaybe(this, 'leave');
+        },
 
-            var self;
+        /**
+         * Prepend the loading screen. The template
+         * is preloaded as configured in dexter.conf.js.
+         */
 
-            self = this;
+        dXSetLoading: function dXSetLoading() {
+            this.$el.prepend(require('text!templates/loading.html'));
+        },
 
-            require(['text!templates/'+self.dXName+'.html'], function dXGetTemplateCallback(template) {
-                debug.colored('got template for #'+self.dXName, '#dada65');
+        /**
+         *
+         */
 
-                self.dXTemplateFile = template;
-                self.dXIsTemplateLoaded = true;
-                self.dXIsTemplateLoading = false;
-
-                self.dXUpdate();
-            });
+        dXClearLoading: function dXClearLoading() {
+            this.$el.children('.loading').remove();
         }
+
     });
 });

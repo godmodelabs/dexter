@@ -1,10 +1,15 @@
 define([
-    'jquery',
     'underscore',
+    'jquery',
     'backbone',
     'router',
-    'modernizr'
-], function($, _, Backbone, Router) {
+    'modernizr',
+    'epoxy'
+], function(
+    _, $,
+    Backbone,
+    Router
+) {
 
     return {
         router: null,

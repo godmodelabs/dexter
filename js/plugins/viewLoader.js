@@ -5,9 +5,16 @@
 define([
     'libs/debug',
     'configs/routes.conf',
+    'configs/dexter.conf',
     'libs/unique',
     'shim!Object.keys'
-], function(debug, routes, unique) {
+], function(
+    debug,
+    routesConf,
+    dexterConf,
+    unique
+) {
+
     debug = debug('DX');
 
     function getViewList(require, list, ret, callback) {
@@ -45,21 +52,33 @@ define([
 
     return {
         load: function(resourceId, require, load) {
-            var path, viewList, ret;
+            var path, viewList, ret, i;
 
             viewList = [];
             ret = {};
 
-            for (path in routes) {
-                if (routes.hasOwnProperty(path) &&
-                    routes[path] !== '') {
-                    viewList.push('views/'+routes[path]);
+            for (path in routesConf) {
+                if (routesConf.hasOwnProperty(path) &&
+                    routesConf[path] !== '') {
+                    viewList.push('views/'+routesConf[path]);
                 }
             }
 
-            debug.colored('get view list', '#dada65');
+            if (dexterConf.preLoad &&
+                dexterConf.preLoad.views) {
+                for (i=dexterConf.preLoad.views.length; i--;) {
+                    viewList.push('views/'+dexterConf.preLoad.views[i]);
+                }
+            }
+
+            if (dexterConf.global) {
+                for (i=dexterConf.global.length; i--;) {
+                    viewList.push('views/'+dexterConf.global[i]);
+                }
+            }
+
             getViewList(require, viewList, ret, function(ret) {
-                debug.colored('got view list:\n   #'+Object.keys(ret).join(',\n   #'), '#dada65');
+                debug.yellow('registered views:\n     #'+Object.keys(ret).join(',\n     #'));
                 load(ret);
             });
         }

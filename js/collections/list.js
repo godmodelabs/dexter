@@ -1,11 +1,13 @@
 define([
     'underscore',
     'backbone',
-    'models/listitem'
-], function(_, Backbone, ListItem) {
+    'models/list__item',
+    'views/list__item'
+], function(_, Backbone, ListItemModel, ListItemView) {
 
     return Backbone.Collection.extend({
-        model: ListItem
+        model: ListItemModel,
+        view: ListItemView
     });
 
 });

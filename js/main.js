@@ -10,6 +10,7 @@ require.config({
         jquery: '../bower_components/jquery/jquery',
         underscore: '../bower_components/underscore/underscore-min',
         backbone: '../bower_components/backbone/backbone-min',
+        epoxy: 'libs/backbone.epoxy.min',
         modernizr: '../bower_components/modernizr/modernizr',
         mustache: '../bower_components/mustache/mustache',
         chai: '../node_modules/chai/chai',
@@ -18,6 +19,7 @@ require.config({
         // Plugins
         text: './plugins/text',
         viewLoader: './plugins/viewLoader',
+        templateLoader: './plugins/templateLoader',
         shim: './plugins/shim',
         json: '../bower_components/requirejs-plugins/lib/require/json',
         noext: '../bower_components/requirejs-plugins/lib/require/noext'
@@ -37,7 +39,15 @@ require.config({
             exports: 'ssm'
         },
         'libs/debug': {
+            deps: ['configs/debug.conf'],
             exports: 'debug'
+        },
+        'epoxy': {
+            deps: ['backbone'],
+            exports: 'Backbone'
+        },
+        'libs/uuid': {
+            exports: 'uuid'
         }
     },
 
@@ -45,7 +55,7 @@ require.config({
     enforceDefine: true
 });
 
-define(['app'], function (App) {
+define([ 'app' ], function (App) {
 
     // Redirect #! to /
     if (window.location.hash.indexOf('!') > -1) {

@@ -62,14 +62,28 @@ function debug(name) {
             && Function.prototype.apply.call(console.log, console, arguments);
         };
     }
+
     /*
-     * color plugin by thomas lukacs
+     * color plugin by tamas-imre lukacs
      */
+
+    var colors = require('configs/debug.conf').colors;
     obj.colored = function() {
         var args = Array.prototype.slice.call(arguments);
         var color = args.pop();
         this.apply(window, Array.prototype.concat('%c '+args.shift(), 'color:'+color, args));
     };
+    for (var colorName in colors) {
+        if (colors.hasOwnProperty(colorName)) {
+            (function(color) {
+                obj[colorName] = function(msg) { obj.colored(msg, color); }
+            })(colors[colorName]);
+        }
+    }
+
+    /*
+     * color plugin end
+     */
 
     return obj;
 }

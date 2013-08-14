@@ -6,22 +6,68 @@
 
 define([
     'libs/debug',
+    'underscore',
     'jquery',
     'backbone',
     'views/dXView',
     'configs/states.conf',
     'ssm',
-    'libs/getKeys',
-    'libs/applyMaybe',
-    'shim!Array.prototype.indexOf'
-], function(debug, $, Backbone, dXView, states, ssm, getKeys, applyMaybe) {
+    'libs/applyMaybe'
+], function(
+    debug,
+    _, $,
+    Backbone,
+    dXView,
+    statesConf,
+    ssm,
+    applyMaybe
+) {
+
     debug = debug('DX');
 
-    var viewList, isSSMPrepared, isRender;
+    var viewList, currentState, state, stateName;
 
     viewList = {};
-    isSSMPrepared = false;
-    isRender = false;
+    currentState = null;
+
+    /*
+     * Initialize SimpleStateManager.
+     */
+
+    for (stateName in statesConf) {
+        if (statesConf.hasOwnProperty(stateName)) {
+
+            state = {
+                id: stateName,
+                width: statesConf[stateName],
+                onEnter: (function(stateName) {
+                    return function() {
+                        debug.lightsalmon('state change to <'+stateName+'>');
+
+                        var view, viewName;
+
+                        currentState = stateName;
+
+                        for (viewName in viewList) {
+                            if (viewList.hasOwnProperty(viewName)) {
+                                view = viewList[viewName];
+
+                                view.dXSsmState = currentState;
+                                view.dXLeave(false); // false: don't propagate
+                                view.dXEnter(false); // false: don't propagate
+                            }
+                        }
+                    }
+                })(stateName)
+            };
+            ssm.addState(state);
+        }
+    }
+    ssm.ready();
+
+    /**
+     *
+     */
 
     return dXView.extend({
 
@@ -29,83 +75,26 @@ define([
          *
          */
 
-        dXSsmState: null,
-
-        /**
-         *
-         */
-
-        render: function(callback) {
-            debug.colored('render #'+this.dXName, '#d952dc');
-
-            var id, state, self;
-
-            self = this;
-            callback = callback || function() {};
-
-            /*
-             * Prepare SimpleStateManager.
-             */
-
-            if(!isSSMPrepared) {
-                for (id in states) {
-                    if (states.hasOwnProperty(id)) {
-
-                        state = {
-                            id: id,
-                            width: states[id],
-                            onEnter: (function(state) {
-                                return function() {
-                                    var view, viewName;
-
-                                    for (viewName in viewList) {
-                                        if (viewList.hasOwnProperty(viewName)) {
-                                            view = viewList[viewName];
-
-                                            view.dXSsmState = state;
-
-                                            if (!isRender && view.dXIsActive) {
-                                                view.dXCallEnterResp();
-                                            }
-                                        }
-                                    }
-                                }
-                            })(id)
-                        };
-                        ssm.addState(state);
-
-                    }
-                }
-                isSSMPrepared = true;
-            }
-
+        initialize: function() {
             viewList[this.dXName] = this;
-
-            /*
-             * Call appropriate state functions.
-             */
-
-            self.dXUpdate(function renderUpdate() {
-
-                self.dXCallEnter();
-
-                isRender = true;
-                ssm.ready();
-                isRender = false;
-
-                self.dXCallEnterResp();
-
-                callback();
-            });
+            dXView.prototype.initialize.call(this);
         },
 
         /**
          *
          */
 
-        dXCallEnterResp: function dXCallEnterResp() {
-            debug.colored('enter ('+this.dXSsmState+') #'+this.dXName+' ['+(this.parameters||'')+']', '#22dd22');
-            applyMaybe(this, 'enter'+this.dXSsmState);
+        dXSsmState: currentState,
+
+        /**
+         *
+         */
+
+        dXCallEnter: function() {
+            dXView.prototype.dXCallEnter.call(this);
+
+            debug.green('enter <'+currentState+'> #'+this.dXName+' ['+(this.router?this.router.parameters||'':'')+']');
+            applyMaybe(this, 'enter'+currentState);
         }
     });
 });
