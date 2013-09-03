@@ -1,12 +1,27 @@
-/**
- *
- *
- * @author: Tamas-Imre Lukacs
- */
+//noinspection BadExpressionStatementJS
+({
+    "baseUrl": "../js",
 
-require.config({
+    "name": "main",
+    "out": "../js/main-build.js",
+    //optimize: 'none',
+    "insertRequire": ["main"],
+    include: [
+        "views/dXItem",
+        "views/dXResponsiveView",
+        "views/dXView",
+        "views/list",
+        "views/list__header",
+        "views/list__header__sub",
+        "views/list__item",
+        "views/navigation",
+        "views/options",
+        "views/points"
+    ],
 
-    baseUrl: '/js',
+    uglify: {
+        max_line_length: 1000
+    },
 
     paths: {
         templates: '../templates',
@@ -24,13 +39,14 @@ require.config({
         eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
 
         // Plugins
-        text: './plugins/text',
-        viewLoader: './plugins/viewLoader',
-        templateLoader: './plugins/templateLoader',
-        shim: './plugins/shim',
-        json: '../bower_components/requirejs-plugins/lib/require/json',
-        noext: '../bower_components/requirejs-plugins/lib/require/noext'
+        text: 'plugins/text',
+        viewLoader: 'plugins/viewLoader',
+        templateLoader: 'plugins/templateLoader',
+        shim: 'plugins/shim',
+        json: '../bower_components/requirejs-plugins/src/json',
+        noext: '../bower_components/requirejs-plugins/src/noext'
     },
+
     shim: {
         underscore: {
             exports: '_'
@@ -56,25 +72,5 @@ require.config({
         'libs/uuid': {
             exports: 'uuid'
         }
-    },
-
-    // Enforce define to catch 404 errors in IE
-    enforceDefine: true
-});
-
-define([
-    'app'
-], function (
-    App
-) {
-
-    // Redirect #! to /
-    if (window.location.hash.indexOf('!') > -1) {
-        window.location = window.location.hash.substring(2);
-        return;
     }
-
-    App.init();
-});
-
-define('main-build', [], function() {return {};});
+})

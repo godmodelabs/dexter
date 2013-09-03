@@ -16,7 +16,7 @@ define([
     routesConf,
     dexterConf,
     unique
-    ) {
+) {
 
     debug = debug('DX');
 
@@ -54,7 +54,9 @@ define([
     }
 
     return {
-        load: function(resourceId, require, load) {
+        load: function(resourceId, require, load, config) {
+            if (config.isBuild) { return load(); }
+
             var path, viewList, ret, i;
 
             viewList = [];
@@ -86,5 +88,4 @@ define([
             });
         }
     }
-
 });

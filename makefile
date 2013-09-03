@@ -36,5 +36,7 @@ update:
 list:
 	@$(NPM) list
 	@$(BOWER) list
+deploy:
+	@$(NODE) ./build/r.js -o ./build/build.js
 
 .PHONY: install

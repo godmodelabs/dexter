@@ -9,6 +9,8 @@
 
 define(function() {
 
+    var window = window || {};
+
     var exists = function(name) {
         var vars, cur, scope, i, l;
 

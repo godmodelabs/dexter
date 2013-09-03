@@ -1,6 +1,6 @@
 {
     "name": "dexter",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "a responsive JavaScript framework based on backbone.js and requireJS",
     "main": "index.html",
     "directories": {

@@ -16,7 +16,7 @@ define([
     uuid,
     applyMaybe,
     pipe
-    ) {
+) {
 
     debug = debug('DX');
 

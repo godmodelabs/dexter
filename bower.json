@@ -1,6 +1,6 @@
 {
     "name": "dexter",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "main": "index.html",
     "ignore": [
         "**/.*",
@@ -11,13 +11,12 @@
         "jquery": "1.9.1",
         "underscore": "1.4.4",
         "backbone": "1.0.0",
-        "requirejs": "2.1.6",
+        "requirejs": "2.1.8",
         "modernizr": "2.6.2",
         "mustache": "0.7.2",
-        "SimpleStateManager": "1.0.0",
+        "SimpleStateManager": "1.3.1",
         "requirejs-plugins": "1.0.2",
         "eventemitter2": "0.4.13",
-        "selectize": "0.7.2",
         "sinon": "1.7.3"
     }
 }

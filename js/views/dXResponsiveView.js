@@ -15,7 +15,7 @@ define([
     statesConf,
     ssm,
     applyMaybe
-    ) {
+) {
 
     debug = debug('DX');
 

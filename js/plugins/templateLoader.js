@@ -16,7 +16,7 @@ define([
     dexterConf,
     unique,
     viewList
-    ) {
+) {
 
     debug = debug('DX');
 
@@ -25,7 +25,9 @@ define([
     templateList = [];
 
     return {
-        load: function(resourceId, require, load) {
+        load: function(resourceId, require, load, config) {
+            if (config.isBuild) { return load(); }
+
             var name, i;
 
             if (templateList.length) {

@@ -1,3 +1,5 @@
+var window = window || {};
+
 /*
  (The MIT License)
 
