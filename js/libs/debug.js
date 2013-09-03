@@ -76,7 +76,11 @@ function debug(name) {
     for (var colorName in colors) {
         if (colors.hasOwnProperty(colorName)) {
             (function(color) {
-                obj[colorName] = function(msg) { obj.colored(msg, color); }
+                obj[colorName] = function() {
+                    var args = Array.prototype.slice.call(arguments);
+                    args.push(color);
+                    obj.colored.apply(this, args);
+                }
             })(colors[colorName]);
         }
     }

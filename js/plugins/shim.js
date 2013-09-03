@@ -1,5 +1,10 @@
 /**
+ * A require.js plugin to require shims, if needed. If
+ * a clients browser doesn't support a function, it can
+ * be loaded for that user with this plugin, thanks to
+ * modernizr.
  *
+ * @author: Tamas-Imre Lukacs
  */
 
 define(function() {

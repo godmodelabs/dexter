@@ -1,9 +1,3 @@
-/**
- *
- *
- * @author: Tamas-Imre Lukacs
- */
-
 define([
     'libs/debug',
     'underscore',
@@ -21,23 +15,36 @@ define([
     dXView,
     mustache,
     applyMaybe
-) {
+    ) {
 
     debug = debug('DX');
 
     /**
+     * dXItem is the representation of a collection entry in
+     * the dom. This and every extended view can be referenced
+     * to any collections view attribute and will be created
+     * if items are added to the collection.
      *
+     * @class dXItem
+     * @author Tamas-Imre Lukacs
      */
 
-    return dXView.extend({
+    var dXItem = dXView.extend(/** @lends dXItem.prototype */{
 
         /**
+         * We have to build the template here, to work properly
+         * with epoxy. The template is already loaded and can be
+         * required synchronously.
          *
-         * @returns {*}
+         * @augments dXView
+         * @returns {string}
          */
 
         el: function() {
-            var template = mustache.render(require('text!templates/'+this.dXName+'.html'),
+            var templateName, template;
+
+            templateName = this.dXConfig.templateName || this.dXName;
+            template = mustache.render(require('text!templates/'+templateName+'.html'),
                 typeof this.dXTemplateData === 'function'?
                     this.dXTemplateData() : this.dXTemplateData);
 
@@ -53,30 +60,34 @@ define([
         },
 
         /**
-         * The template have to be available at the <el> call
-         * to support the data binding through epoxy. Thus we
-         * have to override <dXEnter> to prevent the html to
-         * be replaced.
+         * The template has to be available at the {@link dXItem#el}
+         * call to support the data binding through epoxy. Thus we
+         * have to override {@link dXView#dXEnter} to prevent the
+         * html to be replaced.
+         * We still need to set the $el id, load any subviews with
+         * {@link dXView#dXGetSubViews} and call the enter functions
+         * via {@link dXView#dXCallEnter}.
+         *
+         * @augments dXView
          */
 
         dXEnter: function() {
-            // Set unique id for further dom access
             this.$el.attr('id', this.dXId);
-
-            // Load subviews
             this.dXGetSubViews();
-
-            // Call Enter functions
             this.dXCallEnter();
         },
 
         /**
-         * Override <dXCallEnter> to suppress debugging output.
+         * Override {@link dXView#dXCallEnter} to suppress debugging
+         * output for every item added.
+         *
+         * @augments dXView
          */
 
         dXCallEnter: function dXCallEnter() {
             applyMaybe(this, 'enter');
         }
-
     });
+
+    return dXItem;
 });

@@ -1,9 +1,3 @@
-/**
- *
- *
- * @author: Tamas-Imre Lukacs
- */
-
 define([
     'libs/debug',
     'underscore',
@@ -21,7 +15,7 @@ define([
     statesConf,
     ssm,
     applyMaybe
-) {
+    ) {
 
     debug = debug('DX');
 
@@ -66,13 +60,50 @@ define([
     ssm.ready();
 
     /**
+     * dXResponsiveView extends the basic dXView of the dexter
+     * framework. It provides additional enter functions, dependent
+     * of the current application state. States are defined in the
+     * configs/states.conf.js file as a key value pair of the state
+     * name and the minimum width of the page. E.g. mobile: 400
+     * describes, that the application is in the state 'mobile'
+     * if the page width is under 400 px.
+     * The enter functions have the state name appended, e.g.
+     * enterMobile and will be called on view entering and
+     * application state change.
+     * It uses the simple state manager to manage the states.
      *
+     * @class dXResponsiveView
+     * @author Tamas-Imre Lukacs
+     * @example
+     * dXResponsiveView.extend({
+     *   dXName: 'myResponsiveView',
+     *
+     *   enter: function() {
+     *     // Default behaviour, will be called for every state first
+     *   },
+     *
+     *   enterMobile: function() {
+     *     // For mobile only
+     *   },
+     *
+     *   enterTablet: function() {
+     *     // For tablets only
+     *   },
+     *
+     *   enterDesktop: function() {
+     *     // For big desktop only
+     *   }
+     * });
      */
 
-    return dXView.extend({
+    var dXResponsiveView = dXView.extend(/** @lends dXResponsiveView.prototype */{
 
         /**
+         * Extend the {@link dXView#initialize} method, to register
+         * this view in the simple state manager.
          *
+         * @augments dXView
+         * @constructs dXResponsiveView object
          */
 
         initialize: function() {
@@ -81,20 +112,25 @@ define([
         },
 
         /**
-         *
+         * Store the current application state in this attribute.
          */
 
         dXSsmState: currentState,
 
         /**
+         * {@link dXView#dXCallEnter} will be extended to call
+         * the appropriate state enter methods.
          *
+         * @augments dXCallEnter
          */
 
         dXCallEnter: function() {
             dXView.prototype.dXCallEnter.call(this);
 
-            debug.green('enter <'+currentState+'> #'+this.dXName+' ['+(this.router?this.router.parameters||'':'')+']');
+            debug.green('enter <'+currentState+'> #'+this.dXName);
             applyMaybe(this, 'enter'+currentState);
         }
     });
+
+    return dXResponsiveView;
 });

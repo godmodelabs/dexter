@@ -1,0 +1,37 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": ["./js/"],
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "core|plugins|internals|externals"
+    },
+    "plugins"   : ["plugins/markdown"],
+    "templates" : {
+        "cleverLinks"     : false,
+        "monospaceLinks"  : false,
+        "default"         : {
+            "outputSourceFiles" : true
+        },
+        "systemName"      : "Dexter Dokumentation",
+        "footer"          : "",
+        "copyright"       : "BoerseGo AG © 2013",
+        "navType"         : "inline",
+        "theme"           : "readable",
+        "linenums"        : true,
+        "collapseSymbols" : false,
+        "inverseNav"      : true
+    },
+    "markdown"  : {
+        "parser"   : "gfm",
+        "hardwrap" : true
+    },
+    "opts": {
+        "template": "C:\\Users\\tlukacs\\jsdoc\\templates\\docstrap",
+        "encoding": "utf8",
+        "destination": "docs/js",
+        "recurse": true,
+        "private": true
+    }
+}

@@ -1,5 +1,10 @@
 /**
+ * The router manages the loading of global and routed
+ * views and the behaviour on route change. We use the
+ * Backbone.Router to simplify the routing.
  *
+ * @class Router
+ * @author: Tamas-Imre Lukacs
  */
 
 define([
@@ -7,6 +12,7 @@ define([
     'underscore',
     'jquery',
     'backbone',
+    'modernizr',
     'configs/routes.conf',
     'configs/dexter.conf',
     'viewLoader!',
@@ -20,6 +26,7 @@ define([
     debug,
     _, $,
     Backbone,
+    Modernizr,
     routesConf,
     dexterConf,
     viewList,
@@ -27,7 +34,7 @@ define([
     applyMaybe,
     intersect,
     debugBar
-) {
+    ) {
 
     debug = debug('DX');
 
@@ -35,14 +42,11 @@ define([
         routes: routesConf
     });
 
-    /**
-     *
-     */
-
-    return {
+    return /** @lends Router.prototype */{
 
         /**
          * Stores the Backbone.Router object.
+         * TODO extend Backbone.Router directly?
          */
 
         obj: null,
@@ -54,25 +58,27 @@ define([
         currentView: {},
 
         /**
-         *
+         * Stores the routed views, if loaded.
          */
 
         viewCache: {},
 
         /**
-         *
+         * An object with every view prototype.
          */
 
         viewList: null,
 
         /**
-         *
+         * The current routing parameters.
          */
 
         parameters: null,
 
         /**
-         *
+         * The main behaviour of the router is described here.
+         * Load the global views first, register the routed views
+         * afterwards and manage the behaviour on route change.
          */
 
         init: function() {
@@ -90,8 +96,10 @@ define([
                 viewName = dexterConf.global[i];
 
                 if (viewName in self.viewList) {
-                    self.viewList[viewName].prototype.router = self;
-                    view = new self.viewList[viewName]();
+                    view = new (self.viewList[viewName].extend({
+                        router: self
+                    }))();
+
                     self.viewCache[viewName] = view;
                 }
             }
@@ -139,8 +147,9 @@ define([
                              */
 
                             if (!(viewName in self.viewCache)) {
-                                self.viewList[viewName].prototype.router = self;
-                                view = new self.viewList[viewName]();
+                                view = new (self.viewList[viewName].extend({
+                                    router: self
+                                }))();
                                 self.viewCache[viewName] = view;
 
                             } else {

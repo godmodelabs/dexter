@@ -1,6 +1,7 @@
 /**
  * @source: http://jquery-howto.blogspot.de/2009/09/get-url-parameters-values-with-jquery.html
  */
+
 define(['jquery'], function() {
     $.extend({
         getUrlVars: function(){

@@ -1,12 +1,19 @@
-/**
- *
- */
 define(function() {
+
+    /**
+     * A simple, not optimized toolbar for an
+     * easier debugging.
+     *
+     * @param viewCache
+     * @global
+     */
+
     var debugBar = function(viewCache) {
-        var $debugBar, self;
+        var $debugBar;
 
         $debugBar = $('<div id="debugBar">' +
-            '<span class="views">Viewpicker</span>' +
+            '<span class="dump">Dump view</span>' +
+            '<span class="open">Open view in new window</span>' +
             '<span class="close">X</span>' +
             '</div>');
 
@@ -21,8 +28,8 @@ define(function() {
 
         $debugBar.find('span').css('cursor', 'pointer');
 
-        $debugBar.find('.views').on('click', function() {
-            var $this = $(this);
+        $debugBar.find('.dump').on('click', function() {
+            var overlays, $this = $(this);
 
             if ($this.hasClass('on')) {
                 $this.removeClass('on');
@@ -30,33 +37,46 @@ define(function() {
 
             } else {
                 $this.addClass('on');
-                $('[id]').each(function() {
-                    var $this, id, overlay;
+
+                $('[data-dX]').each(function() {
+                    var $this, id, overlay, zindex;
 
                     $this = $(this);
-                    id = $this.attr('id');
+                    id = $this.attr('data-dX');
                     overlay = $('<div></div>');
+                    zindex = 9100;
 
                     if ($this.css('position') === 'static') {
                         $this.css('position', 'relative');
                     }
+
                     overlay.addClass('debugBar__overlay')
                         .attr('data-target', id)
                         .css('position', 'absolute')
                         .css('width', '100%')
                         .css('height', '100%')
+                        .css('padding-top', '10px')
+                        .css('font-weight', 'bold')
+                        .css('font-size', '16px')
+                        .css('text-shadow', '0 0 10px #000')
+                        .css('color', 'white')
+                        .css('text-align', 'center')
+                        .css('box-spacing', 'border-box')
                         .css('top', '0')
                         .css('left', '0')
-                        .css('z-index', 9999)
+                        .css('z-index', zindex)
                         .css('cursor', 'pointer')
                         .css('background', 'rgba(0,0,255,0.05)');
 
                     if (id in viewCache) {
+                        overlay.text(viewCache[id].dXName);
                         $this.prepend(overlay);
                     }
                 });
 
-                $('.debugBar__overlay').on('mouseenter', function() {
+                overlays = $('.debugBar__overlay');
+
+                overlays.on('mouseenter', function() {
                     var $this, id;
 
                     $this = $(this);
@@ -67,11 +87,11 @@ define(function() {
                     //if (id in viewCache) {}
                 });
 
-                $('.debugBar__overlay').on('mouseleave', function() {
+                overlays.on('mouseleave', function() {
                     $(this).css('background', 'rgba(0,0,255,0.05)');
                 });
 
-                $('.debugBar__overlay').on('click', function() {
+                overlays.on('click', function() {
                     var $this, id;
 
                     $this = $(this);
@@ -79,7 +99,7 @@ define(function() {
 
                     window.view = viewCache[id];
                     console.log(viewCache[id]);
-                    $debugBar.find('.views').trigger('click');
+                    $debugBar.find('.dump').trigger('click');
                 });
             }
         });

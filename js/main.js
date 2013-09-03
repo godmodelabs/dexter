@@ -1,3 +1,9 @@
+/**
+ *
+ *
+ * @author: Tamas-Imre Lukacs
+ */
+
 require.config({
 
     baseUrl: '/js',
@@ -15,6 +21,7 @@ require.config({
         mustache: '../bower_components/mustache/mustache',
         chai: '../node_modules/chai/chai',
         ssm: '../bower_components/SimpleStateManager/js/ssm.min',
+        eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
 
         // Plugins
         text: './plugins/text',

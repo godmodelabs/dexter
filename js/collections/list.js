@@ -1,11 +1,19 @@
 define([
     'underscore',
+    'jquery',
     'backbone',
+    'collections/dXCollection',
     'models/list__item',
     'views/list__item'
-], function(_, Backbone, ListItemModel, ListItemView) {
+], function(
+    _, $,
+    Backbone,
+    dXCollection,
+    ListItemModel,
+    ListItemView
+) {
 
-    return Backbone.Collection.extend({
+    return dXCollection.extend({
         model: ListItemModel,
         view: ListItemView
     });

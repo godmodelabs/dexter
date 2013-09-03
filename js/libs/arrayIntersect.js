@@ -1,12 +1,17 @@
-/**
- *
- */
-
 define([
     'shim!Array.indexOf'
 ], function() {
 
-    return function intersect(a, b) {
+    /**
+     * Get the different intersections of two arrays.
+     *
+     * @param {Array} a
+     * @param {Array} b
+     * @returns {Array}
+     * @global
+     */
+
+    return function arrayIntersect(a, b) {
         var n, ret;
 
         ret = [[], [], []];
@@ -25,5 +30,5 @@ define([
         }
 
         return ret;
-    }
+    };
 });

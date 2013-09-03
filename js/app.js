@@ -1,19 +1,31 @@
+/**
+ *
+ *
+ * @author: Tamas-Imre Lukacs
+ */
+
 define([
     'underscore',
     'jquery',
     'backbone',
     'router',
-    'modernizr',
-    'epoxy'
+    'eventemitter2',
+    'modernizr'
 ], function(
     _, $,
     Backbone,
-    Router
+    Router,
+    EventEmitter2
 ) {
 
     return {
         router: null,
         init: function() {
+
+            /*
+             * Start router.
+             */
+
             this.router = Router;
             this.router.init();
         }

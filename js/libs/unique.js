@@ -1,7 +1,13 @@
-/**
- *
- */
 define(function() {
+
+    /**
+     * Remove duplicate entries in an array.
+     *
+     * @param {Array} arr
+     * @returns {Array}
+     * @global
+     */
+
     return function unique(arr){
         var u = {}, a = [];
         for(var i = 0, l = arr.length; i < l; ++i){
@@ -12,5 +18,5 @@ define(function() {
             u[arr[i]] = 1;
         }
         return a;
-    }
+    };
 });

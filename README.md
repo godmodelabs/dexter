@@ -117,78 +117,26 @@ If one of the required features are not present, it tries to load a correspondin
 In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
 since chrome supports both features, it will load no additional files for viewer 2 on chrome.
 
+### Pipe event emitter network
+todo doc
+
 ### Install script
 todo doc
 
-## Object Documentation
-
-### Views
-
-#### dXView.js
-This is the basic view of DX.
-It is important to note that the render function of a normal backbone.js view is occupied, so don't overwrite it. Use the new enter functions instead.
-If you need to prepare data before the HTML is loaded, use initialize.
-
-Example for the use of dXView.js
-```javascript
-// example file: /js/views/myView.js
-dXView.extend({
-    dXName: 'myView',
-
-    initialize: function() {},
-    enter: function() {},
-    leave: function() {}
-});
- ```
-
-```html
-<!-- file: /templates/myView.html -->
-<p>I don't like redundancy.</p>
-```
-
-#### dXResponsive.js
-The responsive view extends our basic view.
-
-Example use of dXResponsive.js
-```javascript
-// example file: /js/views/myResponsiveView.js
-dXResponsiveView.extend({
-    dXName: 'responsiveView',
-
-    enter: function() {
-        // Default behaviour, will be called for every state first
-    },
-
-    enterMobile: function() {
-        // For mobile only
-    },
-
-    enterTablet: function() {
-        // For mobile and tablets only
-    },
-
-    enterDesktop: function() {
-        // For every smaller and this state, in this case equivalent to <enter>
-    }
-});
-```
-
-```html
-<!-- file: /templates/myResponsiveView.html -->
-<p>Me neither.</p>
-```
-
 ## Used Libraries
 
+- [NPM]
 - [Bower]
 - [Backbone.js]
 - [RequireJS]
 - [Mustache]
 - [jQuery]
 - [Modernizr]
+- [EventEmitter2]
 - [mocha]
 - [Chai]
 - [Karma]
+- [Sinon.JS]
 
 ## Todos
 - Test: responsive view
@@ -219,10 +167,13 @@ and of course every contributor of the libraries listed above, awesome work!
 [Backbone.js]: <https://github.com/documentcloud/backbone/>
 [James Burke]: <https://github.com/jrburke>
 [RequireJS]: <https://github.com/jrburke/requirejs>
+[NPM]: <http://npmjs.org/>
 [Bower]: <http://bower.io/>
 [Mustache]: <http://mustache.github.io/>
 [jQuery]: <http://jquery.com/>
 [Modernizr]: <http://modernizr.com/>
+[EventEmitter2]: <https://github.com/hij1nx/EventEmitter2>
 [mocha]: <http://visionmedia.github.io/mocha/>
 [Chai]: <http://chaijs.com/>
 [Karma]: <http://karma-runner.github.io/0.8/index.html>
+[Sinon.JS]: <http://sinonjs.org/>

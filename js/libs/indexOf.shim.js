@@ -1,7 +1,13 @@
-/**
- *
- */
 define(function() {
+
+    /**
+     * Find an element in an array and return the index.
+     * Shim for browsers without Array.indexOf support.
+     *
+     * @param obj
+     * @param fromIndex
+     * @returns {number}
+     */
 
     Array.prototype.indexOf = function indexOf(obj, fromIndex) {
         if (fromIndex == null) {

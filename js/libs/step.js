@@ -1,6 +1,3 @@
-/*
- *
- */
 (function(window) {
     window.process = window.process || {};
     window.process.nextTick = function(callback) {

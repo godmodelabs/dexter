@@ -1,5 +1,8 @@
 /**
+ * Get the config of this application the required
+ * views and pre load every template for them.
  *
+ * @author: Tamas-Imre Lukacs
  */
 
 define([
@@ -13,7 +16,7 @@ define([
     dexterConf,
     unique,
     viewList
-) {
+    ) {
 
     debug = debug('DX');
 

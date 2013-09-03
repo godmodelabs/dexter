@@ -1,9 +1,15 @@
 define([
     'underscore',
-    'backbone'
-], function(_, Backbone) {
+    'jquery',
+    'backbone',
+    'models/dXModel'
+], function(
+    _, $,
+    Backbone,
+    dXModel
+) {
 
-    return Backbone.Model.extend({
+    return dXModel.extend({
         title: 'default title'
     });
 

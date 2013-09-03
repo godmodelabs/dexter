@@ -13,17 +13,27 @@ files = [
   REQUIRE,
   REQUIRE_ADAPTER,
   'js/tests/test-main.js',
-  {pattern: 'js/**/*.js', included: false},
-  {pattern: 'configs/*.js', included: false},
-  {pattern: 'components/backbone/backbone.js', included: false},
-  {pattern: 'components/jquery/jquery.js', included: false},
-  {pattern: 'components/modernizr/modernizr.js', included: false},
-  {pattern: 'components/mustache/mustache.js', included: false},
-  {pattern: 'components/underscore/underscore.js', included: false},
-  {pattern: 'node_modules/chai/chai.js', included: false},
-  {pattern: 'components/SimpleStateManager/js/ssm.min.js', included: false},
 
-  {pattern: 'templates/**/*.html', included: false}
+    // Basic
+    {pattern: 'js/**/*.js', included: false},
+    {pattern: 'configs/*.js', included: false},
+    {pattern: 'templates/**/*.html', included: false},
+
+    // Bower components
+    {pattern: 'bower_components/jquery/jquery.js', included: false},
+    {pattern: 'bower_components/underscore/underscore-min.js', included: false},
+    {pattern: 'bower_components/backbone/backbone-min.js', included: false},
+    {pattern: 'bower_components/modernizr/modernizr.js', included: false},
+    {pattern: 'bower_components/mustache/mustache.js', included: false},
+    {pattern: 'bower_components/SimpleStateManager/js/ssm.min.js', included: false},
+    {pattern: 'bower_components/eventemitter2/lib/eventemitter2.js', included: false},
+    {pattern: 'bower_components/sinon/lib/sinon.js', included: false},
+    {pattern: 'bower_components/sinon/lib/sinon/*.js', included: false},
+    {pattern: 'bower_components/sinon/lib/sinon/util/*.js', included: false},
+    {pattern: 'bower_components/sinon-chai/lib/sinon-chai.js', included: false},
+
+    // NPM modules
+    {pattern: 'node_modules/chai/chai.js', included: false}
 ];
 
 preprocessors = {

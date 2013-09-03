@@ -1,13 +1,13 @@
 {
     "name": "dexter",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "a responsive JavaScript framework based on backbone.js and requireJS",
     "main": "index.html",
     "directories": {
         "test": "test"
     },
     "dependencies": {
-        "bower": "1.0.0",
+        "bower": "1.2.4",
         "chai": "1.7.0"
     },
     "devDependencies": {},

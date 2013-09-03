@@ -1,7 +1,14 @@
-/**
- *
- */
 define(function() {
+
+    /**
+     * Get the different intersections of two objects.
+     *
+     * @param a
+     * @param b
+     * @returns {Array}
+     * @global
+     */
+
     return function intersect(a, b) {
         var n, ret;
 
@@ -21,5 +28,5 @@ define(function() {
         }
 
         return ret;
-    }
+    };
 });

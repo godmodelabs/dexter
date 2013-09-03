@@ -1,22 +1,20 @@
-/**
- *
- */
 define(function() {
 
     /**
-     * ToDo
+     * Apply arguments to a function, if the function is
+     * defined. Wrapper to reduce code.
      *
-     * @param {Object} obj
-     * @param {String} fname
+     * @param {object} obj
+     * @param {string} fname
      * @param {Array} [args]
-     * @param {Object} [scope]
+     * @param {object} [scope]
+     * @global
      */
-    var applyMaybe = function applyMaybe(obj, fname, args, scope){
+
+    return function applyMaybe(obj, fname, args, scope){
         if (typeof obj[fname] === 'function') {
             return obj[fname].apply(scope || obj, args || []);
         }
         return null;
     };
-
-    return applyMaybe;
 });

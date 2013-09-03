@@ -1,5 +1,8 @@
 /**
+ * Get every view registered as global or routed
+ * and pre load the view objects.
  *
+ * @author: Tamas-Imre Lukacs
  */
 
 define([
@@ -13,7 +16,7 @@ define([
     routesConf,
     dexterConf,
     unique
-) {
+    ) {
 
     debug = debug('DX');
 
