@@ -8,15 +8,15 @@
         "components"
     ],
     "dependencies": {
-        "jquery": "1.9.1",
-        "underscore": "1.4.4",
-        "backbone": "1.0.0",
-        "requirejs": "2.1.8",
-        "modernizr": "2.6.2",
-        "mustache": "0.7.2",
-        "SimpleStateManager": "1.3.1",
-        "requirejs-plugins": "1.0.2",
-        "eventemitter2": "0.4.13",
-        "sinon": "1.7.3"
+        "jquery": "1.9.x",
+        "underscore": "1.4.x",
+        "backbone": "1.0.x",
+        "requirejs": "2.1.x",
+        "modernizr": "2.6.x",
+        "mustache": "0.7.x",
+        "SimpleStateManager": "1.3.x",
+        "requirejs-plugins": "1.0.x",
+        "eventemitter2": "0.4.x",
+        "sinon": "1.7.x"
     }
 }
