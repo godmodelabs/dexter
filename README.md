@@ -55,7 +55,8 @@ DX uses [Mustache] to provide an easy to use templating engine. Mustache was cho
 out of templates and inside the views.
 
 ### Responsive JS
-One of the key features of DX is the native integration of [Simple State Manager] for true responsive JavaScript execution defined by states.
+One of the key features of DX is the native integration of [Simple State Manager] for true responsive JavaScript
+execution defined by states.
 
 ```javascript
 // file: /configs/states.conf.js
@@ -102,7 +103,8 @@ define([ /* ... */ ], function(dXResponsiveView) {
 ```
 
 ### Shim support
-To enhance the use of shims, DX integrates a plugin for requireJS. Combined with the awesome [Modernizr], it delivers a powerful conditional loader.
+To enhance the use of shims, DX integrates a plugin for requireJS. Combined with the awesome [Modernizr], it delivers a
+powerful conditional loader.
 
 ```javascript
 define([
@@ -116,6 +118,38 @@ define([
 If one of the required features are not present, it tries to load a corresponding *.shim.js file from /js/libs.
 In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
 since chrome supports both features, it will load no additional files for viewer 2 on chrome.
+
+
+### Debugging
+Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable it, simply execute
+the following in any browser console, the setting will be stored in localStorage:
+
+```javascript
+debug.enable('*');
+```
+
+Quick usage:
+```javascript
+debug = debug('myModule');
+debug('message'/* , ...*/);
+```
+
+Custom Colorize for the lulz:
+```javascript
+// debug.conf.js
+define(function() {
+    return {
+        colors: {
+            'green': '#22DD22'
+        }
+    };
+});
+
+debug = debug('myModule');
+debug.green('message'/* , ...*/);
+```
+
+You should definitely check out the project home ([Debug]) for more information about this nice tool.
 
 ### Pipe event emitter network
 todo doc
@@ -177,3 +211,4 @@ and of course every contributor of the libraries listed above, awesome work!
 [Chai]: <http://chaijs.com/>
 [Karma]: <http://karma-runner.github.io/0.8/index.html>
 [Sinon.JS]: <http://sinonjs.org/>
+[Debug]: <https://github.com/visionmedia/debug>
