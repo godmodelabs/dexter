@@ -6,7 +6,7 @@ define(function() {
      * @param a
      * @param b
      * @returns {Array}
-     * @global
+     * @ignore
      */
 
     return function intersect(a, b) {

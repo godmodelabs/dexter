@@ -28,7 +28,7 @@
         "hardwrap" : true
     },
     "opts": {
-        "template": "C:\\Users\\tlukacs\\jsdoc\\templates\\docstrap",
+        "template": "/usr/local/lib/node_modules/jsdoc/templates/docstrap",
         "encoding": "utf8",
         "destination": "docs/js",
         "recurse": true,
