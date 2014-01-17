@@ -3,18 +3,11 @@ define(function() {
     return {
         preLoad: {
 
-            views: [
-                'list__item'
-            ],
-
-            templates: [
-                'loading'
-            ]
+            views: [],
+            templates: []
         },
 
-        global: [
-            'navigation'
-        ]
+        global: []
     }
 
 });

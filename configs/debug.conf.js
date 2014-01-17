@@ -1,7 +1,10 @@
 define(function() {
 
     return {
+
         colors: {
+
+            // <colorname>: <colorcode>
             'green': '#22DD22',
             'lightblue': '#77DDDD',
             'lightgray': '#D3D3D3',
