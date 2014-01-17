@@ -139,7 +139,7 @@ log = debug('myModule');
 log('message'/* , ...*/);
 ```
 
-Custom Colorize for the lulz:
+Custom colors for improved overview:
 ```javascript
 // debug.conf.js
 define(function() {
