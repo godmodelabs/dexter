@@ -139,7 +139,7 @@ log = debug('myModule');
 log('message'/* , ...*/);
 ```
 
-Custom colors for an improved console overview (if supported):
+Custom colors for an improved console overview (if supported by the browser):
 ```javascript
 // debug.conf.js
 define(function() {
