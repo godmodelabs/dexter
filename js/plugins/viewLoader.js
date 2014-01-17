@@ -18,6 +18,9 @@ define([
     unique
 ) {
 
+    // Welcome message
+    debug('~>')('Welcome to Dexter 0.3.2');
+
     debug = debug('DX');
 
     function getViewList(require, list, ret, callback) {
