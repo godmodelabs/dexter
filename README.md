@@ -9,6 +9,11 @@ a responsive JavaScript framework based on backbone.js and requireJS
 todo doc
 
 ### Views
+global views, independent, defined in configs/debug.conf.js, automatically loaded by the router on init
+
+routed views, defined in routes.conf.js
+
+
 ```javascript
 // file: /js/views/myView.js
 define([ /* ... */ ], function(dXView) {
@@ -130,8 +135,8 @@ debug.enable('*');
 
 Quick usage:
 ```javascript
-debug = debug('myModule');
-debug('message'/* , ...*/);
+log = debug('myModule');
+log('message'/* , ...*/);
 ```
 
 Custom Colorize for the lulz:
@@ -145,8 +150,8 @@ define(function() {
     };
 });
 
-debug = debug('myModule');
-debug.green('message'/* , ...*/);
+log = debug('myModule');
+log.green('message'/* , ...*/);
 ```
 
 You should definitely check out the project home ([Debug]) for more information about this nice tool.

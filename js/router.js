@@ -34,7 +34,7 @@ define([
     applyMaybe,
     intersect,
     debugBar
-    ) {
+) {
 
     debug = debug('DX');
 
