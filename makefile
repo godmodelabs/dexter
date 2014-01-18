@@ -12,7 +12,7 @@ else
 	ifeq ($(UNAME_S),Darwin)
 		NODE = node
 		NPM = npm
-		BOWER = $(NODE) ./node_modules/.bin/bower
+		BOWER = $(NODE) ../node_modules/.bin/bower
 		CLEARTMP =
 	else
 		NODE = /opt/nodejs/v0.8/bin/node
@@ -27,15 +27,15 @@ NODE_ENV = production
 install:
 	@$(CLEARTMP)
 	@$(NPM) install
-	@$(BOWER) install
+	@(cd ./configs && $(BOWER) install)
 test:
 	karma start
 update:
 	@$(NPM) update
-	@$(BOWER) update
+	@(cd ./configs && $(BOWER) update)
 list:
 	@$(NPM) list
-	@$(BOWER) list
+	@(cd ./configs && $(BOWER) list)
 deploy:
 	@$(NODE) ./build/r.js -o ./build/build.js
 

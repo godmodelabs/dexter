@@ -7,7 +7,7 @@
         "test": "test"
     },
     "dependencies": {
-        "bower": "1.2.x",
+        "bower": "git+https://github.com/Riplexus/bower.git",
         "chai": "1.7.x"
     },
     "devDependencies": {},
