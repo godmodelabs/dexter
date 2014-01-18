@@ -120,6 +120,7 @@ define([
 });
 ```
 
+
 If one of the required features are not present, it tries to load a corresponding *.shim.js file from /js/libs.
 In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
 since chrome supports both features, it will load no additional files for viewer 2 on chrome.
