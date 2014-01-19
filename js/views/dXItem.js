@@ -5,7 +5,6 @@ define([
     'backbone',
     'libs/uuid',
     'views/dXView',
-    'mustache',
     'libs/applyMaybe'
 ], function(
     debug,
@@ -13,9 +12,8 @@ define([
     Backbone,
     uuid,
     dXView,
-    mustache,
     applyMaybe
-    ) {
+) {
 
     debug = debug('DX');
 
@@ -44,7 +42,7 @@ define([
             var templateName, template;
 
             templateName = this.dXConfig.templateName || this.dXName;
-            template = mustache.render(require('text!templates/'+templateName+'.html'),
+            template = this.dXTemplateRenderer(require('text!templates/'+templateName+'.html'),
                 typeof this.dXTemplateData === 'function'?
                     this.dXTemplateData() : this.dXTemplateData);
 

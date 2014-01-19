@@ -10,14 +10,18 @@ define([
     'backbone',
     'router',
     'libs/debug',
+    'views/dXView',
     'eventemitter2',
+    'mustache',
     'modernizr'
 ], function(
     _, $,
     Backbone,
     Router,
     debug,
-    EventEmitter2
+    dXView,
+    EventEmitter2,
+    Mustache
 ) {
 
     return {

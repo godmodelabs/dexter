@@ -3,7 +3,6 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'mustache',
     'libs/uuid',
     'libs/applyMaybe',
     'libs/pipe',
@@ -12,7 +11,6 @@ define([
     debug,
     _, $,
     Backbone,
-    mustache,
     uuid,
     applyMaybe,
     pipe
@@ -200,8 +198,8 @@ define([
                 template = require('text!templates/'+templateName+'.html');
 
                 try {
-                    template = mustache.render(template,
-                        typeof this.dXTemplateData === 'function'?
+                    template = this.dXTemplateRenderer(template,
+                        typeof this.dXTemplateData === 'function' ?
                             this.dXTemplateData() : this.dXTemplateData);
 
                 } catch(err) {
@@ -362,6 +360,20 @@ define([
          */
 
         dXTemplateData: function() {},
+
+        /**
+         * Overwrite this method with the template renderer of
+         * your choice. For an example of the use of mustache,
+         * look at the example branch.
+         *
+         * @param {string} template
+         * @param {object} data
+         * @returns string
+         */
+
+        dXTemplateRenderer: function(template, data) {
+            return template;
+        },
 
         /**
          * To communicate between views, distant collections
