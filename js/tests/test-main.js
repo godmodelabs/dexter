@@ -22,8 +22,7 @@ requirejs.config({
         backbone: '../bower_components/backbone/backbone',
         modernizr: '../bower_components/modernizr/modernizr',
         mustache: '../bower_components/mustache/mustache',
-        chai: '../node_modules/chai/chai',
-        ssm: '../bower_components/SimpleStateManager/js/ssm.min',
+        ssm: '../bower_components/SimpleStateManager/src/ssm',
         eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
 
         // Plugins
@@ -35,8 +34,6 @@ requirejs.config({
         noext: '../bower_components/requirejs-plugins/src/noext',
 
         // Testing
-        'sinon': '../bower_components/sinon/lib/sinon',
-        'sinon-chai': '../bower_components/sinon-chai/lib/sinon-chai'
     },
     shim: {
         underscore: {
@@ -62,27 +59,27 @@ requirejs.config({
         },
         'libs/uuid': {
             exports: 'uuid'
-        },
+        }
 
-        'sinon':            { exports: 'sinon' },
-        'sinon-chai':       { exports: 'sinon' },
-        'sinon/assert':     { deps: ['sinon'], exports: 'sinon' },
-        'sinon/call':       { deps: ['sinon'], exports: 'sinon' },
-        'sinon/collection': { deps: ['sinon'], exports: 'sinon' },
-        'sinon/match':      { deps: ['sinon'], exports: 'sinon' },
-        'sinon/mock':       { deps: ['sinon'], exports: 'sinon' },
-        'sinon/sandbox':    { deps: ['sinon'], exports: 'sinon' },
-        'sinon/spy':        { deps: ['sinon'], exports: 'sinon' },
-        'sinon/stub':       { deps: ['sinon'], exports: 'sinon' },
-        'sinon/test':       { deps: ['sinon'], exports: 'sinon' },
-        'sinon/test_case':  { deps: ['sinon'], exports: 'sinon' },
-        'sinon/util/event':                 { deps: ['sinon'], exports: 'sinon' },
-        'sinon/util/fake_server':           { deps: ['sinon'], exports: 'sinon' },
-        'sinon/util/fake_server_with_clock':{ deps: ['sinon'], exports: 'sinon' },
-        'sinon/util/fake_timers':           { deps: ['sinon'], exports: 'sinon' },
-        'sinon/util/fake_xml_http_request': { deps: ['sinon'], exports: 'sinon' },
-        'sinon/util/timers_ie':             { deps: ['sinon'], exports: 'sinon' },
-        'sinon/util/xhr_ie':                { deps: ['sinon'], exports: 'sinon' }
+//        'sinon':            { exports: 'sinon' },
+//        'sinon-chai':       { exports: 'sinon' },
+//        'sinon/assert':     { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/call':       { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/collection': { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/match':      { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/mock':       { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/sandbox':    { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/spy':        { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/stub':       { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/test':       { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/test_case':  { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/util/event':                 { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/util/fake_server':           { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/util/fake_server_with_clock':{ deps: ['sinon'], exports: 'sinon' },
+//        'sinon/util/fake_timers':           { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/util/fake_xml_http_request': { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/util/timers_ie':             { deps: ['sinon'], exports: 'sinon' },
+//        'sinon/util/xhr_ie':                { deps: ['sinon'], exports: 'sinon' }
     },
 
     // ask Require.js to load these files (all our tests)

@@ -158,6 +158,17 @@ log.green('message'/* , ...*/);
 
 You should definitely check out the project home ([Debug]) for more information about this nice tool.
 
+### Testing
+We provide a pre-configured Karma file (using Jasmine as testing framework) and activated code coverage. Install
+karma and karma-coverage from NPM, put your tests under /js/tests and you are ready to go!
+
+```bash
+make test
+```
+
+Don't forget to update /configs/karma.conf.js and the /js/tests/test-main.js entry point if you include new libraries in
+your project.
+
 ### Pipe event emitter network
 todo doc
 

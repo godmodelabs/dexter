@@ -29,7 +29,7 @@ install:
 	@$(NPM) install
 	@(cd ./configs && $(BOWER) install)
 test:
-	karma start
+	@(cd ./configs && karma start)
 update:
 	@$(NPM) update
 	@(cd ./configs && $(BOWER) update)
