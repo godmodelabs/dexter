@@ -142,7 +142,7 @@ log('message'/* , ...*/);
 
 Custom colors for an improved console overview (if supported by the browser):
 ```javascript
-// debug.conf.js
+// file: /configs/debug.conf.js
 define(function() {
     return {
         colors: {
@@ -151,6 +151,7 @@ define(function() {
     };
 });
 
+// Somewhere in your code..
 log = debug('myModule');
 log.green('message'/* , ...*/);
 ```
