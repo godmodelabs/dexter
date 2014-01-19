@@ -1,7 +1,7 @@
 **Work in Progress**
 
 # Dexter (DX)
-a responsive JavaScript framework based on backbone.js and requireJS
+a responsive JS Client framework with the power of backbone.js and requireJS
 
 ## Features
 
@@ -120,11 +120,15 @@ define([
 });
 ```
 
-
 If one of the required features are not present, it tries to load a corresponding *.shim.js file from /js/libs.
 In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
-since chrome supports both features, it will load no additional files for viewer 2 on chrome.
+since Chrome supports both features, it will load no additional files for viewer 2 on Chrome.
 
+### Pipe event emitter network
+todo doc
+
+### Install script
+todo doc
 
 ### Debugging
 Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable it, simply execute
@@ -159,21 +163,16 @@ log.green('message'/* , ...*/);
 You should definitely check out the project home ([Debug]) for more information about this nice tool.
 
 ### Testing
-We provide a pre-configured Karma file (using Jasmine as testing framework) and activated code coverage. Install
+We provide a pre-configured [Karma] file (using [Jasmine] as testing framework) and activated code coverage. Install
 karma and karma-coverage from NPM, put your tests under /js/tests and you are ready to go!
 
+Start Karma and run every test:
 ```bash
 make test
 ```
 
 Don't forget to update /configs/karma.conf.js and the /js/tests/test-main.js entry point if you include new libraries in
 your project.
-
-### Pipe event emitter network
-todo doc
-
-### Install script
-todo doc
 
 ## Used Libraries
 
@@ -185,8 +184,7 @@ todo doc
 - [jQuery]
 - [Modernizr]
 - [EventEmitter2]
-- [mocha]
-- [Chai]
+- [Jasmine]
 - [Karma]
 - [Sinon.JS]
 
@@ -225,8 +223,7 @@ and of course every contributor of the libraries listed above, awesome work!
 [jQuery]: <http://jquery.com/>
 [Modernizr]: <http://modernizr.com/>
 [EventEmitter2]: <https://github.com/hij1nx/EventEmitter2>
-[mocha]: <http://visionmedia.github.io/mocha/>
-[Chai]: <http://chaijs.com/>
+[Jasmine]: <http://jasmine.github.io/>
 [Karma]: <http://karma-runner.github.io/0.8/index.html>
 [Sinon.JS]: <http://sinonjs.org/>
 [Debug]: <https://github.com/visionmedia/debug>
