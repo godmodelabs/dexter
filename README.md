@@ -56,8 +56,19 @@ high performance, subviews will be rendered after the parent view to fulfill dep
 the application.
 
 ### Templating
-DX uses [Mustache] to provide an easy to use templating engine. Mustache was chosen over other libraries to keep logic
-out of templates and inside the views.
+The dXView class provides a renderer function, which can be overwritten to support any templating engines you want
+to use.
+
+```javascript
+// Somewhere in your code, for example in your /js/app.js
+var Mustache = require('mustache');
+
+dXView.prototype.dXTemplateRenderer = function(template, data) {
+    return Mustache.render(template, data);
+};
+```
+
+The example branch uses [Mustache] to show one of many possible and easy solutions.
 
 ### Responsive JS
 One of the key features of DX is the native integration of [Simple State Manager] for true responsive JavaScript
