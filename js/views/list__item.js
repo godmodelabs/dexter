@@ -2,12 +2,10 @@ define([
     'libs/debug',
     'underscore',
     'jquery',
-    'mustache',
     'views/dXItem'
 ], function(
     debug,
     _, $,
-    Mustache,
     dXItem
 ) {
 

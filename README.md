@@ -1,7 +1,7 @@
 **Work in Progress**
 
 # Dexter (DX)
-a responsive JS Client framework with the power of backbone.js and requireJS
+a responsive JS App framework with the power of backbone.js and requireJS
 
 ## Features
 

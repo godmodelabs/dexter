@@ -2,12 +2,10 @@ define([
     'libs/debug',
     'underscore',
     'jquery',
-    'mustache',
     'views/dXResponsiveView'
 ], function(
     debug,
     _, $,
-    Mustache,
     dXResponsiveView
 ) {
 

@@ -10,19 +10,28 @@ define([
     'backbone',
     'router',
     'libs/debug',
+    'views/dXView',
     'eventemitter2',
+    'mustache',
     'modernizr'
 ], function(
     _, $,
     Backbone,
     Router,
     debug,
-    EventEmitter2
+    dXView,
+    EventEmitter2,
+    Mustache
 ) {
 
     return {
         router: null,
         init: function() {
+
+            // Set template renderer
+            dXView.prototype.dXTemplateRenderer = function(template, data) {
+                return Mustache.render(template, data);
+            };
 
             // Start router.
             this.router = Router;

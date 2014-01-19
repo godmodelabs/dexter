@@ -2,13 +2,11 @@ define([
     'libs/debug',
     'underscore',
     'jquery',
-    'mustache',
     'views/dXResponsiveView',
     'collections/list'
 ], function(
     debug,
     _, $,
-    Mustache,
     dXResponsiveView,
     List
 ) {
