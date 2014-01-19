@@ -19,7 +19,6 @@ require.config({
         epoxy: 'libs/backbone.epoxy.min',
         modernizr: '../bower_components/modernizr/modernizr',
         mustache: '../bower_components/mustache/mustache',
-        chai: '../node_modules/chai/chai',
         ssm: '../bower_components/SimpleStateManager/src/ssm',
         eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
 

@@ -8,7 +8,7 @@ module.exports = function(config) {
         basePath: '../',
 
         // frameworks to use
-        frameworks: ['mocha', 'requirejs'],
+        frameworks: ['jasmine', 'requirejs'],
 
 
         // list of files / patterns to load in the browser
@@ -22,23 +22,22 @@ module.exports = function(config) {
 
             // Bower components
             {pattern: 'bower_components/jquery/jquery.js', included: false},
-            {pattern: 'bower_components/underscore/underscore-min.js', included: false},
-            {pattern: 'bower_components/backbone/backbone-min.js', included: false},
+            {pattern: 'bower_components/underscore/underscore.js', included: false},
+            {pattern: 'bower_components/backbone/backbone.js', included: false},
             {pattern: 'bower_components/modernizr/modernizr.js', included: false},
             {pattern: 'bower_components/mustache/mustache.js', included: false},
             {pattern: 'bower_components/SimpleStateManager/src/ssm.js', included: false},
             {pattern: 'bower_components/eventemitter2/lib/eventemitter2.js', included: false},
 
             // NPM modules
-            {pattern: 'node_modules/chai/chai.js', included: false}
         ],
 
-//    preprocessors: {
-//      'js/collections/**/*.js': 'coverage',
-//      'js/libs/**/*.js': 'coverage',
-//      'js/models/**/*.js': 'coverage',
-//      'js/plugins/**/*.js': 'coverage'
-//    },
+        preprocessors: {
+          'js/collections/**/*.js': 'coverage',
+          'js/libs/**/*.js': 'coverage',
+          'js/models/**/*.js': 'coverage',
+          'js/plugins/**/*.js': 'coverage'
+        },
 
 
         // list of files to exclude
@@ -47,15 +46,9 @@ module.exports = function(config) {
         ],
 
 
-//    coverageReporeter: {
-//      type: 'html',
-//      dir: 'coverage/'
-//    },
-
-
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['progress'/*, coverage*/],
+        reporters: ['progress', 'coverage'],
 
 
         // web server port
