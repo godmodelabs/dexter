@@ -5,13 +5,10 @@ a responsive JS App framework with the power of backbone.js and requireJS
 
 ## Features
 
-### MV*
-todo doc
-
 ### Views
 global views, independent, defined in configs/debug.conf.js, automatically loaded by the router on init
 
-routed views, defined in routes.conf.js
+routed views, defined in routes.conf.js, will be loaded on navigation
 
 
 ```javascript
@@ -56,7 +53,7 @@ high performance, subviews will be rendered after the parent view to fulfill dep
 the application.
 
 ### Templating
-The dXView class provides a renderer function, which can be overwritten to support any templating engines you want
+The dXView class provides a renderer function, which can be overwritten to support any templating engine you want
 to use.
 
 ```javascript
@@ -71,7 +68,7 @@ dXView.prototype.dXTemplateRenderer = function(template, data) {
 The example branch uses [Mustache] to show one of many possible and easy solutions.
 
 ### Responsive JS
-One of the key features of DX is the native integration of [Simple State Manager] for true responsive JavaScript
+One of the key features of DX is the native integration of [Simple State Manager] in our view loader and router for true responsive JavaScript
 execution defined by states.
 
 ```javascript
@@ -102,11 +99,11 @@ define([ /* ... */ ], function(dXResponsiveView) {
         },
 
         enterTablet: function() {
-            // For mobile and tablets only
+            // For tablets only
         },
 
         enterDesktop: function() {
-            // For every smaller and this state, in this case equivalent to <enter>
+            // For big desktop only
         }
     });
 
@@ -119,7 +116,7 @@ define([ /* ... */ ], function(dXResponsiveView) {
 ```
 
 ### Shim support
-To enhance the use of shims, DX integrates a plugin for requireJS. Combined with the awesome [Modernizr], it delivers a
+To enhance the use of shims, DX provides a plugin for requireJS. Combined with the awesome [Modernizr], it delivers a
 powerful conditional loader.
 
 ```javascript
@@ -151,7 +148,7 @@ debug.enable('*');
 
 Quick usage:
 ```javascript
-log = debug('myModule');
+var log = debug('myModule');
 log('message'/* , ...*/);
 ```
 

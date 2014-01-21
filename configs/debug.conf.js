@@ -2,6 +2,7 @@ define(function() {
 
     return {
         colors: {
+            'red': '#dd0000',
             'green': '#22DD22',
             'lightblue': '#77DDDD',
             'lightgray': '#D3D3D3',
@@ -10,7 +11,8 @@ define(function() {
             'lightsalmon': '#FFA07A',
             'lightslateblue': '#8470FF',
             'palevioletred': '#DB7093',
-            'yellow': '#DADA65'
+            'yellow': '#DADA65',
+            'purple': 'purple'
         }
     }
 

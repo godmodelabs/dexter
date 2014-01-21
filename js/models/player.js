@@ -9,8 +9,6 @@ define([
     dXModel
 ) {
 
-    return dXModel.extend({
-        title: 'default title'
-    });
+    return dXModel.extend({});
 
 });

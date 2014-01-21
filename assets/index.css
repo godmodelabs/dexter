@@ -1,0 +1,72 @@
+.cf:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+.cf {
+  display: inline-block;
+}
+html[xmlns] .cf {
+  display: block;
+}
+* html .cf {
+  height: 1%;
+}
+html,
+body {
+  font-size: 0;
+  line-height: 12px;
+  background: #222;
+}
+html.running .start,
+body.running .start {
+  opacity: 0;
+}
+h1,
+h2,
+h3 {
+  color: #666761;
+}
+.space {
+  position: relative;
+  height: 200px;
+  max-width: 498px;
+  border: 1px solid #666761;
+}
+.enemy {
+  position: absolute;
+  margin: 1px 1px;
+  overflow: hidden;
+  background: #666761;
+  -webkit-transition: left .5s, top .5s;
+  -moz-transition: left .5s, top .5s;
+  transition: left .5s, top .5s;
+}
+.playground {
+  height: 50px;
+  background: #666761;
+  max-width: 500px;
+}
+.player {
+  background: #eeefed;
+  width: 75px;
+  height: 50px;
+  margin: 0 auto;
+}
+.control {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  line-height: 200px;
+  text-align: center;
+}
+.control .start {
+  display: inline-block;
+  -webkit-transition: opacity .2s;
+  -moz-transition: opacity .2s;
+  transition: opacity .2s;
+}

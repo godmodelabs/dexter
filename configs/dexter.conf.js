@@ -4,7 +4,7 @@ define(function() {
         preLoad: {
 
             views: [
-                'list__item'
+                'enemy'
             ],
 
             templates: [
@@ -13,7 +13,8 @@ define(function() {
         },
 
         global: [
-            'navigation'
+            'enemies',
+            'playground'
         ]
     }
 
