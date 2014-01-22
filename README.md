@@ -3,15 +3,12 @@
 # Dexter (DX)
 a responsive JS App framework with the power of backbone.js and requireJS
 
-## Features
-
-### MV*
-todo doc
+## Ideas and Features
 
 ### Views
 global views, independent, defined in configs/debug.conf.js, automatically loaded by the router on init
 
-routed views, defined in routes.conf.js
+routed views, defined in routes.conf.js, will be loaded on navigation
 
 
 ```javascript
@@ -56,11 +53,22 @@ high performance, subviews will be rendered after the parent view to fulfill dep
 the application.
 
 ### Templating
-DX uses [Mustache] to provide an easy to use templating engine. Mustache was chosen over other libraries to keep logic
-out of templates and inside the views.
+The dXView class provides a renderer function, which can be overwritten to support any templating engine you want
+to use.
 
-### Responsive JS
-One of the key features of DX is the native integration of [Simple State Manager] for true responsive JavaScript
+```javascript
+// Somewhere in your code, for example in your /js/app.js
+var Mustache = require('mustache');
+
+dXView.prototype.dXTemplateRenderer = function(template, data) {
+    return Mustache.render(template, data);
+};
+```
+
+The example branch uses [Mustache] to show one of many possible and easy solutions.
+
+### Responsive JavaScript
+One of the key features of DX is the native integration of [Simple State Manager] in our view loader and router for true responsive JavaScript
 execution defined by states.
 
 ```javascript
@@ -91,11 +99,11 @@ define([ /* ... */ ], function(dXResponsiveView) {
         },
 
         enterTablet: function() {
-            // For mobile and tablets only
+            // For tablets only
         },
 
         enterDesktop: function() {
-            // For every smaller and this state, in this case equivalent to <enter>
+            // For big desktop only
         }
     });
 
@@ -108,7 +116,7 @@ define([ /* ... */ ], function(dXResponsiveView) {
 ```
 
 ### Shim support
-To enhance the use of shims, DX integrates a plugin for requireJS. Combined with the awesome [Modernizr], it delivers a
+To enhance the use of shims, DX provides a plugin for requireJS. Combined with the awesome [Modernizr], it delivers a
 powerful conditional loader.
 
 ```javascript
@@ -124,14 +132,42 @@ If one of the required features are not present, it tries to load a correspondin
 In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
 since Chrome supports both features, it will load no additional files for viewer 2 on Chrome.
 
-### Pipe event emitter network
-todo doc
+### Pipe event emitter
+One of the problems we often see is the (mostly previously unknown) requirement to send data from one module to
+another across half of your application. To maintain flexibility, reduce the amount of object
+references between each other and to prevent complicated tree traversal, Dexter comes with an Event Emitter
+integrated in every DX prototype. Imagine the Warp Zone in Super Mario Bros. They connect different worlds
+and places so you can send any data (like yourself) from one opening to the other, simply by providing the
+desired world number on your package.
+
+```javascript
+// /js/views/world1-2.js
+dXView.extend({
+    //...
+    enter: function() {
+        this.dXPipe.emit('jump', 4);
+    },
+});
+```
+
+```javascript
+// /js/models/mario.js
+Mario = dXModel.extend({
+    //...
+    initialize: function() {
+        //...
+        this.dXPipe.on('jump', function(target) {
+            Mario.set('world', target);
+        })
+    }
+});
+```
 
 ### Install script
 todo doc
 
 ### Debugging
-Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable it, simply execute
+Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable full report, simply execute
 the following in any browser console, the setting will be stored in localStorage:
 
 ```javascript
@@ -140,7 +176,7 @@ debug.enable('*');
 
 Quick usage:
 ```javascript
-log = debug('myModule');
+var log = debug('myModule');
 log('message'/* , ...*/);
 ```
 
@@ -154,7 +190,9 @@ define(function() {
         }
     };
 });
+```
 
+```javascript
 // Somewhere in your code..
 log = debug('myModule');
 log.green('message'/* , ...*/);
@@ -163,16 +201,16 @@ log.green('message'/* , ...*/);
 You should definitely check out the project home ([Debug]) for more information about this nice tool.
 
 ### Testing
-We provide a pre-configured [Karma] file (using [Jasmine] as testing framework) and activated code coverage. Install
-karma and karma-coverage from NPM, put your tests under /js/tests and you are ready to go!
+We provide a pre-configured [Karma] file (using [Jasmine] as testing framework) and activated code coverage. Put
+your tests under /js/tests and you are ready to go!
 
 Start Karma and run every test:
 ```bash
 make test
 ```
 
-Don't forget to update /configs/karma.conf.js and the /js/tests/test-main.js entry point if you include new libraries in
-your project.
+Don't forget to update /configs/karma.conf.js and the /js/tests/test-main.js entry point if you include new libraries
+in your project.
 
 ## Used Libraries
 

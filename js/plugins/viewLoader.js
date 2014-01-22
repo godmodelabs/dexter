@@ -21,7 +21,7 @@ define([
     // Welcome message
     debug('~>')('Welcome to Dexter 0.3.2');
 
-    debug = debug('DX');
+    var log = debug('DX');
 
     function getViewList(require, list, ret, callback) {
         var views, i, j, view, subView, subViewList;
@@ -86,7 +86,32 @@ define([
             }
 
             getViewList(require, viewList, ret, function(ret) {
-                debug.yellow('registered views:\n     #'+Object.keys(ret).join(',\n     #'));
+                var keys = Object.keys(ret);
+                log.yellow('registered views:\n     #'+keys.join(',\n     #'));
+
+                /*
+                 * Look for not loaded views and report it.
+                 */
+
+                if (keys.length < viewList.length) {
+                    var missing = [], found;
+
+                    for (var i=viewList.length; i--;) {
+                        found = false;
+                        for (var j=keys.length; j--;) {
+                            if (viewList[i].indexOf(keys[j]) !== -1) {
+                                found = true;
+                            }
+                        }
+                        if (!found) {
+                            missing.push(viewList[i]);
+                        }
+                    }
+
+                    debug('Error').red('Following views not found! Check the paths ' +
+                        'and dXNames', '\n     #'+missing.join(',\n     #'));
+                }
+
                 load(ret);
             });
         }
