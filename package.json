@@ -9,7 +9,10 @@
     "dependencies": {
         "bower": "git+https://github.com/Riplexus/bower.git"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "karma": "0.10.x",
+        "karma-coverage": "0.1.x"
+    },
     "scripts": {
         "test": "make test"
     },
