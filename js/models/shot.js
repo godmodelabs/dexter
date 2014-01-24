@@ -2,7 +2,8 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'models/dXModel'
+    'models/dXModel',
+    'shim!Function.prototype.bind'
 ], function(
     _, $,
     Backbone,
@@ -32,8 +33,6 @@ define([
         initialize: function() {
             dXModel.prototype.initialize.call(this);
 
-            var that = this;
-
             /**
              * Starts the flying of this projectile by setting
              * his horizontal position.
@@ -42,9 +41,9 @@ define([
              */
 
             this.dXPipe.on('pew', function(x) {
-                that.set('x', x);
-                that.fly();
-            });
+                this.set('x', x);
+                this.fly();
+            }.bind(this));
 
             /**
              * Stop flying, if the projectile reaches an
@@ -54,9 +53,9 @@ define([
              */
 
             this.dXPipe.on('boom', function() {
-                clearInterval(that.flying);
-                that.set('y', 0);
-            });
+                clearInterval(this.flying);
+                this.set('y', 0);
+            }.bind(this));
 
             /**
              * Stop flying on game stop.
@@ -65,8 +64,8 @@ define([
              */
 
             this.dXPipe.on('stop', function() {
-                clearInterval(that.flying);
-            });
+                clearInterval(this.flying);
+            }.bind(this));
         },
 
         /**
@@ -76,15 +75,14 @@ define([
          */
 
         fly: function() {
-            var that = this,
-                updateInterval = 10,
+            var updateInterval = 10,
                 time = updateInterval;
 
             this.flying = setInterval(function() {
                 time += updateInterval*2/3;
-                that.set('y', time);
-                that.dXPipe.emit('checkCollision', that.get('x'), time);
-            }, updateInterval);
+                this.set('y', time);
+                this.dXPipe.emit('checkCollision', this.get('x'), time);
+            }.bind(this), updateInterval);
         }
 
     });

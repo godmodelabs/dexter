@@ -5,7 +5,8 @@ define([
     'collections/dXCollection',
     'models/enemy',
     'views/enemy',
-    'configs/game.conf'
+    'configs/game.conf',
+    'shim!Function.prototype.bind'
 ], function(
     _, $,
     Backbone,
@@ -35,8 +36,6 @@ define([
         initialize: function() {
             dXCollection.prototype.initialize.call(this);
 
-            var that = this;
-
             /**
              * Fill this collection with enemies on
              * stage selection.
@@ -46,9 +45,9 @@ define([
 
             this.dXPipe.on('stage', function(name) {
                 if (gameConfig.stages.hasOwnProperty(name)) {
-                    that.fill(gameConfig.stages[name]);
+                    this.fill(gameConfig.stages[name]);
                 }
-            });
+            }.bind(this));
 
             /**
              * Get the closest enemy corresponding to the given x and y
@@ -59,16 +58,16 @@ define([
              */
 
             this.dXPipe.on('checkCollision', function(x, y) {
-                var closest = that.getClosest(x, y);
+                var closest = this.getClosest(x, y);
 
                 if (closest !== null) {
-                    that.remove(closest);
+                    this.remove(closest);
                     setTimeout(function() {
-                        that.dXPipe.emit(that.length === 0?
+                        this.dXPipe.emit(this.length === 0?
                             'stop' : 'boom');
-                    }, 1);
+                    }.bind(this), 1);
                 }
-            });
+            }.bind(this));
 
             /*
              * Start and stop the enemy movement calculations.
@@ -89,8 +88,7 @@ define([
         fill: function(config) {
             this.reset();
 
-            var that = this,
-                x, y, spaces,
+            var x, y, spaces,
                 passes = 0,
                 width = EnemyModel.prototype.defaults.width,
                 height = EnemyModel.prototype.defaults.height;
@@ -105,18 +103,18 @@ define([
                             x = (count+passes)*width;
                             y = rowIndex*height;
 
-                            that.add({
+                            this.add({
                                 x: x, sX: x,
                                 y: y, sY: y
                             });
-                        });
+                        }.bind(this));
                     }
 
                     passes += spaces;
-                });
+                }.bind(this));
 
                 passes = 0;
-            });
+            }.bind(this));
         },
 
         /**
@@ -166,32 +164,31 @@ define([
          */
 
         start: function() {
-            var that = this,
-                width, height,
+            var width, height,
                 stepX, stepY,
                 x, change;
 
             this.interval = setInterval(function() {
-                width = that.container.$el.width();
-                height = that.container.$el.height();
+                width = this.container.$el.width();
+                height = this.container.$el.height();
                 stepX = width/gameConfig.enemy.stepsX;
                 stepY = height/gameConfig.enemy.stepsY;
-                x = that.pluck('x');
+                x = this.pluck('x');
 
-                change = that.isForward?
+                change = this.isForward?
                     Math.max.apply(null, x)+stepX >= width :
                     Math.min.apply(null, x)-stepX <= 0;
 
-                that.forEach(function(enemy, index) {
+                this.forEach(function(enemy, index) {
                     enemy.set(change? 'y':'x', change?
                         enemy.get('y')+stepY :
-                        that.isForward? x[index]+stepX : x[index]-stepX);
-                });
+                        this.isForward? x[index]+stepX : x[index]-stepX);
+                }.bind(this));
 
                 if (change) {
-                    that.isForward = !that.isForward;
+                    this.isForward = !this.isForward;
                 }
-            }, 800);
+            }.bind(this), 800);
         },
 
         /**

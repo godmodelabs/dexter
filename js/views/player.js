@@ -3,7 +3,8 @@ define([
     'underscore',
     'jquery',
     'views/dXResponsiveView',
-    'models/player'
+    'models/player',
+    'shim!Function.prototype.bind'
 ], function(
     debug,
     _, $,
@@ -36,11 +37,9 @@ define([
         initialize: function() {
             dXResponsiveView.prototype.initialize.call(this);
 
-            var that = this;
-
             this.model.on('change:x', function(model, x) {
-                that.$el.css('margin-left', x);
-            });
+                this.$el.css('margin-left', x);
+            }.bind(this));
         },
 
         /**

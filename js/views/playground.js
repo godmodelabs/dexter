@@ -2,7 +2,8 @@ define([
     'libs/debug',
     'underscore',
     'jquery',
-    'views/dXResponsiveView'
+    'views/dXResponsiveView',
+    'shim!Function.prototype.bind'
 ], function(
     debug,
     _, $,
@@ -33,8 +34,7 @@ define([
         initialize: function() {
             dXResponsiveView.prototype.initialize.call(this);
 
-            var that = this,
-                min, max, x,
+            var min, max, x,
                 playerWidth = this.$el.find('.player').width();
 
             /**
@@ -45,13 +45,13 @@ define([
 
             $('body').mousemove(function(e) {
                 min = playerWidth/2;
-                max = that.$el.width()-min;
+                max = this.$el.width()-min;
 
                 x = e.pageX > max? max :
                     e.pageX < min? min : e.pageX;
 
-                that.dXPipe.emit('playerMove', x);
-            });
+                this.dXPipe.emit('playerMove', x);
+            }.bind(this));
         }
 
     });

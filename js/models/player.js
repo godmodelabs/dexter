@@ -2,7 +2,8 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'models/dXModel'
+    'models/dXModel',
+    'shim!Function.prototype.bind'
 ], function(
     _, $,
     Backbone,
@@ -27,8 +28,6 @@ define([
         initialize: function() {
             dXModel.prototype.initialize.call(this);
 
-            var that = this;
-
             /**
              * Update the model data on player movement.
              *
@@ -36,10 +35,10 @@ define([
              */
 
             this.dXPipe.on('playerMove', function(x) {
-                that.set('center', x);
-                x -= that.get('width')/2;
-                that.set('x', x);
-            });
+                this.set('center', x);
+                x -= this.get('width')/2;
+                this.set('x', x);
+            }.bind(this));
 
             /**
              * Start shooting on game start.
@@ -48,12 +47,12 @@ define([
              */
 
             this.dXPipe.on('start', function() {
-                that.started = true;
+                this.started = true;
 
                 setTimeout(function() {
-                    that.shoot();
-                }, 500);
-            });
+                    this.shoot();
+                }.bind(this), 500);
+            }.bind(this));
 
             /**
              * Stop the shooting loop on game end.
@@ -62,8 +61,8 @@ define([
              */
 
             this.dXPipe.on('stop', function() {
-                that.started = false;
-            });
+                this.started = false;
+            }.bind(this));
 
             /**
              * If the projectile reaches an enemy or
@@ -75,12 +74,12 @@ define([
              */
 
             this.dXPipe.on('boom', function() {
-                if (that.started) {
+                if (this.started) {
                     setTimeout(function() {
-                        that.shoot();
-                    }, 1);
+                        this.shoot();
+                    }.bind(this), 1);
                 }
-            });
+            }.bind(this));
         },
 
         /**

@@ -2,7 +2,8 @@ define([
     'libs/debug',
     'underscore',
     'jquery',
-    'views/dXItem'
+    'views/dXItem',
+    'shim!Function.prototype.bind'
 ], function(
     debug,
     _, $,
@@ -28,9 +29,7 @@ define([
         initialize: function() {
             dXItem.prototype.initialize.call(this);
 
-            var that = this;
-
-            that.$el
+            this.$el
                 .css('left', this.model.get('sX'))
                 .css('top', this.model.get('sY'))
                 .css('width', this.model.get('width')-2)
@@ -38,12 +37,12 @@ define([
 
 
             this.model.on('change:x', function(model, x) {
-                that.$el.css('left', x);
-            });
+                this.$el.css('left', x);
+            }.bind(this));
 
             this.model.on('change:y', function(model, y) {
-                that.$el.css('top', y);
-            });
+                this.$el.css('top', y);
+            }.bind(this));
         }
     });
 

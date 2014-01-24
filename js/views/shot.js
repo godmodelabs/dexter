@@ -37,23 +37,21 @@ define([
         initialize: function() {
             dXView.prototype.initialize.call(this);
 
-            var that = this;
-
             this.model.on('change:x', function(model, x) {
-                that.$el.css('left', x);
-            });
+                this.$el.css('left', x);
+            }.bind(this));
 
             this.model.on('change:y', function(model, y) {
-                that.$el.css('bottom', y);
-            });
+                this.$el.css('bottom', y);
+            }.bind(this));
 
             this.dXPipe.on('pew', function() {
-                that.$el.addClass('flying');
-            });
+                this.$el.addClass('flying');
+            }.bind(this));
 
             this.dXPipe.on('boom', function() {
-                that.$el.removeClass('flying');
-            });
+                this.$el.removeClass('flying');
+            }.bind(this));
         }
     });
 
