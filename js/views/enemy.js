@@ -9,10 +9,21 @@ define([
     dXItem
 ) {
 
-    debug = debug('EXAMPLE');
+    /**
+     * This view shows a single enemy. It listens to model data
+     * changes and updates the position of this view.
+     *
+     * @class EnemyView
+     * @author Tamas-Imre Lukacs
+     */
 
-    return dXItem.extend({
+    return dXItem.extend(/** @lends EnemyView.prototype */{
         dXName: 'enemy',
+
+        /**
+         * Update the current elements position on model
+         * data change.
+         */
 
         initialize: function() {
             dXItem.prototype.initialize.call(this);

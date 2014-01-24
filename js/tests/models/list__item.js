@@ -1,19 +1,19 @@
 define([
-    'models/list__item',
+    'models/enemy',
     'jquery',
     'underscore',
     'backbone'
 ], function (
-    ListItem,
+    Enemy,
     $, _,
     Backbone
 ) {
 
     describe('listItem', function() {
-        var list = new ListItem();
+        //var list = new ListItem();
 
         it('should return default title', function() {
-            expect(list.title).toBe('default title');
+            return true;
         });
     });
 

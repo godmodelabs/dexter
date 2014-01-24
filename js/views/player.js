@@ -11,30 +11,45 @@ define([
     Player
 ) {
 
-    debug = debug('EXAMPLE');
+    /**
+     * The view container showing the players character. Updates
+     * the position on model data change.
+     *
+     * @class PlayerView
+     * @author Tamas-Imre Lukacs
+     */
 
-    return dXResponsiveView.extend({
-
+    return dXResponsiveView.extend(/** @lends PlayerView.prototype */{
         dXName: 'player',
+
+        /**
+         * The model containing the position of the player.
+         */
+
+        model: new Player(),
+
+        /**
+         * Listen on coordinate changes and update the position
+         * of this view.
+         */
 
         initialize: function() {
             dXResponsiveView.prototype.initialize.call(this);
 
             var that = this;
 
-            this.model = new Player();
             this.model.on('change:x', function(model, x) {
                 that.$el.css('margin-left', x);
             });
-
-            this.dXPipe.on('playerMove', function(x) {
-                x -= this.playerWidth/2;
-                that.model.set('x', x);
-            });
         },
 
+        /**
+         * Save the view width in the model to calculate
+         * the center of the player.
+         */
+
         enter: function() {
-            this.playerWidth = this.$el.width();
+            this.model.set('width', this.$el.width());
         }
     });
 

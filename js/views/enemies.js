@@ -3,7 +3,8 @@ define([
     'underscore',
     'jquery',
     'views/dXResponsiveView',
-    'collections/enemies'
+    'collections/enemies',
+    'configs/game.conf'
 ], function(
     debug,
     _, $,
@@ -11,66 +12,52 @@ define([
     EnemiesCollection
 ) {
 
-    debug = debug('EXAMPLE');
+    /**
+     * The enemies view contains the enemies collection. This container
+     * is responsive and the collection have to have a reference to this
+     * to get the current dimensions.
+     *
+     * @class EnemiesView
+     * @author Tamas-Imre Lukacs
+     */
 
-    return dXResponsiveView.extend({
+    return dXResponsiveView.extend(/** @lends EnemiesView.prototype */{
         dXName: 'enemies',
 
+        /**
+         * Load the control and shot views.
+         */
+
         dXSubViews: [
-            'control'
+            'control',
+            'shot'
         ],
+
+        /**
+         * The content of this.collection will be bound and
+         * shown in the .group container, so we don't have
+         * to manage collection changes manually.
+         */
 
         bindings: {
             '.group': 'collection:$collection'
         },
 
+        /**
+         * The collection containing the stage enemies.
+         */
+
         collection: new EnemiesCollection(),
+
+        /**
+         * Reference this view to the collection. Needed to get the
+         * current elements dimensions.
+         */
 
         initialize: function() {
             dXResponsiveView.prototype.initialize.call(this);
 
-            this.dXPipe.on('start', this.start);
-            this.dXPipe.on('stop', this.stop);
-        },
-
-        /**
-         * Start the enemy movement. Reposition the enemy units
-         * by writing new coordinates to the enemy models in this
-         * collection.
-         */
-
-        start: function() {
-            var that = this,
-                stepX = that.collection.at(0).get('width'),
-                stepY = 10,
-                forward = true,
-                x, change;
-
-            this.interval = setInterval(function() {
-                x = that.collection.pluck('x');
-
-                change = forward?
-                    Math.max.apply(null, x)+2*stepX >= that.$el.width() :
-                    Math.min.apply(null, x)-stepX <= 0;
-
-                that.collection.forEach(function(enemy, index) {
-                    enemy.set(change? 'y':'x', change?
-                        enemy.get('y')+stepY :
-                        forward? x[index]+stepX : x[index]-stepX);
-                });
-
-                if (change) {
-                    forward = !forward;
-                }
-            }, 1000);
-        },
-
-        /**
-         * Stop the enemy movement.
-         */
-
-        stop: function() {
-            clearInterval(this.interval);
+            this.collection.container = this;
         }
     });
 

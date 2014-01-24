@@ -141,7 +141,7 @@ and places so you can send any data (like yourself) from one opening to the othe
 desired world number on your package.
 
 ```javascript
-// /js/views/world1-2.js
+// file: /js/views/world1-2.js
 dXView.extend({
     //...
     enter: function() {
@@ -151,7 +151,7 @@ dXView.extend({
 ```
 
 ```javascript
-// /js/models/mario.js
+// file: /js/models/mario.js
 Mario = dXModel.extend({
     //...
     initialize: function() {
