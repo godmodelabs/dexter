@@ -31,10 +31,10 @@ define([
             /**
              * Update the model data on player movement.
              *
-             * @event
+             * @event player/move
              */
 
-            this.dXPipe.on('playerMove', function(x) {
+            this.dXPipe.on('player/move', function(x) {
                 this.set('center', x);
                 x -= this.get('width')/2;
                 this.set('x', x);

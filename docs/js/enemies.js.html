@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Dexter Dokumentation Source: collections/enemies.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	
+	<link type="text/css" rel="stylesheet" href="styles/site.readable.css">
+	
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">Dexter Dokumentation</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu inline">
+						
+						<li>
+							<a href="ControlView.html">ControlView</a>
+						</li>
+						
+						<li>
+							<a href="dXCollection.html">dXCollection</a>
+						</li>
+						
+						<li>
+							<a href="dXItem.html">dXItem</a>
+						</li>
+						
+						<li>
+							<a href="dXModel.html">dXModel</a>
+						</li>
+						
+						<li>
+							<a href="dXResponsiveView.html">dXResponsiveView</a>
+						</li>
+						
+						<li>
+							<a href="dXView.html">dXView</a>
+						</li>
+						
+						<li>
+							<a href="EnemiesCollection.html">EnemiesCollection</a>
+						</li>
+						
+						<li>
+							<a href="EnemiesView.html">EnemiesView</a>
+						</li>
+						
+						<li>
+							<a href="EnemyModel.html">EnemyModel</a>
+						</li>
+						
+						<li>
+							<a href="EnemyView.html">EnemyView</a>
+						</li>
+						
+						<li>
+							<a href="PlayerModel.html">PlayerModel</a>
+						</li>
+						
+						<li>
+							<a href="PlayerView.html">PlayerView</a>
+						</li>
+						
+						<li>
+							<a href="PlaygroundView.html">PlaygroundView</a>
+						</li>
+						
+						<li>
+							<a href="Router.html">Router</a>
+						</li>
+						
+						<li>
+							<a href="ShotModel.html">ShotModel</a>
+						</li>
+						
+						<li>
+							<a href="ShotView.html">ShotView</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu inline">
+						
+						<li>
+							<a href="global.html#event:boom">boom</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:checkCollision">checkCollision</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:pew">pew</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:player/move">player/move</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:stage">stage</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:start">start</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:stop">stop</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+			<div class="span12">
+				
+				<div id="main">
+					
+
+
+		<h1 class="page-title">Source: collections/enemies.js</h1>
+    
+    <section>
+        <article>
+            <pre class="sunlight-highlight-javascript linenums">define([
+    'underscore',
+    'jquery',
+    'backbone',
+    'collections/dXCollection',
+    'models/enemy',
+    'views/enemy',
+    'configs/game.conf',
+    'shim!Function.prototype.bind'
+], function(
+    _, $,
+    Backbone,
+    dXCollection,
+    EnemyModel,
+    EnemyView,
+    gameConfig
+) {
+
+    /**
+     * This collection stores the enemy models, which are displayed on
+     * the space field. It can calculate collisions and fill
+     * itself. Look at the registered events for further information.
+     *
+     * @class EnemiesCollection
+     * @author Tamas-Imre Lukacs
+     */
+
+    return dXCollection.extend(/** @lends EnemiesCollection.prototype */{
+        model: EnemyModel,
+        view: EnemyView,
+
+        /**
+         * Listen to events coming through the pipe.
+         */
+
+        initialize: function() {
+            dXCollection.prototype.initialize.call(this);
+
+            /**
+             * Fill this collection with enemies on
+             * stage selection.
+             *
+             * @event stage
+             */
+
+            this.dXPipe.on('stage', function(name) {
+                if (gameConfig.stages.hasOwnProperty(name)) {
+                    this.fill(gameConfig.stages[name]);
+                }
+            }.bind(this));
+
+            /**
+             * Get the closest enemy corresponding to the given x and y
+             * coordinates. Emit a boom event, if a collision occurred.
+             * If the collection is empty, emit stop instead.
+             *
+             * @event checkCollision
+             */
+
+            this.dXPipe.on('checkCollision', function(x, y) {
+                var closest = this.getClosest(x, y);
+
+                if (closest !== null) {
+                    this.remove(closest);
+                    setTimeout(function() {
+                        this.dXPipe.emit(this.length === 0?
+                            'stop' : 'boom');
+                    }.bind(this), 1);
+                }
+            }.bind(this));
+
+            /*
+             * Start and stop the enemy movement calculations.
+             */
+
+            this.dXPipe.on('start', this.start);
+            this.dXPipe.on('stop', this.stop);
+        },
+
+        /**
+         * Fill this collection with enemies. The positions will be
+         * defined in an 2-dimensional array, given as first argument.
+         * Negative values in the config refer to blank spaces.
+         *
+         * @param config
+         */
+
+        fill: function(config) {
+            this.reset();
+
+            var x, y, spaces,
+                passes = 0,
+                width = EnemyModel.prototype.defaults.width,
+                height = EnemyModel.prototype.defaults.height;
+
+            _.forEach(config, function(row, rowIndex) {
+                _.forEach(row, function(column) {
+
+                    spaces = Math.abs(column);
+
+                    if (column>0) {
+                        _.times(spaces, function(count) {
+                            x = (count+passes)*width;
+                            y = rowIndex*height;
+
+                            this.add({
+                                x: x, sX: x,
+                                y: y, sY: y
+                            });
+                        }.bind(this));
+                    }
+
+                    passes += spaces;
+                }.bind(this));
+
+                passes = 0;
+            }.bind(this));
+        },
+
+        /**
+         * Get the closest enemy model in reference to
+         * the given x, y coordinates.
+         *
+         * @param x
+         * @param y
+         */
+
+        getClosest: function(x, y) {
+            if (this.length === 0) { return null; }
+
+            var height = this.container.$el.height();
+
+            if (y > height+50) { return -1; }
+
+            var enemiesX = this.pluck('x'),
+                enemiesY = this.pluck('y'),
+                toCenter = this.at(0).get('width')/2,
+                dist, i;
+
+            for (i=enemiesX.length; i--;) {
+                dist = Math.sqrt(
+                    Math.pow(enemiesX[i]+toCenter-x, 2) +
+                    Math.pow(height-(enemiesY[i]+toCenter)-y, 2));
+
+                if (dist &lt; toCenter) {
+                    break;
+                }
+            }
+
+            return i >= 0? this.at(i) : null;
+        },
+
+
+        /**
+         * Flag to save the current direction the enemies are flying.
+         */
+
+        isForward: true,
+
+        /**
+         * Start the enemy movement. Reposition the enemy units
+         * by writing new coordinates to their models in this
+         * collection.
+         */
+
+        start: function() {
+            var width, height,
+                stepX, stepY,
+                x, change;
+
+            this.interval = setInterval(function() {
+                width = this.container.$el.width();
+                height = this.container.$el.height();
+                stepX = width/gameConfig.enemy.stepsX;
+                stepY = height/gameConfig.enemy.stepsY;
+                x = this.pluck('x');
+
+                change = this.isForward?
+                    Math.max.apply(null, x)+stepX >= width :
+                    Math.min.apply(null, x)-stepX &lt;= 0;
+
+                this.forEach(function(enemy, index) {
+                    enemy.set(change? 'y':'x', change?
+                        enemy.get('y')+stepY :
+                        this.isForward? x[index]+stepX : x[index]-stepX);
+                }.bind(this));
+
+                if (change) {
+                    this.isForward = !this.isForward;
+                }
+            }.bind(this), 800);
+        },
+
+        /**
+         * Stop the enemy movement.
+         */
+
+        stop: function() {
+            clearInterval(this.interval);
+        }
+    });
+
+});</pre>
+        </article>
+    </section>
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="copyright">
+		BoerseGo AG © 2013
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
+		on Sun Jan 26 2014 16:54:51 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<script src="scripts/sunlight.js"></script>
+	<script src="scripts/sunlight.javascript.js"></script>
+	<script src="scripts/sunlight-plugin.doclinks.js"></script>
+	<script src="scripts/sunlight-plugin.linenumbers.js"></script>
+	<script src="scripts/sunlight-plugin.menu.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/jquery.scrollTo.js"></script>
+	<script src="scripts/jquery.localScroll.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+
+	<script>  Sunlight.highlightAll({lineNumbers:true,  showMenu: true, enableDoclinks :true}); </script>
+
+	<script>
+		$( function () {
+			$( "#toc" ).toc( {
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : 60
+			} );
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+
+		} );
+	</script>
+
+	
+
+</body>
+</html>

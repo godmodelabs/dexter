@@ -9,6 +9,7 @@ define(function() {
      * @param {Array} [args]
      * @param {object} [scope]
      * @global
+     * @ignore
      */
 
     return function applyMaybe(obj, fname, args, scope){

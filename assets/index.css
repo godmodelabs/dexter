@@ -41,9 +41,9 @@ h3 {
   margin: 1px 1px;
   overflow: hidden;
   background: #666761;
-  /* -webkit-transition: left .4s, top .4s;
-     -moz-transition: left .4s, top .4s;
-          transition: left .4s, top .4s; */
+  -webkit-transition: left .4s, top .4s;
+  -moz-transition: left .4s, top .4s;
+  transition: left .4s, top .4s;
 }
 .playground {
   height: 50px;

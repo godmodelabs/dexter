@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Dexter Dokumentation Class: dXModel</title>
+	<title>Dexter Dokumentation Class: EnemiesCollection</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -147,12 +147,12 @@
 					
 
 
-	<h1 class="page-title">Class: dXModel</h1>
+	<h1 class="page-title">Class: EnemiesCollection</h1>
 <section>
 
 <header>
     <h2>
-    dXModel
+    EnemiesCollection
     </h2>
     
 </header>
@@ -164,7 +164,7 @@
     
         
 <dt>
-    <h4 class="name" id="dXModel"><span class="type-signature"></span>new dXModel<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="EnemiesCollection"><span class="type-signature"></span>new EnemiesCollection<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -172,13 +172,9 @@
     
     
     <div class="description">
-        <p>This basic model in the dexter framework
-is used to connect the model to the pipe
-event emitter network for further communication
-between distant views, models and collections.
-It provides the necessary (dis)connect methods
-and initializes the pipe connection on
-<a href="dXModel.html#initialize">dXModel#initialize</a>.</p>
+        <p>This collection stores the enemy models, which are displayed on
+the space field. It can calculate collisions and fill
+itself. Look at the registered events for further information.</p>
     </div>
     
 
@@ -230,7 +226,7 @@ and initializes the pipe connection on
     
     <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXModel.js.html">models/dXModel.js</a>, <a href="dXModel.js.html#sunlight-1-line-16">line 16</a>
+        <a href="enemies.js.html">collections/enemies.js</a>, <a href="enemies.js.html#sunlight-1-line-19">line 19</a>
     </li></ul></dd>
     
 
@@ -262,17 +258,14 @@ and initializes the pipe connection on
         <dl>
             
 <dt>
-    <h4 class="name" id="dXPipe"><span class="type-signature"></span>dXPipe<span class="type-signature"></span></h4>
+    <h4 class="name" id="isForward"><span class="type-signature"></span>isForward<span class="type-signature"></span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>To communicate between views, distant collections
-and models, dexter uses an event emitter as a 'Pipe
-Network'. It can be (dis)connected with
-<a href="dXView.html#dXDisconnect">dXView#dXDisconnect</a> and <a href="dXView.html#dXConnect">dXView#dXConnect</a>.</p>
+        <p>Flag to save the current direction the enemies are flying.</p>
     </div>
     
     
@@ -301,7 +294,7 @@ Network'. It can be (dis)connected with
     
     <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXModel.js.html">models/dXModel.js</a>, <a href="dXModel.js.html#sunlight-1-line-46">line 46</a>
+        <a href="enemies.js.html">collections/enemies.js</a>, <a href="enemies.js.html#sunlight-1-line-158">line 158</a>
     </li></ul></dd>
     
 
@@ -325,7 +318,7 @@ Network'. It can be (dis)connected with
         <dl>
             
 <dt>
-    <h4 class="name" id="dXConnect"><span class="type-signature"></span>dXConnect<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="fill"><span class="type-signature"></span>fill<span class="signature">(config)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -333,7 +326,9 @@ Network'. It can be (dis)connected with
     
     
     <div class="description">
-        <p>(Re)connect to the dXPipe event emitter network.</p>
+        <p>Fill this collection with enemies. The positions will be
+defined in an 2-dimensional array, given as first argument.
+Negative values in the config refer to blank spaces.</p>
     </div>
     
 
@@ -341,6 +336,49 @@ Network'. It can be (dis)connected with
     
     
     
+    
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
     
     
     
@@ -378,7 +416,7 @@ Network'. It can be (dis)connected with
     
     <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXModel.js.html">models/dXModel.js</a>, <a href="dXModel.js.html#sunlight-1-line-62">line 62</a>
+        <a href="enemies.js.html">collections/enemies.js</a>, <a href="enemies.js.html#sunlight-1-line-88">line 88</a>
     </li></ul></dd>
     
 
@@ -394,7 +432,7 @@ Network'. It can be (dis)connected with
         
             
 <dt>
-    <h4 class="name" id="dXDisconnect"><span class="type-signature"></span>dXDisconnect<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getClosest"><span class="type-signature"></span>getClosest<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -402,9 +440,8 @@ Network'. It can be (dis)connected with
     
     
     <div class="description">
-        <p>Disconnect from the dXPipe Network. If disconnected,
-events can still be bound, but will only be called
-when reconnected.</p>
+        <p>Get the closest enemy model in reference to
+the given x, y coordinates.</p>
     </div>
     
 
@@ -412,6 +449,67 @@ when reconnected.</p>
     
     
     
+    
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
     
     
     
@@ -449,7 +547,7 @@ when reconnected.</p>
     
     <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXModel.js.html">models/dXModel.js</a>, <a href="dXModel.js.html#sunlight-1-line-54">line 54</a>
+        <a href="enemies.js.html">collections/enemies.js</a>, <a href="enemies.js.html#sunlight-1-line-128">line 128</a>
     </li></ul></dd>
     
 
@@ -473,7 +571,7 @@ when reconnected.</p>
     
     
     <div class="description">
-        <p>Connect with the dXPipe network on initializing.</p>
+        <p>Listen to events coming through the pipe.</p>
     </div>
     
 
@@ -518,7 +616,147 @@ when reconnected.</p>
     
     <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXModel.js.html">models/dXModel.js</a>, <a href="dXModel.js.html#sunlight-1-line-35">line 35</a>
+        <a href="enemies.js.html">collections/enemies.js</a>, <a href="enemies.js.html#sunlight-1-line-36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="start"><span class="type-signature"></span>start<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Start the enemy movement. Reposition the enemy units
+by writing new coordinates to their models in this
+collection.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="enemies.js.html">collections/enemies.js</a>, <a href="enemies.js.html#sunlight-1-line-166">line 166</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="stop"><span class="type-signature"></span>stop<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Stop the enemy movement.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="enemies.js.html">collections/enemies.js</a>, <a href="enemies.js.html#sunlight-1-line-198">line 198</a>
     </li></ul></dd>
     
 

@@ -29,6 +29,10 @@
 					<ul class="dropdown-menu inline">
 						
 						<li>
+							<a href="ControlView.html">ControlView</a>
+						</li>
+						
+						<li>
 							<a href="dXCollection.html">dXCollection</a>
 						</li>
 						
@@ -49,7 +53,43 @@
 						</li>
 						
 						<li>
+							<a href="EnemiesCollection.html">EnemiesCollection</a>
+						</li>
+						
+						<li>
+							<a href="EnemiesView.html">EnemiesView</a>
+						</li>
+						
+						<li>
+							<a href="EnemyModel.html">EnemyModel</a>
+						</li>
+						
+						<li>
+							<a href="EnemyView.html">EnemyView</a>
+						</li>
+						
+						<li>
+							<a href="PlayerModel.html">PlayerModel</a>
+						</li>
+						
+						<li>
+							<a href="PlayerView.html">PlayerView</a>
+						</li>
+						
+						<li>
+							<a href="PlaygroundView.html">PlaygroundView</a>
+						</li>
+						
+						<li>
 							<a href="Router.html">Router</a>
+						</li>
+						
+						<li>
+							<a href="ShotModel.html">ShotModel</a>
+						</li>
+						
+						<li>
+							<a href="ShotView.html">ShotView</a>
 						</li>
 						
 
@@ -57,45 +97,37 @@
 				</li>
 				
 				<li class="dropdown">
-					<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b
+					<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b
 						class="caret"></b></a>
 
 					<ul class="dropdown-menu inline">
 						
 						<li>
-							<a href="global.html#applyMaybe">applyMaybe</a>
+							<a href="global.html#event:boom">boom</a>
 						</li>
 						
 						<li>
-							<a href="global.html#arrayIntersect">arrayIntersect</a>
+							<a href="global.html#event:checkCollision">checkCollision</a>
 						</li>
 						
 						<li>
-							<a href="global.html#debug">debug</a>
+							<a href="global.html#event:pew">pew</a>
 						</li>
 						
 						<li>
-							<a href="global.html#debugBar">debugBar</a>
+							<a href="global.html#event:player/move">player/move</a>
 						</li>
 						
 						<li>
-							<a href="global.html#getKeys">getKeys</a>
+							<a href="global.html#event:stage">stage</a>
 						</li>
 						
 						<li>
-							<a href="global.html#intersect">intersect</a>
+							<a href="global.html#event:start">start</a>
 						</li>
 						
 						<li>
-							<a href="global.html#pipe">pipe</a>
-						</li>
-						
-						<li>
-							<a href="global.html#strip">strip</a>
-						</li>
-						
-						<li>
-							<a href="global.html#unique">unique</a>
+							<a href="global.html#event:stop">stop</a>
 						</li>
 						
 
@@ -140,12 +172,12 @@
 
     <section>
         <article><p><strong>Work in Progress</strong></p>
-<h1>Dexter (DX)</h1>
-<p>a responsive JavaScript framework based on backbone.js and requireJS</p>
-<h2>Features</h2>
-<h3>MV*</h3>
-<p>todo doc</p>
-<h3>Views</h3>
+<h1 id="dexter-dx-">Dexter (DX)</h1>
+<p>a responsive JS App framework with the power of backbone.js and requireJS</p>
+<h2 id="ideas-and-features">Ideas and Features</h2>
+<h3 id="views">Views</h3>
+<p>global views, independent, defined in configs/debug.conf.js, automatically loaded by the router on init</p>
+<p>routed views, defined in routes.conf.js, will be loaded on navigation</p>
 <pre><code class="lang-javascript">// file: /js/views/myView.js
 define([ /* ... */ ], function(dXView) {
 
@@ -157,7 +189,7 @@ define([ /* ... */ ], function(dXView) {
 <pre><code class="lang-html">&lt;!-- file: /templates/myView.html --&gt;
 &lt;p&gt;Hello there, i'm proud to present myself to you!&lt;/p&gt;
 &lt;p&gt;I will be loaded and displayed inside /index.html&lt;/p&gt;</code></pre>
-<h3>Subviews</h3>
+<h3 id="subviews">Subviews</h3>
 <p>Each view can incorporate any number of other views.</p>
 <pre><code class="lang-javascript">define([ /* ... */ ], function(dXView) {
 
@@ -173,11 +205,19 @@ define([ /* ... */ ], function(dXView) {
 <p>Views used as subviews can itself again contain subviews. One warning though, don't use too deep constructs to maintain
 high performance, subviews will be rendered after the parent view to fulfill dependencies on DOM nodes and can slow
 the application.</p>
-<h3>Templating</h3>
-<p>DX uses <a href="http://mustache.github.io/">Mustache</a> to provide an easy to use templating engine. Mustache was chosen over other libraries to keep logic
-out of templates and inside the views.</p>
-<h3>Responsive JS</h3>
-<p>One of the key features of DX is the native integration of <a href="https://github.com/jonathan-fielding/SimpleStateManager/">Simple State Manager</a> for true responsive JavaScript execution defined by states.</p>
+<h3 id="templating">Templating</h3>
+<p>The dXView class provides a renderer function, which can be overwritten to support any templating engine you want
+to use.</p>
+<pre><code class="lang-javascript">// Somewhere in your code, for example in your /js/app.js
+var Mustache = require('mustache');
+
+dXView.prototype.dXTemplateRenderer = function(template, data) {
+    return Mustache.render(template, data);
+};</code></pre>
+<p>The example branch uses <a href="http://mustache.github.io/">Mustache</a> to show one of many possible and easy solutions.</p>
+<h3 id="responsive-javascript">Responsive JavaScript</h3>
+<p>One of the key features of DX is the native integration of <a href="https://github.com/jonathan-fielding/SimpleStateManager/">Simple State Manager</a> in our view loader and router for true responsive JavaScript
+execution defined by states.</p>
 <pre><code class="lang-javascript">// file: /configs/states.conf.js
 define(function() {
     return {
@@ -202,33 +242,101 @@ define([ /* ... */ ], function(dXResponsiveView) {
         },
 
         enterTablet: function() {
-            // For mobile and tablets only
+            // For tablets only
         },
 
         enterDesktop: function() {
-            // For every smaller and this state, in this case equivalent to &lt;enter&gt;
+            // For big desktop only
         }
     });
 
 });</code></pre>
 <pre><code class="lang-html">&lt;!-- file: /templates/myResponsiveView.html --&gt;
 &lt;p&gt;I'm more fancy than the boring basic view.&lt;/p&gt;</code></pre>
-<h3>Shim support</h3>
-<p>To enhance the use of shims, DX integrates a plugin for requireJS. Combined with the awesome <a href="http://modernizr.com/">Modernizr</a>, it delivers a powerful conditional loader.</p>
+<h3 id="shim-support">Shim support</h3>
+<p>To enhance the use of shims, DX provides a plugin for requireJS. Combined with the awesome <a href="http://modernizr.com/">Modernizr</a>, it delivers a
+powerful conditional loader.</p>
 <pre><code class="lang-javascript">define([
     'shim!Array.prototype.indexOf',
     'shim!Modernizr.history'
 ], function() {
-
+    // ...
 });</code></pre>
 <p>If one of the required features are not present, it tries to load a corresponding *.shim.js file from /js/libs.
 In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
-since chrome supports both features, it will load no additional files for viewer 2 on chrome.</p>
-<h3>Pipe event emitter network</h3>
+since Chrome supports both features, it will load no additional files for viewer 2 on Chrome.</p>
+<p>You can easily create your own shims by placing a *.shim.js file under /js/libs:</p>
+<pre><code class="lang-javascript">// file: /js/libs/console.shim.js
+define(function() {
+
+    window.console = {
+        log: function() {},
+        err: function() {},
+        warn: function() {},
+        trace: function() {}
+    };
+
+    return true;
+});
+
+// Anywhere in your code:
+define(['shim!console'], function() {
+    console.log('No ie errors if you forget to remove this');
+});</code></pre>
+<h3 id="pipe-event-emitter">Pipe event emitter</h3>
+<p>One of the problems we often see is the (mostly previously unknown) requirement to send data from one module to
+another across half of your application. To maintain flexibility, reduce the amount of object
+references between each other and to prevent complicated tree traversal, Dexter comes with an Event Emitter
+integrated in every DX prototype. Imagine the Warp Zone in Super Mario Bros. They connect different worlds
+and places so you can send any data (like yourself) from one opening to the other, simply by providing the
+desired world number on your package.</p>
+<pre><code class="lang-javascript">// file: /js/views/world1-2.js
+dXView.extend({
+    //...
+    enter: function() {
+        this.dXPipe.emit('jump', 4);
+    },
+});</code></pre>
+<pre><code class="lang-javascript">// file: /js/models/mario.js
+Mario = dXModel.extend({
+    //...
+    initialize: function() {
+        //...
+        this.dXPipe.on('jump', function(target) {
+            Mario.set('world', target);
+        })
+    }
+});</code></pre>
+<h3 id="install-script">Install script</h3>
 <p>todo doc</p>
-<h3>Install script</h3>
-<p>todo doc</p>
-<h2>Used Libraries</h2>
+<h3 id="debugging">Debugging</h3>
+<p>Dexter uses a <a href="https://github.com/visionmedia/debug">Debug</a> utility based on ideas from node.js for easy and powerful output. To enable full report, simply execute
+the following in any browser console, the setting will be stored in localStorage:</p>
+<pre><code class="lang-javascript">debug.enable('*');</code></pre>
+<p>Quick usage:</p>
+<pre><code class="lang-javascript">var log = require('libs/debug')('myModule');
+
+log('message'/* , ...*/);</code></pre>
+<p>Custom colors for an improved console overview (if supported by the browser):</p>
+<pre><code class="lang-javascript">// file: /configs/debug.conf.js
+define(function() {
+    return {
+        colors: {
+            'green': '#22DD22'
+        }
+    };
+});</code></pre>
+<p>The colors will be provided to the logger as methods:</p>
+<pre><code class="lang-javascript">log.green('message'/* , ...*/);</code></pre>
+<p>You should definitely check out the project home (<a href="https://github.com/visionmedia/debug">Debug</a>) for more information about this nice tool.</p>
+<h3 id="testing">Testing</h3>
+<p>We provide a pre-configured <a href="http://karma-runner.github.io/0.8/index.html">Karma</a> file (using <a href="http://jasmine.github.io/">Jasmine</a> as testing framework) and activated code coverage. Put
+your tests under /js/tests and you are ready to go!</p>
+<p>Start Karma and run every test:</p>
+<pre><code class="lang-bash">make test</code></pre>
+<p>Don't forget to update /configs/karma.conf.js and the /js/tests/test-main.js entry point if you include new libraries
+in your project.</p>
+<h2 id="used-libraries">Used Libraries</h2>
 <ul>
 <li><a href="http://npmjs.org/">NPM</a></li>
 <li><a href="http://bower.io/">Bower</a></li>
@@ -238,12 +346,11 @@ since chrome supports both features, it will load no additional files for viewer
 <li><a href="http://jquery.com/">jQuery</a></li>
 <li><a href="http://modernizr.com/">Modernizr</a></li>
 <li><a href="https://github.com/hij1nx/EventEmitter2">EventEmitter2</a></li>
-<li><a href="http://visionmedia.github.io/mocha/">mocha</a></li>
-<li><a href="http://chaijs.com/">Chai</a></li>
+<li><a href="http://jasmine.github.io/">Jasmine</a></li>
 <li><a href="http://karma-runner.github.io/0.8/index.html">Karma</a></li>
 <li><a href="http://sinonjs.org/">Sinon.JS</a></li>
 </ul>
-<h2>Todos</h2>
+<h2 id="todos">Todos</h2>
 <ul>
 <li>Test: responsive view</li>
 <li>Test: base view</li>
@@ -254,7 +361,7 @@ since chrome supports both features, it will load no additional files for viewer
 <li>Test: getKeys</li>
 <li>Test: applyMaybe</li>
 </ul>
-<h2>Ideas</h2>
+<h2 id="ideas">Ideas</h2>
 <ul>
 <li>Extend backbone.js Router</li>
 <li>Script: automatic installation of new components</li>
@@ -262,7 +369,7 @@ since chrome supports both features, it will load no additional files for viewer
 <li>CSS: css file loading via javascript, without media queries, dependent on current state</li>
 <li>HTML: template loading via plugin, dependent on current state</li>
 </ul>
-<h2>Special thanks to:</h2>
+<h2 id="special-thanks-to-">Special thanks to:</h2>
 <ul>
 <li>The contributors of <a href="https://github.com/documentcloud/backbone/">Backbone.js</a></li>
 <li><a href="https://github.com/jrburke">James Burke</a> for the beloved <a href="https://github.com/jrburke/requirejs">RequireJS</a></li>
@@ -289,8 +396,8 @@ since chrome supports both features, it will load no additional files for viewer
 					<br />
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a>
-		on Tue Sep 03 2013 09:33:55 GMT+0200 (MESZ) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
+		on Sun Jan 26 2014 16:54:51 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

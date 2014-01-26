@@ -7,6 +7,7 @@ define(function() {
      * @param b
      * @returns {Array}
      * @global
+     * @ignore
      */
 
     return function intersect(a, b) {

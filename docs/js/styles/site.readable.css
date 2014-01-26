@@ -680,7 +680,7 @@ h4 small {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 13px 25px;
+  margin: 0 0 0px 25px;
 }
 ul ul,
 ul ol,
@@ -730,19 +730,39 @@ dd {
 dd .description,
 dd h5,
 dd .tag-source,
-dd .tag-author {
+dd .tag-author,
+dd .tag-version,
+dd .tag-since,
+dd .tag-copyright,
+dd .tag-tutorial,
+dd .inherited-from {
   margin-left: 8px;
 }
 dd.tag-source,
-dd.tag-author {
+dd.tag-author,
+dd.tag-version,
+dd.tag-since,
+dd.tag-copyright,
+dd.tag-tutorial,
+dd.inherited-from {
   border-left: 0;
 }
 dd.tag-source li,
-dd.tag-author li {
+dd.tag-author li,
+dd.tag-version li,
+dd.tag-since li,
+dd.tag-copyright li,
+dd.tag-tutorial li,
+dd.inherited-from li {
   list-style-type: none;
 }
 dd.tag-source ul,
-dd.tag-author ul {
+dd.tag-author ul ,
+dd.tag-version ul,
+dd.tag-since ul,
+dd.tag-copyright ul,
+dd.tag-tutorial ul,
+dd.inherited-from ul{
     margin-left: 0;
 }
 h5 {
@@ -765,6 +785,9 @@ span.page-title {
 }
 dd.tag-author {
   color: rgba(0,0,0,0.5);
+}
+dd.tag-source {
+  margin-top: 13px;
 }
 dd.returns {
   border: 0;

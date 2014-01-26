@@ -22,6 +22,7 @@ define([
      *
      * @author Tamas-Imre Lukacs
      * @global
+     * @ignore
      */
 
     var pipe = {

@@ -9,6 +9,7 @@ define([
      * @param {Array} b
      * @returns {Array}
      * @global
+     * @ignore
      */
 
     return function arrayIntersect(a, b) {

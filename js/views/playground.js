@@ -37,12 +37,6 @@ define([
             var min, max, x,
                 playerWidth = this.$el.find('.player').width();
 
-            /**
-             * The mouse of the user moves the player.
-             *
-             * @event playerMove
-             */
-
             $('body').mousemove(function(e) {
                 min = playerWidth/2;
                 max = this.$el.width()-min;
@@ -50,7 +44,7 @@ define([
                 x = e.pageX > max? max :
                     e.pageX < min? min : e.pageX;
 
-                this.dXPipe.emit('playerMove', x);
+                this.dXPipe.emit('player/move', x);
             }.bind(this));
         }
 

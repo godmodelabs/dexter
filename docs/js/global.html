@@ -29,6 +29,10 @@
 					<ul class="dropdown-menu inline">
 						
 						<li>
+							<a href="ControlView.html">ControlView</a>
+						</li>
+						
+						<li>
 							<a href="dXCollection.html">dXCollection</a>
 						</li>
 						
@@ -49,7 +53,85 @@
 						</li>
 						
 						<li>
+							<a href="EnemiesCollection.html">EnemiesCollection</a>
+						</li>
+						
+						<li>
+							<a href="EnemiesView.html">EnemiesView</a>
+						</li>
+						
+						<li>
+							<a href="EnemyModel.html">EnemyModel</a>
+						</li>
+						
+						<li>
+							<a href="EnemyView.html">EnemyView</a>
+						</li>
+						
+						<li>
+							<a href="Pipe.html">Pipe</a>
+						</li>
+						
+						<li>
+							<a href="PlayerModel.html">PlayerModel</a>
+						</li>
+						
+						<li>
+							<a href="PlayerView.html">PlayerView</a>
+						</li>
+						
+						<li>
+							<a href="PlaygroundView.html">PlaygroundView</a>
+						</li>
+						
+						<li>
 							<a href="Router.html">Router</a>
+						</li>
+						
+						<li>
+							<a href="ShotModel.html">ShotModel</a>
+						</li>
+						
+						<li>
+							<a href="ShotView.html">ShotView</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu inline">
+						
+						<li>
+							<a href="global.html#event:boom">boom</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:checkCollision">checkCollision</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:pew">pew</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:player/move">player/move</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:stage">stage</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:start">start</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:stop">stop</a>
 						</li>
 						
 
@@ -63,39 +145,7 @@
 					<ul class="dropdown-menu inline">
 						
 						<li>
-							<a href="global.html#applyMaybe">applyMaybe</a>
-						</li>
-						
-						<li>
-							<a href="global.html#arrayIntersect">arrayIntersect</a>
-						</li>
-						
-						<li>
 							<a href="global.html#debug">debug</a>
-						</li>
-						
-						<li>
-							<a href="global.html#debugBar">debugBar</a>
-						</li>
-						
-						<li>
-							<a href="global.html#getKeys">getKeys</a>
-						</li>
-						
-						<li>
-							<a href="global.html#intersect">intersect</a>
-						</li>
-						
-						<li>
-							<a href="global.html#pipe">pipe</a>
-						</li>
-						
-						<li>
-							<a href="global.html#strip">strip</a>
-						</li>
-						
-						<li>
-							<a href="global.html#unique">unique</a>
 						</li>
 						
 
@@ -177,458 +227,11 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        <dl>
-            
-<dt>
-    <h4 class="name" id="pipe"><span class="type-signature"></span>pipe<span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>An event emitter used as a communication
-network between distant objects.</p>
-    </div>
-    
-    
-    
-
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Tamas-Imre Lukacs</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="pipe.js.html">libs/pipe.js</a>, <a href="pipe.js.html#sunlight-1-line-27">line 27</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-</dd>
-
-        </dl>
-    
 
     
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
-            
-<dt>
-    <h4 class="name" id="applyMaybe"><span class="type-signature"></span>applyMaybe<span class="signature">(obj, fname, <span class="optional">args</span>, <span class="optional">scope</span>)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Apply arguments to a function, if the function is
-defined. Wrapper to reduce code.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-		<th>Argument</th>
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>obj</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>fname</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>args</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Array.html">Array</a></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>scope</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="applyMaybe.js.html">libs/applyMaybe.js</a>, <a href="applyMaybe.js.html#sunlight-1-line-14">line 14</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="arrayIntersect"><span class="type-signature"></span>arrayIntersect<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {<a href="Array.html">Array</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Get the different intersections of two arrays.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Array.html">Array</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>b</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Array.html">Array</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="arrayIntersect.js.html">libs/arrayIntersect.js</a>, <a href="arrayIntersect.js.html#sunlight-1-line-14">line 14</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns</h5>
-    
-            
-
-
-<dl>
-	<dd class="returns">
-		
-<span class="param-type"><a href="Array.html">Array</a></span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
             
 <dt>
     <h4 class="name" id="debug"><span class="type-signature"></span>debug<span class="signature">(name)</span><span class="type-signature"> &rarr; {Type}</span></h4>
@@ -698,41 +301,6 @@ defined. Wrapper to reduce code.</p>
     
     
     
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="debug.js.html">libs/debug.js</a>, <a href="debug.js.html#sunlight-1-line-41">line 41</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
 
     
 
@@ -741,91 +309,13 @@ defined. Wrapper to reduce code.</p>
     
     
     
-    <h5>Returns</h5>
     
             
-
-
-<dl>
-	<dd class="returns">
-		
-<span class="param-type">Type</span>
-
-
-	</dd>
-</dl>
-
 
         
     
     
-</dd>
 
-        
-            
-<dt>
-    <h4 class="name" id="debugBar"><span class="type-signature"></span>debugBar<span class="signature">(viewCache)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>A simple, not optimized toolbar for an
-easier debugging.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>viewCache</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
     
 <dl class="details">
     
@@ -847,9 +337,9 @@ easier debugging.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="debugBar.js.html">libs/debugBar.js</a>, <a href="debugBar.js.html#sunlight-1-line-11">line 11</a>
+        <a href="debug.js.html">libs/debug.js</a>, <a href="debug.js.html#sunlight-1-line-43">line 43</a>
     </li></ul></dd>
     
 
@@ -860,559 +350,6 @@ easier debugging.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getKeys"><span class="type-signature"></span>getKeys<span class="signature">(obj)</span><span class="type-signature"> &rarr; {<a href="Array.html">Array</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Return the keys of an object. Shim
-for browsers without Object.getKeys support.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>obj</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="getKeys.js.html">libs/getKeys.js</a>, <a href="getKeys.js.html#sunlight-1-line-12">line 12</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns</h5>
-    
-            
-
-
-<dl>
-	<dd class="returns">
-		
-<span class="param-type"><a href="Array.html">Array</a></span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="intersect"><span class="type-signature"></span>intersect<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {<a href="Array.html">Array</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Get the different intersections of two objects.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>a</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-
-        <tr>
-            
-                <td class="name"><code>b</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="intersect.js.html">libs/intersect.js</a>, <a href="intersect.js.html#sunlight-1-line-12">line 12</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns</h5>
-    
-            
-
-
-<dl>
-	<dd class="returns">
-		
-<span class="param-type"><a href="Array.html">Array</a></span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="strip"><span class="type-signature"></span>strip<span class="signature">(str)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Strip html from an input string.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>str</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="strip.js.html">libs/strip.js</a>, <a href="strip.js.html#sunlight-1-line-12">line 12</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns</h5>
-    
-            
-
-
-<dl>
-	<dd class="returns">
-		
-<span class="param-type">string</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="unique"><span class="type-signature"></span>unique<span class="signature">(arr)</span><span class="type-signature"> &rarr; {<a href="Array.html">Array</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        <p>Remove duplicate entries in an array.</p>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        
-
-<table class="params table table-striped">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-
-		<th>Type</th>
-
-		
-
-		
-
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-
-	<tbody>
-	
-
-        <tr>
-            
-                <td class="name"><code>arr</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Array.html">Array</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-	
-	</tbody>
-</table>
-
-    
-    
-    
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="unique.js.html">libs/unique.js</a>, <a href="unique.js.html#sunlight-1-line-11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns</h5>
-    
-            
-
-
-<dl>
-	<dd class="returns">
-		
-<span class="param-type"><a href="Array.html">Array</a></span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
 </dd>
 
         </dl>
@@ -1420,6 +357,639 @@ for browsers without Object.getKeys support.</p>
 
     
 
+    
+        <h3 class="subsection-title">Events</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="event:boom">boom</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Stop flying, if the projectile reaches an
+enemy or the stage border.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shot.js.html">models/shot.js</a>, <a href="shot.js.html#sunlight-1-line-48">line 48</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:boom">boom</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>If the projectile reaches an enemy or
+the stage border, it explodes and the
+boom event will be fired. Fire another
+one, if the game is still running.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="player.js.html">models/player.js</a>, <a href="player.js.html#sunlight-1-line-67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:checkCollision">checkCollision</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Get the closest enemy corresponding to the given x and y
+coordinates. Emit a boom event, if a collision occurred.
+If the collection is empty, emit stop instead.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="enemies.js.html">collections/enemies.js</a>, <a href="enemies.js.html#sunlight-1-line-52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:pew">pew</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Starts the flying of this projectile by setting
+his horizontal position.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shot.js.html">models/shot.js</a>, <a href="shot.js.html#sunlight-1-line-36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:player/move">player/move</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Update the model data on player movement.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="player.js.html">models/player.js</a>, <a href="player.js.html#sunlight-1-line-31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:stage">stage</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Fill this collection with enemies on
+stage selection.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="enemies.js.html">collections/enemies.js</a>, <a href="enemies.js.html#sunlight-1-line-39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:start">start</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Start shooting on game start.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="player.js.html">models/player.js</a>, <a href="player.js.html#sunlight-1-line-43">line 43</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:stop">stop</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Stop flying on game stop.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="shot.js.html">models/shot.js</a>, <a href="shot.js.html#sunlight-1-line-60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="event:stop">stop</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Stop the shooting loop on game end.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="player.js.html">models/player.js</a>, <a href="player.js.html#sunlight-1-line-57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        </dl>
     
 </article>
 
@@ -1440,8 +1010,8 @@ for browsers without Object.getKeys support.</p>
 					<br />
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a>
-		on Tue Sep 03 2013 09:33:55 GMT+0200 (MESZ) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
+		on Sun Jan 26 2014 16:43:25 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

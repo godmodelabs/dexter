@@ -29,6 +29,10 @@
 					<ul class="dropdown-menu inline">
 						
 						<li>
+							<a href="ControlView.html">ControlView</a>
+						</li>
+						
+						<li>
 							<a href="dXCollection.html">dXCollection</a>
 						</li>
 						
@@ -49,7 +53,43 @@
 						</li>
 						
 						<li>
+							<a href="EnemiesCollection.html">EnemiesCollection</a>
+						</li>
+						
+						<li>
+							<a href="EnemiesView.html">EnemiesView</a>
+						</li>
+						
+						<li>
+							<a href="EnemyModel.html">EnemyModel</a>
+						</li>
+						
+						<li>
+							<a href="EnemyView.html">EnemyView</a>
+						</li>
+						
+						<li>
+							<a href="PlayerModel.html">PlayerModel</a>
+						</li>
+						
+						<li>
+							<a href="PlayerView.html">PlayerView</a>
+						</li>
+						
+						<li>
+							<a href="PlaygroundView.html">PlaygroundView</a>
+						</li>
+						
+						<li>
 							<a href="Router.html">Router</a>
+						</li>
+						
+						<li>
+							<a href="ShotModel.html">ShotModel</a>
+						</li>
+						
+						<li>
+							<a href="ShotView.html">ShotView</a>
 						</li>
 						
 
@@ -57,45 +97,37 @@
 				</li>
 				
 				<li class="dropdown">
-					<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b
+					<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b
 						class="caret"></b></a>
 
 					<ul class="dropdown-menu inline">
 						
 						<li>
-							<a href="global.html#applyMaybe">applyMaybe</a>
+							<a href="global.html#event:boom">boom</a>
 						</li>
 						
 						<li>
-							<a href="global.html#arrayIntersect">arrayIntersect</a>
+							<a href="global.html#event:checkCollision">checkCollision</a>
 						</li>
 						
 						<li>
-							<a href="global.html#debug">debug</a>
+							<a href="global.html#event:pew">pew</a>
 						</li>
 						
 						<li>
-							<a href="global.html#debugBar">debugBar</a>
+							<a href="global.html#event:player/move">player/move</a>
 						</li>
 						
 						<li>
-							<a href="global.html#getKeys">getKeys</a>
+							<a href="global.html#event:stage">stage</a>
 						</li>
 						
 						<li>
-							<a href="global.html#intersect">intersect</a>
+							<a href="global.html#event:start">start</a>
 						</li>
 						
 						<li>
-							<a href="global.html#pipe">pipe</a>
-						</li>
-						
-						<li>
-							<a href="global.html#strip">strip</a>
-						</li>
-						
-						<li>
-							<a href="global.html#unique">unique</a>
+							<a href="global.html#event:stop">stop</a>
 						</li>
 						
 
@@ -155,6 +187,30 @@ automatic template loading and html caching.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">dXView.extend({
+  dXName: 'myView',
+
+  initialize: function() {},
+  enter: function() {},
+  leave: function() {}
+});</pre>
+
+
+    
+
+    
 <dl class="details">
     
 
@@ -167,7 +223,7 @@ automatic template loading and html caching.</p>
     
 
     
-    <dt class="tag-author">Author:</dt>
+    <dt class="tag-author">Author</dt>
     <dd class="tag-author">
         <ul>
             <li>Tamas-Imre Lukacs</li>
@@ -182,9 +238,9 @@ automatic template loading and html caching.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-23">line 23</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-21">line 21</a>
     </li></ul></dd>
     
 
@@ -195,24 +251,6 @@ automatic template loading and html caching.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">dXView.extend({  dXName: 'myView',  initialize: function() {},  enter: function() {},  leave: function() {}});</pre>
-
-
-    
 </dd>
 
     
@@ -270,9 +308,9 @@ cached here for further reuse.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-92">line 92</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-90">line 90</a>
     </li></ul></dd>
     
 
@@ -331,9 +369,9 @@ overridden too (defaults to the provided dXId attribute).</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-121">line 121</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-119">line 119</a>
     </li></ul></dd>
     
 
@@ -388,9 +426,9 @@ in our application.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-77">line 77</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-75">line 75</a>
     </li></ul></dd>
     
 
@@ -445,9 +483,9 @@ Network'. It can be (dis)connected with
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-373">line 373</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-385">line 385</a>
     </li></ul></dd>
     
 
@@ -500,9 +538,9 @@ this view. Useful if this view is a subView.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-84">line 84</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-82">line 82</a>
     </li></ul></dd>
     
 
@@ -556,9 +594,9 @@ subview dXId names.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-100">line 100</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-98">line 98</a>
     </li></ul></dd>
     
 
@@ -612,9 +650,9 @@ and managed without further developer input.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-108">line 108</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-106">line 106</a>
     </li></ul></dd>
     
 
@@ -658,6 +696,18 @@ calls the views enter function, if defined.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -678,9 +728,9 @@ calls the views enter function, if defined.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-312">line 312</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-310">line 310</a>
     </li></ul></dd>
     
 
@@ -691,18 +741,6 @@ calls the views enter function, if defined.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         
@@ -728,6 +766,18 @@ calls the views leave function, if defined.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -748,9 +798,9 @@ calls the views leave function, if defined.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-322">line 322</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-320">line 320</a>
     </li></ul></dd>
     
 
@@ -761,18 +811,6 @@ calls the views leave function, if defined.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         
@@ -798,6 +836,18 @@ Restore the previously saved position attribute.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -818,9 +868,9 @@ Restore the previously saved position attribute.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-349">line 349</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-347">line 347</a>
     </li></ul></dd>
     
 
@@ -831,18 +881,6 @@ Restore the previously saved position attribute.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         
@@ -867,6 +905,18 @@ Restore the previously saved position attribute.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -887,9 +937,9 @@ Restore the previously saved position attribute.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-389">line 389</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-401">line 401</a>
     </li></ul></dd>
     
 
@@ -900,18 +950,6 @@ Restore the previously saved position attribute.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         
@@ -938,6 +976,18 @@ when reconnected.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -958,9 +1008,9 @@ when reconnected.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-381">line 381</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-393">line 393</a>
     </li></ul></dd>
     
 
@@ -971,18 +1021,6 @@ when reconnected.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         
@@ -1062,6 +1100,18 @@ will be called via <a href="dXView.html#dXGetSubViews">dXView#dXGetSubViews</a>.
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -1082,9 +1132,9 @@ will be called via <a href="dXView.html#dXGetSubViews">dXView#dXGetSubViews</a>.
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-178">line 178</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-176">line 176</a>
     </li></ul></dd>
     
 
@@ -1095,18 +1145,6 @@ will be called via <a href="dXView.html#dXGetSubViews">dXView#dXGetSubViews</a>.
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         
@@ -1133,6 +1171,26 @@ add this scope.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+            
+<div class="param-desc description">
+    <b>Returns</b> <p>Returns the <a href="dXView.html#dXSubViewCache">dXView#dXSubViewCache</a>.</p>
+</div>
+
+
+        
+    
+    
+
+    
 <dl class="details">
     
 
@@ -1153,9 +1211,9 @@ add this scope.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-136">line 136</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-134">line 134</a>
     </li></ul></dd>
     
 
@@ -1166,38 +1224,6 @@ add this scope.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns</h5>
-    
-            
-<div class="param-desc">
-    <p>Returns the <a href="dXView.html#dXSubViewCache">dXView#dXSubViewCache</a>.</p>
-</div>
-
-
-
-<dl>
-	<dd class="returns">
-		
-<span class="param-type">object</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
 </dd>
 
         
@@ -1275,6 +1301,18 @@ special, case-sensitive container.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -1295,9 +1333,9 @@ special, case-sensitive container.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-263">line 263</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-261">line 261</a>
     </li></ul></dd>
     
 
@@ -1308,18 +1346,6 @@ special, case-sensitive container.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         
@@ -1393,6 +1419,18 @@ tells the subviews to leave and detaches the template.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -1413,9 +1451,9 @@ tells the subviews to leave and detaches the template.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-277">line 277</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-275">line 275</a>
     </li></ul></dd>
     
 
@@ -1426,18 +1464,6 @@ tells the subviews to leave and detaches the template.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         
@@ -1467,6 +1493,18 @@ screen is removed.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -1487,9 +1525,9 @@ screen is removed.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-335">line 335</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-333">line 333</a>
     </li></ul></dd>
     
 
@@ -1500,18 +1538,6 @@ screen is removed.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         
@@ -1538,6 +1564,18 @@ function returning an object.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -1558,9 +1596,9 @@ function returning an object.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-364">line 364</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-362">line 362</a>
     </li></ul></dd>
     
 
@@ -1571,6 +1609,101 @@ function returning an object.</p>
     
 </dl>
 
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="dXTemplateRenderer"><span class="type-signature"></span>dXTemplateRenderer<span class="signature">(template, data)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Overwrite this method with the template renderer of
+your choice. For an example of the use of mustache,
+look at the example branch.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        
+
+<table class="params table table-striped">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+
+		<th>Type</th>
+
+		
+
+		
+
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+
+	<tbody>
+	
+
+        <tr>
+            
+                <td class="name"><code>template</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+	
+	</tbody>
+</table>
+
+    
     
     
 
@@ -1582,7 +1715,50 @@ function returning an object.</p>
     
     
     
+            
+<div class="param-desc description">
+    <b>Returns</b> <p>string</p>
+</div>
+
+
+        
     
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-374">line 374</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
 </dd>
 
         
@@ -1611,6 +1787,22 @@ potential parent element) if available.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+            
+
+        
+    
+    
+
+    
 <dl class="details">
     
 
@@ -1631,9 +1823,9 @@ potential parent element) if available.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-66">line 66</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-64">line 64</a>
     </li></ul></dd>
     
 
@@ -1644,34 +1836,6 @@ potential parent element) if available.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns</h5>
-    
-            
-
-
-<dl>
-	<dd class="returns">
-		
-<span class="param-type">string</span>
-
-
-	</dd>
-</dl>
-
-
-        
-    
-    
 </dd>
 
         
@@ -1698,6 +1862,18 @@ template.</p>
     
     
     
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
 <dl class="details">
     
 
@@ -1718,9 +1894,9 @@ template.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
+    <dt class="tag-source">Source</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-50">line 50</a>
+        <a href="dXView.js.html">views/dXView.js</a>, <a href="dXView.js.html#sunlight-1-line-48">line 48</a>
     </li></ul></dd>
     
 
@@ -1731,18 +1907,6 @@ template.</p>
     
 </dl>
 
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
 </dd>
 
         </dl>
@@ -1770,8 +1934,8 @@ template.</p>
 					<br />
 					
 		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a>
-		on Tue Sep 03 2013 09:33:56 GMT+0200 (MESZ) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
+		on Sun Jan 26 2014 16:54:52 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>
