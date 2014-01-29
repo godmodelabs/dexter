@@ -38,6 +38,7 @@ var window = window || {};
  * @param {String} name
  * @return {Type}
  * @api public
+ * @ignore
  */
 
 function debug(name) {

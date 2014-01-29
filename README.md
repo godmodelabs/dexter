@@ -68,8 +68,8 @@ dXView.prototype.dXTemplateRenderer = function(template, data) {
 The example branch uses [Mustache] to show one of many possible and easy solutions.
 
 ### Responsive JavaScript
-One of the key features of DX is the native integration of [Simple State Manager] in our view loader and router for true responsive JavaScript
-execution defined by states.
+One of the key features of DX is the native integration of [Simple State Manager] in our view loader and router for
+true responsive JavaScript execution defined by states.
 
 ```javascript
 // file: /configs/states.conf.js
@@ -124,13 +124,35 @@ define([
     'shim!Array.prototype.indexOf',
     'shim!Modernizr.history'
 ], function() {
-
+    // ...
 });
 ```
 
 If one of the required features are not present, it tries to load a corresponding *.shim.js file from /js/libs.
 In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
 since Chrome supports both features, it will load no additional files for viewer 2 on Chrome.
+
+You can easily create your own shims by placing a *.shim.js file under /js/libs:
+
+```javascript
+// file: /js/libs/console.shim.js
+define(function() {
+
+    window.console = {
+        log: function() {},
+        err: function() {},
+        warn: function() {},
+        trace: function() {}
+    };
+
+    return true;
+});
+
+// Anywhere in your code:
+define(['shim!console'], function() {
+    console.log("I'm a teapot!");
+});
+```
 
 ### Pipe event emitter
 One of the problems we often see is the (mostly previously unknown) requirement to send data from one module to
@@ -141,7 +163,7 @@ and places so you can send any data (like yourself) from one opening to the othe
 desired world number on your package.
 
 ```javascript
-// /js/views/world1-2.js
+// file: /js/views/world1-2.js
 dXView.extend({
     //...
     enter: function() {
@@ -151,7 +173,7 @@ dXView.extend({
 ```
 
 ```javascript
-// /js/models/mario.js
+// file: /js/models/mario.js
 Mario = dXModel.extend({
     //...
     initialize: function() {
@@ -176,7 +198,8 @@ debug.enable('*');
 
 Quick usage:
 ```javascript
-var log = debug('myModule');
+var log = require('libs/debug')('myModule');
+
 log('message'/* , ...*/);
 ```
 
@@ -192,9 +215,9 @@ define(function() {
 });
 ```
 
+The colors will be provided to the logger as methods:
+
 ```javascript
-// Somewhere in your code..
-log = debug('myModule');
 log.green('message'/* , ...*/);
 ```
 

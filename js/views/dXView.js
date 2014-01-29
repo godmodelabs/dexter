@@ -66,17 +66,17 @@ define([
         },
 
         /**
-         * The id of this view. It has to be the name of the
-         * view, the template file, the data-dX attribute of
-         * the destination node for the template and unique
-         * in our application.
+         * The id of this view. A uuid will be generated on
+         * initialization and assigned. The element containing
+         * this views template in the DOM will have his id set
+         * to this value.
          */
 
         dXId: null,
 
         /**
          * A CSS selector to reduce DOM lookup time on initializing
-         * this view. Useful if this view is a subView.
+         * this view. Useful if this is used as a subView.
          */
 
         dXScope: '',
@@ -92,15 +92,16 @@ define([
         /**
          * The subview cache contains the instances of the subviews.
          * They are always extending dXView. The keys are the
-         * subview dXId names.
+         * subview dXNames.
          */
 
         dXSubViewCache: {},
 
         /**
-         * This Array contains a list of the dXId names of the
-         * required subViews for this view. They will be loaded
-         * and managed without further developer input.
+         * This Array contains a list of the required subview names
+         * for this view. They will be loaded and managed without
+         * further developer input.
+         * Overwrite this array to load subviews.
          */
 
         dXSubViews: [],
@@ -113,7 +114,7 @@ define([
          * set clearLoading to false and call {@link dXView#dXClearLoading}
          * manually. If you want to leave the view present after
          * leaving, set the flag here. The template name can be
-         * overridden too (defaults to the provided dXId attribute).
+         * overwritten too (defaults to the provided dXName).
          */
 
         dXConfig: {
@@ -190,7 +191,7 @@ define([
             /*
              * Insert view template. We can use synchronous require
              * here, because the templates are already loaded by the
-             * templateLoader plugin. Used cached nodes if available.
+             * templateLoader plugin. Use cached nodes if available.
              */
 
             if (!this.dXCache) {
@@ -262,7 +263,8 @@ define([
             this.$el
                 .empty()
                 .append(template)
-                .attr('id', this.dXId);
+                .attr('id', this.dXId)
+                .removeAttr('data-dX');
         },
 
         /**
@@ -298,8 +300,10 @@ define([
              */
 
             if (this.dXConfig.clearViewOnLeave) {
-                this.dXCache = this.$el.children().detach();
+                this.dXCache = this.$el.contents().detach();
             }
+
+            this.$el.attr('data-dX', this.dXName);
         },
 
         /**

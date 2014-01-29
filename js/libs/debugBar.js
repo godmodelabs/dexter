@@ -6,6 +6,7 @@ define(function() {
      *
      * @param viewCache
      * @global
+     * @ignore
      */
 
     var debugBar = function(viewCache) {
