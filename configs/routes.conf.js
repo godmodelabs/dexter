@@ -2,9 +2,10 @@ define(function() {
 
     return {
         // <path>: <viewname>
+        'editor': 'editor',
 
-        // default view, will be called for every path, '' for no default
-        '*path': ''
+        // root path
+        '*path': 'space'
     }
 
 });

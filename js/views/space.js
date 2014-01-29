@@ -17,12 +17,12 @@ define([
      * is responsive and the collection have to have a reference to this
      * to get the current dimensions.
      *
-     * @class EnemiesView
+     * @class SpaceView
      * @author Tamas-Imre Lukacs
      */
 
-    return dXResponsiveView.extend(/** @lends EnemiesView.prototype */{
-        dXName: 'enemies',
+    return dXResponsiveView.extend(/** @lends SpaceView.prototype */{
+        dXName: 'space',
 
         /**
          * Load the control and shot views.
@@ -30,7 +30,8 @@ define([
 
         dXSubViews: [
             'control',
-            'shot'
+            'shot',
+            'playground'
         ],
 
         /**

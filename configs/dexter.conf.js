@@ -12,10 +12,7 @@ define(function() {
             ]
         },
 
-        global: [
-            'enemies',
-            'playground'
-        ]
+        global: []
     }
 
 });

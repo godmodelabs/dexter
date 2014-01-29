@@ -1,109 +1,112 @@
-.cf:after {
-  content: ".";
-  display: block;
-  clear: both;
-  visibility: hidden;
-  line-height: 0;
-  height: 0;
-}
-
-.cf {
-  display: inline-block;
-}
-
-html[xmlns] .cf {
-  display: block;
-}
-
-* html .cf {
-  height: 1%;
-}
-
-@background-1: #222321;
-@background-2: #666761;
-@highlight: #eeefed;
-
+@import "cf";
+@import "transition.fn.less";
+@import "colors";
 
 html, body {
-  font-size: 0;
-  line-height: 12px;
-  background: #222;
-  height: 100%;
-
   &.running {
     .start { opacity: 0; }
   }
 }
 
-h1, h2, h3 {
-  color: @background-2;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 0;
+  line-height: 0;
+
+  background: @background-1;
 }
+
+/*
+ * Layout
+ */
 
 .space {
   position: relative;
-  height: 80%;
-  border: 1px solid @background-2;
+
+  width: 100%;
+  height: 100%;
+
+  .enemies {
+    width: 100%;
+    height: 90%;
+  }
+
+  .playground {
+    width: 100%;
+    height: 10%;
+
+    background: @background-2;
+  }
+
+  .control {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    text-align: center;
+
+    .start {
+      display: inline-block;
+    }
+  }
 }
+
+.editor {
+  line-height: 16px;
+  font-size: 12px;
+  color: #f5f5f5;
+}
+
+/*
+ * Objects
+ */
 
 .enemy {
-  position: absolute;
-  margin: 1px 1px;
   overflow: hidden;
-  background: @background-2;
 
-  -webkit-transition: left .4s, top .4s;
-     -moz-transition: left .4s, top .4s;
-          transition: left .4s, top .4s;
-}
+  position: absolute;
+  top: 0;
+  left: 0;
 
-.playground {
-  height: 50px;
+  margin: 1px 1px;
+
   background: @background-2;
 }
 
 .player {
-  background: @highlight;
   width: 75px;
-  height: 50px;
-  margin: 0 auto;
-}
-
-.control {
-  position: absolute;
-  width: 100%;
   height: 100%;
-  z-index: 10;
-  text-align: center;
+  margin: 0 auto;
 
-  .start {
-    display: inline-block;
-
-    -webkit-transition: opacity .2s;
-       -moz-transition: opacity .2s;
-            transition: opacity .2s;
-  }
+  background: @highlight;
 }
 
 .shot {
   display: none;
+  z-index: 11;
+
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 10px;
+
   width: 3px;
-  background: yellow;
-  z-index: 11;
+  height: 10px;
+
+  background: @shot;
 
   &.flying {
     display: block;
-
-    -webkit-transition: bottom .01s;
-       -moz-transition: bottom .01s;
-            transition: bottom .01s;
   }
-
-  -webkit-transition: bottom 0s;
-     -moz-transition: bottom 0s;
-          transition: bottom 0s;
-
 }
+
+/*
+ * Transitions
+ */
+
+.enemy                  { .transition(left, 400ms, top, 400ms); }
+.shot                   { .transition(bottom, 0ms); }
+.shot.flying            { .transition(bottom, 10ms); }
+.space .control .start  { .transition(opacity, 200ms); }
