@@ -10,13 +10,13 @@
         "views/dXItem",
         "views/dXResponsiveView",
         "views/dXView",
-        "views/list",
-        "views/list__header",
-        "views/list__header__sub",
-        "views/list__item",
-        "views/navigation",
-        "views/options",
-        "views/points"
+        "views/control",
+        "views/editor",
+        "views/enemy",
+        "views/player",
+        "views/playground",
+        "views/shot",
+        "views/space"
     ],
 
     uglify: {
@@ -34,17 +34,16 @@
         epoxy: 'libs/backbone.epoxy.min',
         modernizr: '../bower_components/modernizr/modernizr',
         mustache: '../bower_components/mustache/mustache',
-        chai: '../node_modules/chai/chai',
         ssm: '../bower_components/SimpleStateManager/src/ssm',
         eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
 
         // Plugins
-        text: 'plugins/text',
-        viewLoader: 'plugins/viewLoader',
-        templateLoader: 'plugins/templateLoader',
-        shim: 'plugins/shim',
-        json: '../bower_components/requirejs-plugins/src/json',
-        noext: '../bower_components/requirejs-plugins/src/noext'
+        text: './plugins/text',
+        viewLoader: './plugins/viewLoader',
+        templateLoader: './plugins/templateLoader',
+        shim: './plugins/shim',
+        json: '../bower_components/requirejs-plugins/lib/require/json',
+        noext: '../bower_components/requirejs-plugins/lib/require/noext'
     },
 
     shim: {
