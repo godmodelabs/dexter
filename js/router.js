@@ -4,7 +4,7 @@
  * Backbone.Router to simplify the routing.
  *
  * @class Router
- * @author: Tamas-Imre Lukacs
+ * @author: Riplexus <riplexus@gmail.com>
  */
 
 define([
@@ -85,7 +85,7 @@ define([
             var i, view, viewName, self;
 
             self = this;
-            self.obj = new AppRouter;
+            self.obj = new AppRouter();
             self.viewList = viewList;
 
             /*
@@ -97,7 +97,7 @@ define([
 
                 if (viewName in self.viewList) {
                     view = new (self.viewList[viewName].extend({
-                        router: self
+                        dXRouter: self
                     }))();
 
                     self.viewCache[viewName] = view;
@@ -120,7 +120,7 @@ define([
                         self.obj.on('route:'+viewName, function() {
 
                             /*
-                             * Store the route parameters in <router.parameters> for the
+                             * Store the route parameters in <dXRouter.parameters> for the
                              * views. The <isRouting> flag will be used to clear and leave
                              * the currentView after initializing the new view with his
                              * template in <dXUpdate>.
@@ -148,7 +148,7 @@ define([
 
                             if (!(viewName in self.viewCache)) {
                                 view = new (self.viewList[viewName].extend({
-                                    router: self
+                                    dXRouter: self
                                 }))();
                                 self.viewCache[viewName] = view;
 

@@ -1,5 +1,3 @@
-**Work in Progress**
-
 # Dexter (DX)
 a responsive JS App framework with the power of backbone.js and requireJS
 
@@ -140,7 +138,7 @@ define(function() {
 
     window.console = {
         log: function() {},
-        err: function() {},
+        error: function() {},
         warn: function() {},
         trace: function() {}
     };

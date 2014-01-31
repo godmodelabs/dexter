@@ -23,17 +23,19 @@
 
 define(function() {
 
-    Array.prototype.filter = function(fun /*, thisp*/) {
-        var len = this.length >>> 0;
-        if (typeof fun != "function") {
+    Array.prototype.filter = function(fun/*, thisp*/) {
+        var len, res, thisp, i, val;
+
+        len = this.length >>> 0;
+        if (typeof fun !== "function") {
             throw new TypeError();
         }
 
-        var res = new Array();
-        var thisp = arguments[1];
-        for (var i = 0; i < len; i++) {
+        res = [];
+        thisp = arguments[1];
+        for (i = 0; i < len; i++) {
             if (i in this) {
-                var val = this[i]; // in case fun mutates this
+                val = this[i]; // in case fun mutates this
                 if (fun.call(thisp, val, i)) {
                     res.push(val);
                 }

@@ -8,6 +8,7 @@ define(function() {
      * @param {string} fname
      * @param {Array} [args]
      * @param {object} [scope]
+     * @author Riplexus <riplexus@gmail.com>
      * @ignore
      */
 

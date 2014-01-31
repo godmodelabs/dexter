@@ -1,7 +1,7 @@
 /**
  *
  *
- * @author: Tamas-Imre Lukacs
+ * @author: Riplexus <riplexus@gmail.com>
  */
 
 require.config({

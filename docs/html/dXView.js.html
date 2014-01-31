@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Dexter Source: views/dXView.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	
+	<link type="text/css" rel="stylesheet" href="styles/site.readable.css">
+	
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">Dexter</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu inline">
+						
+						<li>
+							<a href="dXCollection.html">dXCollection</a>
+						</li>
+						
+						<li>
+							<a href="dXItem.html">dXItem</a>
+						</li>
+						
+						<li>
+							<a href="dXModel.html">dXModel</a>
+						</li>
+						
+						<li>
+							<a href="dXResponsiveView.html">dXResponsiveView</a>
+						</li>
+						
+						<li>
+							<a href="dXView.html">dXView</a>
+						</li>
+						
+						<li>
+							<a href="Router.html">Router</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+			<div class="span12">
+				
+				<div id="main">
+					
+
+
+		<h1 class="page-title">Source: views/dXView.js</h1>
+    
+    <section>
+        <article>
+            <pre class="sunlight-highlight-javascript linenums">define([
+    'libs/debug',
+    'underscore',
+    'jquery',
+    'backbone',
+    'libs/uuid',
+    'libs/applyMaybe',
+    'libs/pipe',
+    'epoxy',
+    'shim!Function.prototype.bind'
+], function(
+    debug,
+    _, $,
+    Backbone,
+    uuid,
+    applyMaybe,
+    pipe
+) {
+
+    debug = debug('DX');
+
+    /**
+     * This is the basic view of the dexter framework. It
+     * defined the required attributes and methods, prefixed
+     * with dX. dXView supports subViews, loading element
+     * injection, unique identifiers, enter and leave methods,
+     * automatic template loading and html caching.
+     *
+     * @class dXView
+     * @author Riplexus &lt;riplexus@gmail.com>
+     * @example
+     * dXView.extend({
+     *   dXName: 'myView',
+     *
+     *   initialize: function() {},
+     *   enter: function() {},
+     *   leave: function() {}
+     * });
+     */
+
+    var dXView = Backbone.Epoxy.View.extend(/** @lends dXView.prototype */{
+
+        /**
+         * Generate a unique id for this view and call
+         * {@link dXView#dXEnter} afterwards to insert the
+         * template.
+         */
+
+        initialize: function initialize() {
+            this.dXId = 'dX-' + uuid();
+            this.dXConnect();
+            this.dXEnter();
+        },
+
+        /**
+         * This method will be called by Backbone. It returns
+         * a css selector for the desired location of the
+         * template. Dexter uses elements with data-dX attributes.
+         * To reduce the DOM lookup time, use the scope (of a
+         * potential parent element) if available.
+         *
+         * @returns {string}
+         */
+
+        el: function el() {
+            return this.dXScope += ' [data-dX='+this.dXName+']';
+        },
+
+        /**
+         *
+         */
+
+        $el: null,
+
+        /**
+         * The id of this view. A uuid will be generated on
+         * initialization and assigned. The element containing
+         * this views template in the DOM will have his id set
+         * to this value.
+         */
+
+        dXId: null,
+
+        /**
+         *
+         */
+
+        dXName: null,
+
+        /**
+         * A CSS selector to reduce DOM lookup time on initializing
+         * this view. Useful if this is used as a subView.
+         */
+
+        dXScope: '',
+
+        /**
+         * If the view is not needed (e.g. because the user
+         * navigates away), the template will be detached and
+         * cached here for further reuse.
+         */
+
+        dXCache: null,
+
+        /**
+         * The subview cache contains the instances of the subviews.
+         * They are always extending dXView. The keys are the
+         * subview dXNames.
+         */
+
+        dXSubViewCache: {},
+
+        /**
+         * This Array contains a list of the required subview names
+         * for this view. They will be loaded and managed without
+         * further developer input.
+         * Overwrite this array to load subviews.
+         */
+
+        dXSubViews: [],
+
+        /**
+         * This object contains the behaviour configuration of a
+         * dXView mostly in form of flags.
+         * The injection of the loading screen can be disabled,
+         * if not needed. If your view uses asynchronous rendering,
+         * set clearLoading to false and call {@link dXView#dXClearLoading}
+         * manually. If you want to leave the view present after
+         * leaving, set the flag here. The template name can be
+         * overwritten too (defaults to the provided dXName).
+         */
+
+        dXConfig: {
+            clearViewOnLeave: true,
+            setLoading: true,
+            clearLoading: true,
+            templateName: null
+        },
+
+        /**
+         *
+         */
+
+        dXRouter: null,
+
+        /**
+         * Tries to return every subview mentioned in {@link dXView#dXSubViews}.
+         * If a view is not yet cached, create a new instance and
+         * add this scope.
+         *
+         * @returns {object} Returns the {@link dXView#dXSubViewCache}.
+         */
+
+        dXGetSubViews: function dXGetSubViews() {
+            var i, subView, SubView, subViews, subViewName;
+
+            subViews = {};
+
+            for (i=this.dXSubViews.length; i--;) {
+                subViewName = this.dXSubViews[i];
+
+                if (subViewName in this.dXSubViewCache) {
+                    subView = this.dXSubViewCache[subViewName];
+                    if ('dXEnter' in subView) {
+                        subView.dXEnter();
+                    }
+
+                } else {
+                    SubView = require('views/'+this.dXSubViews[i]);
+                    SubView = SubView.extend({
+                        dXScope: '#'+this.dXId,
+                        dXRouter: this.dXRouter
+                    });
+                    subView = new SubView();
+                }
+
+                subViews[subViewName] = subView;
+            }
+
+            this.dXSubViewCache = subViews;
+
+            return this.dXSubViewCache;
+        },
+
+        /**
+         * This is one of the main methods of a dXView. It will be
+         * called on initializing and further entering.
+         * The template will be required synchronously (preloaded
+         * with the templateLoader plugin), any static template data
+         * will be rendered from {@link dXView#dXTemplateData} and
+         * inserted with {@link dXView#dXInsert}. The loading screen
+         * will be injected and removed if configured and the subviews
+         * will be called via {@link dXView#dXGetSubViews}.
+         *
+         * @param {boolean} [propagate] If false, don't render the subviews.
+         */
+
+        dXEnter: function dXEnter(propagate) {
+            debug.lightgreen('prepare #'+this.dXName+' ['+(this.dXRouter.parameters||'')+']');
+
+            var template, templateName;
+
+            /*
+             * Prepend loading screen, if configured. The template
+             * is preloaded as configured in dexter.conf.js.
+             */
+
+            if (this.dXConfig.setLoading) {
+                this.dXSetLoading();
+            }
+
+            /*
+             * Insert view template. We can use synchronous require
+             * here, because the templates are already loaded by the
+             * templateLoader plugin. Use cached nodes if available.
+             */
+
+            if (!this.dXCache) {
+                templateName = this.dXConfig.templateName || this.dXName;
+                template = require('text!templates/'+templateName+'.html');
+
+                try {
+                    template = this.dXTemplateRenderer(template,
+                        typeof this.dXTemplateData === 'function' ?
+                            this.dXTemplateData() : this.dXTemplateData);
+
+                } catch(err) {
+                    debug.palevioletred('stopped #'+this.dXName+': '+err);
+                    return;
+                }
+
+            } else {
+                debug.lightgray('get cached template for #'+this.dXName);
+                template = this.dXCache;
+            }
+
+            /*
+             * Empty container and insert template. Set unique id for
+             * further dom access.
+             */
+
+            this.dXInsert(template);
+
+            /*
+             * Reinsert loading screen after emptying the container.
+             */
+
+            if (this.dXConfig.setLoading) {
+                this.dXSetLoading();
+            }
+
+            /*
+             * Load subviews.
+             */
+
+            if (propagate !== false) {
+                this.dXGetSubViews();
+            }
+
+            /*
+             * Remove loading screen if configured.
+             */
+
+            if (this.dXConfig.clearLoading) {
+                this.dXClearLoading();
+            }
+
+            // Call enter functions
+            setTimeout(function() {
+                this.dXCallEnter();
+            }.bind(this), 0);
+        },
+
+        /**
+         * Insert the template into the DOM. This is detached, so you
+         * can override it, if you want to insert the template into a
+         * special, case-sensitive container.
+         *
+         * @param {string|HTMLElement} template
+         */
+
+        dXInsert: function dXInsert(template) {
+            this.$el
+                .empty()
+                .append(template)
+                .attr('id', this.dXId)
+                .removeAttr('data-dX');
+        },
+
+        /**
+         * This will be called, if the view is not longer needed. It
+         * tells the subviews to leave and detaches the template.
+         *
+         * @param {boolean} propagate If false, don't leave the subviews.
+         */
+
+        dXLeave: function dXLeave(propagate) {
+            debug.palevioletred('leave #'+this.dXName);
+
+            var i, subView;
+
+            this.dXCallLeave();
+
+            /*
+             * Tell subviews to leave.
+             */
+
+            if (propagate !== false) {
+                for (i=this.dXSubViews.length; i--;) {
+                    subView = this.dXSubViewCache[this.dXSubViews[i]];
+
+                    if ('dXLeave' in subView) {
+                        subView.dXLeave();
+                    }
+                }
+            }
+
+            /*
+             * Cache html.
+             */
+
+            if (this.dXConfig.clearViewOnLeave) {
+                this.dXCache = this.$el.contents().detach();
+            }
+
+            this.$el.attr('data-dX', this.dXName);
+        },
+
+        /**
+         * This will be called in {@link dXView#dXEnter}. It
+         * calls the views enter function, if defined.
+         */
+
+        dXCallEnter: function dXCallEnter() {
+            debug.green('enter #'+this.dXName);
+            applyMaybe(this, 'enter');
+        },
+
+        /**
+         * This will be called in {@link dXView#dXLeave}. It
+         * calls the views leave function, if defined.
+         */
+
+        dXCallLeave: function dXCallLeave() {
+            applyMaybe(this, 'leave');
+        },
+
+        /**
+         * Prepend the loading screen. The template
+         * is preloaded as configured in dexter.conf.js.
+         * To support absolute positioned loading elements,
+         * save the current position attribute and replace
+         * 'static' with 'relative' until the loading
+         * screen is removed.
+         */
+
+        dXSetLoading: function dXSetLoading() {
+            if (this.$el.css('position') === 'static') {
+                this.$el.css('position', 'relative');
+                this.$el.dXPosition = 'static';
+            }
+
+            this.$el.prepend(require('text!templates/loading.html'));
+        },
+
+        /**
+         * Remove the loading screen for this view.
+         * Restore the previously saved position attribute.
+         */
+
+        dXClearLoading: function dXClearLoading() {
+            if (this.$el.dXPosition) {
+                this.$el.css('position', this.$el.dXPosition);
+                delete this.$el.dXPosition;
+            }
+
+            this.$el.children('.loading').remove();
+        },
+
+        /**
+         * This method can be overridden to provide static
+         * data for the template. It can be an object or a
+         * function returning an object.
+         */
+
+        dXTemplateData: function() {},
+
+        /**
+         * Overwrite this method with the template renderer of
+         * your choice. For an example of the use of mustache,
+         * look at the example branch.
+         *
+         * @param {string} template
+         * @param {object} data
+         * @returns string
+         */
+
+        dXTemplateRenderer: function(template, data) {
+            return template;
+        },
+
+        /**
+         * To communicate between views, distant collections
+         * and models, dexter uses an event emitter as a 'Pipe
+         * Network'. It can be (dis)connected with
+         * {@link dXView#dXDisconnect} and {@link dXView#dXConnect}.
+         */
+
+        dXPipe: null,
+
+        /**
+         * Disconnect from the dXPipe Network. If disconnected,
+         * events can still be bound, but will only be called
+         * when reconnected.
+         */
+
+        dXDisconnect: function dXDisconnect() {
+            this.dXPipe.isOffline = true;
+        },
+
+        /**
+         * (Re)connect to the dXPipe event emitter network.
+         */
+
+        dXConnect: function dXConnect() {
+            var self = this;
+
+            if (self.dXPipe) {
+                self.dXPipe.isOffline = false;
+                return;
+            }
+
+            self.dXPipe = {
+                isOffline: false,
+
+                emit: function() {
+                    if (!self.dXPipe.isOffline) {
+                        pipe.emit.apply(self, arguments);
+                    }
+                },
+
+                on: function(event, fn) {
+                    (function(fn) {
+                        pipe.on(event, function() {
+                            if (!self.dXPipe.isOffline) {
+                                fn.apply(self, arguments);
+                            }
+                        });
+                    })(fn);
+                }
+            };
+        }
+    });
+
+    return dXView;
+});</pre>
+        </article>
+    </section>
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="copyright">
+		BoerseGo AG © 2014
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
+		on Fri Jan 31 2014 21:51:25 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<script src="scripts/sunlight.js"></script>
+	<script src="scripts/sunlight.javascript.js"></script>
+	<script src="scripts/sunlight-plugin.doclinks.js"></script>
+	<script src="scripts/sunlight-plugin.linenumbers.js"></script>
+	<script src="scripts/sunlight-plugin.menu.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/jquery.scrollTo.js"></script>
+	<script src="scripts/jquery.localScroll.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+
+	<script>  Sunlight.highlightAll({lineNumbers:true,  showMenu: true, enableDoclinks :true}); </script>
+
+	<script>
+		$( function () {
+			$( "#toc" ).toc( {
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : 60
+			} );
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+
+		} );
+	</script>
+
+	
+
+</body>
+</html>

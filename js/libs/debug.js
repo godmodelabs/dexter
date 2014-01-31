@@ -67,7 +67,7 @@ function debug(name) {
     }
 
     /*
-     * color plugin by tamas-imre lukacs
+     * color plugin by Riplexus
      */
 
     var colors = require('configs/debug.conf').colors;

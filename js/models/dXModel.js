@@ -11,8 +11,6 @@ define([
     pipe
 ) {
 
-    debug = debug('DX');
-
     /**
      * This basic model in the dexter framework
      * is used to connect the model to the pipe
@@ -23,7 +21,7 @@ define([
      * {@link dXModel#initialize}.
      *
      * @class dXModel
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     var dXModel = Backbone.Model.extend(/** @lends dXModel.prototype */{

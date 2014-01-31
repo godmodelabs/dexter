@@ -8,6 +8,7 @@ define([
      * @param {Array} a
      * @param {Array} b
      * @returns {Array}
+     * @author Riplexus <riplexus@gmail.com>
      * @ignore
      */
 

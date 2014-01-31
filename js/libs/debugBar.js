@@ -81,11 +81,9 @@ define(function() {
                     var $this, id;
 
                     $this = $(this);
-                    id = $this.attr('data-target');
+                    //id = $this.attr('data-target');
 
                     $this.css('background', 'rgba(0,0,255,0.15)');
-
-                    //if (id in viewCache) {}
                 });
 
                 overlays.on('mouseleave', function() {

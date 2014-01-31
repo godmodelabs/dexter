@@ -1,7 +1,7 @@
 /**
  *
  *
- * @author: Tamas-Imre Lukacs
+ * @author: Riplexus <riplexus@gmail.com>
  */
 
 define([
@@ -25,12 +25,12 @@ define([
 ) {
 
     return {
-        router: null,
+        dXRouter: null,
         init: function() {
 
             // Start router.
-            this.router = Router;
-            this.router.init();
+            this.dXRouter = Router;
+            this.dXRouter.init();
         }
-    }
+    };
 });

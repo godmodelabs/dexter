@@ -5,7 +5,7 @@
     "source": {
         "include": ["./js/"],
         "includePattern": ".+\\.js(doc)?$",
-        "excludePattern": "core|plugins|internals|externals"
+        "excludePattern": "main-build"
     },
     "plugins"   : ["plugins/markdown"],
     "templates" : {
@@ -14,9 +14,9 @@
         "default"         : {
             "outputSourceFiles" : true
         },
-        "systemName"      : "Dexter Dokumentation",
+        "systemName"      : "Dexter",
         "footer"          : "",
-        "copyright"       : "BoerseGo AG © 2013",
+        "copyright"       : "BoerseGo AG © 2014",
         "navType"         : "inline",
         "theme"           : "readable",
         "linenums"        : true,
@@ -28,9 +28,9 @@
         "hardwrap" : true
     },
     "opts": {
-        "template": "/usr/local/lib/node_modules/jsdoc/templates/docstrap",
+        "template": "docs/template",
         "encoding": "utf8",
-        "destination": "docs/js",
+        "destination": "docs/html",
         "recurse": true,
         "private": true
     }
