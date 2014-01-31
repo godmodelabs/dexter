@@ -16,7 +16,7 @@
         },
         "systemName"      : "Dexter",
         "footer"          : "",
-        "copyright"       : "BoerseGo AG © 2014",
+        "copyright"       : "",
         "navType"         : "inline",
         "theme"           : "readable",
         "linenums"        : true,

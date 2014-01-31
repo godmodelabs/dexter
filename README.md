@@ -187,8 +187,8 @@ Mario = dXModel.extend({
 todo doc
 
 ### Debugging
-Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable full report, simply execute
-the following in any browser console, the setting will be stored in localStorage:
+Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable full report,
+simply execute the following in any browser console, the setting will be stored in localStorage:
 
 ```javascript
 debug.enable('*');
@@ -219,7 +219,7 @@ The colors will be provided to the logger as methods:
 log.green('message'/* , ...*/);
 ```
 
-You should definitely check out the project home ([Debug]) for more information about this nice tool.
+You should definitely check out the project home ([Debug]) for more information about this useful tool.
 
 ### Testing
 We provide a pre-configured [Karma] file (using [Jasmine] as testing framework) and activated code coverage. Put
@@ -233,36 +233,32 @@ make test
 Don't forget to update /configs/karma.conf.js and the /js/tests/test-main.js entry point if you include new libraries
 in your project.
 
-## Used Libraries
+### Documentation
+If you want to use JSDoc for automated documentation, you can easily do so with the available configuration
+file under /configs/. You can compile it with the provided template or your own by declaring the path in the jsdoc.json
+or replacing the content of /docs/template.
 
-- [NPM]
-- [Bower]
+## Libraries used in this framework
+
 - [Backbone.js]
+    - Underscore
+    - Backbone Epoxy
 - [RequireJS]
-- [Mustache]
+    - Text Plugin
+    - RequireJS-plugins
 - [jQuery]
 - [Modernizr]
 - [EventEmitter2]
-- [Jasmine]
-- [Karma]
-- [Sinon.JS]
+- [Simple State Manager]
 
-## Todos
-- Test: responsive view
-- Test: base view
-- Test: shim plugin
-- Test: viewLoader plugin
-- Test: console shim
-- Test: indexOf
-- Test: getKeys
-- Test: applyMaybe
-
-## Ideas
+## In Development
 - Extend backbone.js Router
 - Script: automatic installation of new components
 - Script: create a new view
 - CSS: css file loading via javascript, without media queries, dependent on current state
 - HTML: template loading via plugin, dependent on current state
+- Filesystem cached main-build.js
+- Replace jquery with underscore only?
 
 ## Special thanks to:
 - The contributors of [Backbone.js]
@@ -278,11 +274,9 @@ and of course every contributor of the libraries listed above, awesome work!
 [RequireJS]: <https://github.com/jrburke/requirejs>
 [NPM]: <http://npmjs.org/>
 [Bower]: <http://bower.io/>
-[Mustache]: <http://mustache.github.io/>
 [jQuery]: <http://jquery.com/>
 [Modernizr]: <http://modernizr.com/>
 [EventEmitter2]: <https://github.com/hij1nx/EventEmitter2>
 [Jasmine]: <http://jasmine.github.io/>
 [Karma]: <http://karma-runner.github.io/0.8/index.html>
-[Sinon.JS]: <http://sinonjs.org/>
 [Debug]: <https://github.com/visionmedia/debug>
