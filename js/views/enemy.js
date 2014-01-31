@@ -15,7 +15,7 @@ define([
      * changes and updates the position of this view.
      *
      * @class EnemyView
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     return dXItem.extend(/** @lends EnemyView.prototype */{

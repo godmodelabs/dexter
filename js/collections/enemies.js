@@ -22,7 +22,7 @@ define([
      * itself. Look at the registered events for further information.
      *
      * @class EnemiesCollection
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     return dXCollection.extend(/** @lends EnemiesCollection.prototype */{
@@ -128,14 +128,18 @@ define([
         getClosest: function(x, y) {
             if (this.length === 0) { return null; }
 
-            var height = this.container.$el.height();
+            var height,
+                enemiesX,
+                enemiesY,
+                toCenter,
+                dist, i;
+
+            height = this.container.$el.height();
+            enemiesX = this.pluck('x');
+            enemiesY = this.pluck('y');
+            toCenter = this.at(0).get('width')/2;
 
             if (y > height+50) { return -1; }
-
-            var enemiesX = this.pluck('x'),
-                enemiesY = this.pluck('y'),
-                toCenter = this.at(0).get('width')/2,
-                dist, i;
 
             for (i=enemiesX.length; i--;) {
                 dist = Math.sqrt(

@@ -15,7 +15,7 @@ define([
      * through the pipe and the shot model will do the rest.
      *
      * @class PlayerModel
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     return dXModel.extend(/** @lends PlayerModel.prototype */{

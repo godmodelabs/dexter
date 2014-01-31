@@ -2,7 +2,7 @@
  * Get every view registered as global or routed
  * and pre load the view objects.
  *
- * @author: Tamas-Imre Lukacs
+ * @author: Riplexus <riplexus@gmail.com>
  */
 
 define([
@@ -36,7 +36,9 @@ define([
 
                 if (!view.prototype.dXName) { continue; }
 
-                if (subView = view.prototype.dXSubViews) {
+                subView = view.prototype.dXSubViews;
+
+                if (subView) {
                     for (j=subView.length; j--;) {
                         subViewList.push('views/'+subView[j]);
                     }
@@ -86,7 +88,8 @@ define([
             }
 
             getViewList(require, viewList, ret, function(ret) {
-                var keys = Object.keys(ret);
+                var missing, found, i, j,
+                    keys = Object.keys(ret);
                 log.yellow('registered views:\n     #'+keys.join(',\n     #'));
 
                 /*
@@ -94,11 +97,12 @@ define([
                  */
 
                 if (keys.length < viewList.length) {
-                    var missing = [], found;
+                    missing = [];
 
-                    for (var i=viewList.length; i--;) {
+                    for (i = viewList.length; i--;) {
                         found = false;
-                        for (var j=keys.length; j--;) {
+
+                        for (j = keys.length; j--;) {
                             if (viewList[i].indexOf(keys[j]) !== -1) {
                                 found = true;
                             }
@@ -115,5 +119,5 @@ define([
                 load(ret);
             });
         }
-    }
+    };
 });

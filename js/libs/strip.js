@@ -6,7 +6,6 @@ define(function() {
      * @param {string} str
      * @returns {string}
      * @source: http://stackoverflow.com/questions/822452/strip-html-from-text-javascript
-     * @global
      */
 
     return function strip(str) {

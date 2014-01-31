@@ -6,7 +6,8 @@ define([
     'libs/uuid',
     'libs/applyMaybe',
     'libs/pipe',
-    'epoxy'
+    'epoxy',
+    'shim!Function.prototype.bind'
 ], function(
     debug,
     _, $,
@@ -26,7 +27,7 @@ define([
      * automatic template loading and html caching.
      *
      * @class dXView
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      * @example
      * dXView.extend({
      *   dXName: 'myView',
@@ -66,6 +67,12 @@ define([
         },
 
         /**
+         *
+         */
+
+        $el: null,
+
+        /**
          * The id of this view. A uuid will be generated on
          * initialization and assigned. The element containing
          * this views template in the DOM will have his id set
@@ -73,6 +80,12 @@ define([
          */
 
         dXId: null,
+
+        /**
+         *
+         */
+
+        dXName: null,
 
         /**
          * A CSS selector to reduce DOM lookup time on initializing
@@ -125,6 +138,12 @@ define([
         },
 
         /**
+         *
+         */
+
+        dXRouter: null,
+
+        /**
          * Tries to return every subview mentioned in {@link dXView#dXSubViews}.
          * If a view is not yet cached, create a new instance and
          * add this scope.
@@ -133,7 +152,7 @@ define([
          */
 
         dXGetSubViews: function dXGetSubViews() {
-            var i, subView, subViews, subViewName;
+            var i, subView, SubView, subViews, subViewName;
 
             subViews = {};
 
@@ -147,18 +166,20 @@ define([
                     }
 
                 } else {
-                    subView = require('views/'+this.dXSubViews[i]);
-                    subView = subView.extend({
+                    SubView = require('views/'+this.dXSubViews[i]);
+                    SubView = SubView.extend({
                         dXScope: '#'+this.dXId,
-                        router: this.router
+                        dXRouter: this.dXRouter
                     });
-                    subView = new subView();
+                    subView = new SubView();
                 }
 
                 subViews[subViewName] = subView;
             }
 
-            return this.dXSubViewCache = subViews;
+            this.dXSubViewCache = subViews;
+
+            return this.dXSubViewCache;
         },
 
         /**
@@ -171,11 +192,11 @@ define([
          * will be injected and removed if configured and the subviews
          * will be called via {@link dXView#dXGetSubViews}.
          *
-         * @param {boolean} propagate If false, don't render the subviews.
+         * @param {boolean} [propagate] If false, don't render the subviews.
          */
 
         dXEnter: function dXEnter(propagate) {
-            debug.lightgreen('prepare #'+this.dXName+' ['+(this.router.parameters||'')+']');
+            debug.lightgreen('prepare #'+this.dXName+' ['+(this.dXRouter.parameters||'')+']');
 
             var template, templateName;
 
@@ -245,10 +266,9 @@ define([
             }
 
             // Call enter functions
-            var self = this;
             setTimeout(function() {
-                self.dXCallEnter();
-            }, 0);
+                this.dXCallEnter();
+            }.bind(this), 0);
         },
 
         /**

@@ -14,7 +14,7 @@ define([
      * clicks on the enemy space.
      *
      * @class ControlView
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     return dXResponsiveView.extend(/** @lends ControlView.prototype */{

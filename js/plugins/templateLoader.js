@@ -2,7 +2,7 @@
  * Get the config of this application the required
  * views and pre load every template for them.
  *
- * @author: Tamas-Imre Lukacs
+ * @author: Riplexus <riplexus@gmail.com>
  */
 
 define([
@@ -20,9 +20,7 @@ define([
 
     debug = debug('DX');
 
-    var templateList;
-
-    templateList = [];
+    var templateList = [];
 
     return {
         load: function(resourceId, require, load, config) {
@@ -53,6 +51,6 @@ define([
                 load(Array.prototype.slice.call(arguments, 0));
             });
         }
-    }
+    };
 
 });

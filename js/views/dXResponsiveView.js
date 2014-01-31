@@ -19,7 +19,8 @@ define([
 
     debug = debug('DX');
 
-    var viewList, currentState, state, stateName;
+    var viewList, currentState, state, stateName,
+        dXResponsiveView;
 
     viewList = {};
     currentState = null;
@@ -51,7 +52,7 @@ define([
                                 view.dXEnter(false); // false: don't propagate
                             }
                         }
-                    }
+                    };
                 })(stateName)
             };
             ssm.addState(state);
@@ -73,7 +74,7 @@ define([
      * It uses the simple state manager to manage the states.
      *
      * @class dXResponsiveView
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      * @example
      * dXResponsiveView.extend({
      *   dXName: 'myResponsiveView',
@@ -96,7 +97,7 @@ define([
      * });
      */
 
-    var dXResponsiveView = dXView.extend(/** @lends dXResponsiveView.prototype */{
+    dXResponsiveView = dXView.extend(/** @lends dXResponsiveView.prototype */{
 
         /**
          * Extend the {@link dXView#initialize} method, to register

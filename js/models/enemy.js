@@ -14,7 +14,7 @@ define([
      * current position and his dimensions.
      *
      * @class EnemyModel
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     return dXModel.extend(/** @lends EnemyModel.prototype */{

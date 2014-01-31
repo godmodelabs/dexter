@@ -5,14 +5,22 @@
  * @param obj2
  * @returns obj3 a new object based on obj1 and obj2
  * @source http://stackoverflow.com/a/171256/795605
- * @global
+ * @ignore
  */
 
 define(function() {
     return function override(obj1,obj2){
-        var obj3 = {};
-        for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
-        for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
+        var obj3 = {}, attr;
+        for (attr in obj1) {
+            if (obj1.hasOwnProperty(attr)) {
+                obj3[attr] = obj1[attr];
+            }
+        }
+        for (attr in obj2) {
+            if (obj2.hasOwnProperty(attr)) {
+                obj3[attr] = obj2[attr];
+            }
+        }
         return obj3;
-    }
+    };
 });

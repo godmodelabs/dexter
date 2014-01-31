@@ -15,7 +15,7 @@ define([
      * emits the playerMove event.
      *
      * @class PlaygroundView
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     return dXResponsiveView.extend(/** @lends PlaygroundView.prototype */{

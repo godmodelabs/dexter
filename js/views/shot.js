@@ -16,7 +16,7 @@ define([
      * of the container if the model changes values.
      *
      * @class ShotView
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     return dXView.extend(/** @lends ShotView.prototype */{

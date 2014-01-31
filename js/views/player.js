@@ -17,7 +17,7 @@ define([
      * the position on model data change.
      *
      * @class PlayerView
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     return dXResponsiveView.extend(/** @lends PlayerView.prototype */{

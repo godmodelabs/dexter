@@ -4,14 +4,15 @@
  * be loaded for that user with this plugin, thanks to
  * modernizr.
  *
- * @author: Tamas-Imre Lukacs
+ * @author: Riplexus <riplexus@gmail.com>
  */
 
 define(function() {
 
-    var window = window || {};
+    var window = window || {},
+        exists;
 
-    var exists = function(name) {
+    exists = function(name) {
         var vars, cur, scope, i, l;
 
         vars = name.split('.');
@@ -38,11 +39,12 @@ define(function() {
                 ], function() {
                     load();
                 });
+
             } else {
                 load();
             }
 
         }
-    }
+    };
 
 });

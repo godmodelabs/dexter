@@ -15,7 +15,7 @@ define([
      * trigger collision checks if it is flying.
      *
      * @class ShotModel
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     return dXModel.extend(/** @lends ShotModel.prototype */{

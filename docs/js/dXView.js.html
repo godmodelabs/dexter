@@ -53,11 +53,11 @@
 						</li>
 						
 						<li>
-							<a href="EnemiesCollection.html">EnemiesCollection</a>
+							<a href="EditorView.html">EditorView</a>
 						</li>
 						
 						<li>
-							<a href="EnemiesView.html">EnemiesView</a>
+							<a href="EnemiesCollection.html">EnemiesCollection</a>
 						</li>
 						
 						<li>
@@ -90,6 +90,10 @@
 						
 						<li>
 							<a href="ShotView.html">ShotView</a>
+						</li>
+						
+						<li>
+							<a href="SpaceView.html">SpaceView</a>
 						</li>
 						
 
@@ -159,7 +163,8 @@
     'libs/uuid',
     'libs/applyMaybe',
     'libs/pipe',
-    'epoxy'
+    'epoxy',
+    'shim!Function.prototype.bind'
 ], function(
     debug,
     _, $,
@@ -179,7 +184,7 @@
      * automatic template loading and html caching.
      *
      * @class dXView
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus &lt;riplexus@gmail.com>
      * @example
      * dXView.extend({
      *   dXName: 'myView',
@@ -219,17 +224,29 @@
         },
 
         /**
-         * The id of this view. It has to be the name of the
-         * view, the template file, the data-dX attribute of
-         * the destination node for the template and unique
-         * in our application.
+         *
+         */
+
+        $el: null,
+
+        /**
+         * The id of this view. A uuid will be generated on
+         * initialization and assigned. The element containing
+         * this views template in the DOM will have his id set
+         * to this value.
          */
 
         dXId: null,
 
         /**
+         *
+         */
+
+        dXName: null,
+
+        /**
          * A CSS selector to reduce DOM lookup time on initializing
-         * this view. Useful if this view is a subView.
+         * this view. Useful if this is used as a subView.
          */
 
         dXScope: '',
@@ -245,15 +262,16 @@
         /**
          * The subview cache contains the instances of the subviews.
          * They are always extending dXView. The keys are the
-         * subview dXId names.
+         * subview dXNames.
          */
 
         dXSubViewCache: {},
 
         /**
-         * This Array contains a list of the dXId names of the
-         * required subViews for this view. They will be loaded
-         * and managed without further developer input.
+         * This Array contains a list of the required subview names
+         * for this view. They will be loaded and managed without
+         * further developer input.
+         * Overwrite this array to load subviews.
          */
 
         dXSubViews: [],
@@ -266,7 +284,7 @@
          * set clearLoading to false and call {@link dXView#dXClearLoading}
          * manually. If you want to leave the view present after
          * leaving, set the flag here. The template name can be
-         * overridden too (defaults to the provided dXId attribute).
+         * overwritten too (defaults to the provided dXName).
          */
 
         dXConfig: {
@@ -277,6 +295,12 @@
         },
 
         /**
+         *
+         */
+
+        dXRouter: null,
+
+        /**
          * Tries to return every subview mentioned in {@link dXView#dXSubViews}.
          * If a view is not yet cached, create a new instance and
          * add this scope.
@@ -285,7 +309,7 @@
          */
 
         dXGetSubViews: function dXGetSubViews() {
-            var i, subView, subViews, subViewName;
+            var i, subView, SubView, subViews, subViewName;
 
             subViews = {};
 
@@ -299,18 +323,20 @@
                     }
 
                 } else {
-                    subView = require('views/'+this.dXSubViews[i]);
-                    subView = subView.extend({
+                    SubView = require('views/'+this.dXSubViews[i]);
+                    SubView = SubView.extend({
                         dXScope: '#'+this.dXId,
-                        router: this.router
+                        dXRouter: this.dXRouter
                     });
-                    subView = new subView();
+                    subView = new SubView();
                 }
 
                 subViews[subViewName] = subView;
             }
 
-            return this.dXSubViewCache = subViews;
+            this.dXSubViewCache = subViews;
+
+            return this.dXSubViewCache;
         },
 
         /**
@@ -323,11 +349,11 @@
          * will be injected and removed if configured and the subviews
          * will be called via {@link dXView#dXGetSubViews}.
          *
-         * @param {boolean} propagate If false, don't render the subviews.
+         * @param {boolean} [propagate] If false, don't render the subviews.
          */
 
         dXEnter: function dXEnter(propagate) {
-            debug.lightgreen('prepare #'+this.dXName+' ['+(this.router.parameters||'')+']');
+            debug.lightgreen('prepare #'+this.dXName+' ['+(this.dXRouter.parameters||'')+']');
 
             var template, templateName;
 
@@ -343,7 +369,7 @@
             /*
              * Insert view template. We can use synchronous require
              * here, because the templates are already loaded by the
-             * templateLoader plugin. Used cached nodes if available.
+             * templateLoader plugin. Use cached nodes if available.
              */
 
             if (!this.dXCache) {
@@ -397,10 +423,9 @@
             }
 
             // Call enter functions
-            var self = this;
             setTimeout(function() {
-                self.dXCallEnter();
-            }, 0);
+                this.dXCallEnter();
+            }.bind(this), 0);
         },
 
         /**
@@ -415,7 +440,8 @@
             this.$el
                 .empty()
                 .append(template)
-                .attr('id', this.dXId);
+                .attr('id', this.dXId)
+                .removeAttr('data-dX');
         },
 
         /**
@@ -451,8 +477,10 @@
              */
 
             if (this.dXConfig.clearViewOnLeave) {
-                this.dXCache = this.$el.children().detach();
+                this.dXCache = this.$el.contents().detach();
             }
+
+            this.$el.attr('data-dX', this.dXName);
         },
 
         /**
@@ -603,7 +631,7 @@
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
-		on Sun Jan 26 2014 16:54:51 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		on Fri Jan 31 2014 21:26:38 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>
 			</div>

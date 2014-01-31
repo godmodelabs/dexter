@@ -24,7 +24,7 @@ define([
      * if items are added to the collection.
      *
      * @class dXItem
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     var dXItem = dXView.extend(/** @lends dXItem.prototype */{

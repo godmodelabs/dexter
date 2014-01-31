@@ -3,15 +3,13 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'libs/pipe',
+    'libs/pipe'
 ], function(
     debug,
     _, $,
     Backbone,
     pipe
 ) {
-
-    debug = debug('DX');
 
     /**
      * This basic collection in the dexter framework
@@ -23,7 +21,7 @@ define([
      * {@link dXCollection#initialize}.
      *
      * @class dXCollection
-     * @author Tamas-Imre Lukacs
+     * @author Riplexus <riplexus@gmail.com>
      */
 
     var dXCollection = Backbone.Collection.extend(/** @lends dXCollection.prototype */{
