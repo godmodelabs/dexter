@@ -25,7 +25,7 @@ define([
         dXName: 'space',
 
         /**
-         * Load the control and shot views.
+         * Load the control, shot and playground views.
          */
 
         dXSubViews: [

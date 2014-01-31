@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Dexter Class: PlayerView</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	
+	<link type="text/css" rel="stylesheet" href="styles/site.readable.css">
+	
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">Dexter</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu inline">
+						
+						<li>
+							<a href="ControlView.html">ControlView</a>
+						</li>
+						
+						<li>
+							<a href="dXCollection.html">dXCollection</a>
+						</li>
+						
+						<li>
+							<a href="dXItem.html">dXItem</a>
+						</li>
+						
+						<li>
+							<a href="dXModel.html">dXModel</a>
+						</li>
+						
+						<li>
+							<a href="dXResponsiveView.html">dXResponsiveView</a>
+						</li>
+						
+						<li>
+							<a href="dXView.html">dXView</a>
+						</li>
+						
+						<li>
+							<a href="EditorView.html">EditorView</a>
+						</li>
+						
+						<li>
+							<a href="EnemiesCollection.html">EnemiesCollection</a>
+						</li>
+						
+						<li>
+							<a href="EnemyModel.html">EnemyModel</a>
+						</li>
+						
+						<li>
+							<a href="EnemyView.html">EnemyView</a>
+						</li>
+						
+						<li>
+							<a href="PlayerModel.html">PlayerModel</a>
+						</li>
+						
+						<li>
+							<a href="PlayerView.html">PlayerView</a>
+						</li>
+						
+						<li>
+							<a href="PlaygroundView.html">PlaygroundView</a>
+						</li>
+						
+						<li>
+							<a href="Router.html">Router</a>
+						</li>
+						
+						<li>
+							<a href="ShotModel.html">ShotModel</a>
+						</li>
+						
+						<li>
+							<a href="ShotView.html">ShotView</a>
+						</li>
+						
+						<li>
+							<a href="SpaceView.html">SpaceView</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu inline">
+						
+						<li>
+							<a href="global.html#event:boom">boom</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:checkCollision">checkCollision</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:pew">pew</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:player/move">player/move</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:stage">stage</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:start">start</a>
+						</li>
+						
+						<li>
+							<a href="global.html#event:stop">stop</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+		<div class="span8">
+			
+				<div id="main">
+					
+
+
+	<h1 class="page-title">Class: PlayerView</h1>
+<section>
+
+<header>
+    <h2>
+    PlayerView
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+<dt>
+    <h4 class="name" id="PlayerView"><span class="type-signature"></span>new PlayerView<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>The view container showing the players character. Updates
+the position on model data change.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:riplexus@gmail.com">Riplexus</a></li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="player.js_.html">views/player.js</a>, <a href="player.js_.html#sunlight-1-line-15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="model"><span class="type-signature"></span>model<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The model containing the position of the player.</p>
+    </div>
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="player.js_.html">views/player.js</a>, <a href="player.js_.html#sunlight-1-line-30">line 30</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+    
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="enter"><span class="type-signature"></span>enter<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Save the view width in the model to calculate
+the center of the player.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="player.js_.html">views/player.js</a>, <a href="player.js_.html#sunlight-1-line-50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        <p>Listen on coordinate changes and update the position
+of this view.</p>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="player.js_.html">views/player.js</a>, <a href="player.js_.html#sunlight-1-line-37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					
+		<span class="copyright">
+		BoerseGo AG © 2014
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a>
+		on Fri Jan 31 2014 21:46:03 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<div class="span3">
+				<div id="toc"></div>
+			</div>
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<script src="scripts/sunlight.js"></script>
+	<script src="scripts/sunlight.javascript.js"></script>
+	<script src="scripts/sunlight-plugin.doclinks.js"></script>
+	<script src="scripts/sunlight-plugin.linenumbers.js"></script>
+	<script src="scripts/sunlight-plugin.menu.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/jquery.scrollTo.js"></script>
+	<script src="scripts/jquery.localScroll.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+
+	<script>  Sunlight.highlightAll({lineNumbers:true,  showMenu: true, enableDoclinks :true}); </script>
+
+	<script>
+		$( function () {
+			$( "#toc" ).toc( {
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : 60
+			} );
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+
+		} );
+	</script>
+
+	
+
+</body>
+</html>
