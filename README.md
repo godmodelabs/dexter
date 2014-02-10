@@ -1,7 +1,9 @@
 # Dexter (DX)
-a responsive JS App framework with the power of backbone.js and requireJS
-
-## Ideas and Features
+Dexter is a full featured framework using backbone.js combined with requireJS and other libraries useful for
+the development of responsive Single Page Applications. It adds a few ideas of its own and tries to maintain high
+flexibility by providing simple feature interfaces. Want to use your own library? Simply overwrite the feature
+method. But the main goal is to provide the developer an easy All-in-One package to start the implementation
+of your application right after `make install`.
 
 ### Views
 global views, independent, defined in configs/debug.conf.js, automatically loaded by the router on init
@@ -155,7 +157,7 @@ define(['shim!console'], function() {
 ### Pipe event emitter
 One of the problems we often see is the (mostly previously unknown) requirement to send data from one module to
 another across half of your application. To maintain flexibility, reduce the amount of object
-references between each other and to prevent complicated tree traversal, Dexter comes with an Event Emitter
+references between each other and prevent complicated tree traversal, Dexter comes with an Event Emitter
 integrated in every DX prototype. Imagine the Warp Zone in Super Mario Bros. They connect different worlds
 and places so you can send any data (like yourself) from one opening to the other, simply by providing the
 desired world number on your package.
@@ -187,8 +189,8 @@ Mario = dXModel.extend({
 todo doc
 
 ### Debugging
-Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable full report, simply execute
-the following in any browser console, the setting will be stored in localStorage:
+Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable full report,
+simply execute the following in any browser console, the setting will be stored in localStorage:
 
 ```javascript
 debug.enable('*');
@@ -219,7 +221,7 @@ The colors will be provided to the logger as methods:
 log.green('message'/* , ...*/);
 ```
 
-You should definitely check out the project home ([Debug]) for more information about this nice tool.
+You should definitely check out the project home ([Debug]) for more information about this useful tool.
 
 ### Testing
 We provide a pre-configured [Karma] file (using [Jasmine] as testing framework) and activated code coverage. Put
@@ -233,36 +235,32 @@ make test
 Don't forget to update /configs/karma.conf.js and the /js/tests/test-main.js entry point if you include new libraries
 in your project.
 
-## Used Libraries
+### Documentation
+If you want to use JSDoc for automated documentation, you can easily do so with the available configuration
+file under /configs/. You can compile it with the provided template or your own by declaring the path in the
+/configs/jsdoc.json or by replacing the content of /docs/template.
 
-- [NPM]
-- [Bower]
+## Libraries used in this framework
+
 - [Backbone.js]
+    - Underscore
+    - Backbone Epoxy
 - [RequireJS]
-- [Mustache]
+    - Text Plugin
+    - RequireJS-plugins
 - [jQuery]
 - [Modernizr]
 - [EventEmitter2]
-- [Jasmine]
-- [Karma]
-- [Sinon.JS]
+- [Simple State Manager]
 
-## Todos
-- Test: responsive view
-- Test: base view
-- Test: shim plugin
-- Test: viewLoader plugin
-- Test: console shim
-- Test: indexOf
-- Test: getKeys
-- Test: applyMaybe
-
-## Ideas
+## In Development
 - Extend backbone.js Router
 - Script: automatic installation of new components
 - Script: create a new view
 - CSS: css file loading via javascript, without media queries, dependent on current state
 - HTML: template loading via plugin, dependent on current state
+- Filesystem cached main-build.js
+- Replace jquery with underscore only?
 
 ## Special thanks to:
 - The contributors of [Backbone.js]
@@ -278,11 +276,9 @@ and of course every contributor of the libraries listed above, awesome work!
 [RequireJS]: <https://github.com/jrburke/requirejs>
 [NPM]: <http://npmjs.org/>
 [Bower]: <http://bower.io/>
-[Mustache]: <http://mustache.github.io/>
 [jQuery]: <http://jquery.com/>
 [Modernizr]: <http://modernizr.com/>
 [EventEmitter2]: <https://github.com/hij1nx/EventEmitter2>
 [Jasmine]: <http://jasmine.github.io/>
 [Karma]: <http://karma-runner.github.io/0.8/index.html>
-[Sinon.JS]: <http://sinonjs.org/>
 [Debug]: <https://github.com/visionmedia/debug>
