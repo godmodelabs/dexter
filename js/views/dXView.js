@@ -360,7 +360,9 @@ define([
                 this.$el.dXPosition = 'static';
             }
 
-            this.$el.prepend(require('text!templates/loading.html'));
+            this.$el.prepend($('<div></div>')
+                .addClass('loading')
+                .html(require('text!templates/loading.html')));
         },
 
         /**
