@@ -4,7 +4,7 @@ define(function() {
 
         // <path>: <viewname>
         // root path
-        '*path': ''
+        '*path': 'helloworld'
 
     }
 

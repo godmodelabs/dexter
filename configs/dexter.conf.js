@@ -2,9 +2,10 @@ define(function() {
 
     return {
         preLoad: {
-
             views: [],
-            templates: []
+            templates: [
+                'loading'
+            ]
         },
 
         global: []
