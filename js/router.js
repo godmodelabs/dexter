@@ -201,6 +201,16 @@ define([
             if ($.getUrlVar('debug')) {
                 debugBar(self.viewCache);
             }
+        },
+
+        /**
+         * Convenience navigation method.
+         *
+         * @param {string} path
+         */
+
+        goTo: function(path) {
+            this.obj.navigate(path, {trigger: true});
         }
     };
 
