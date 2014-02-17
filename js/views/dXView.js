@@ -334,6 +334,8 @@ define([
         dXCallEnter: function dXCallEnter() {
             debug.green('enter #'+this.dXName);
             applyMaybe(this, 'enter');
+            this.dXPipe.emit('enter/'+this.dXName);
+
         },
 
         /**

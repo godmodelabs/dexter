@@ -127,9 +127,9 @@ define([
 
         dXCallEnter: function() {
             dXView.prototype.dXCallEnter.call(this);
-
             debug.green('enter <'+currentState+'> #'+this.dXName);
             applyMaybe(this, 'enter'+currentState);
+            this.dXPipe.emit('enter/'+currentState+'/'+this.dXName);
         }
     });
 
