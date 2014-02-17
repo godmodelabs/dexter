@@ -42,11 +42,12 @@ define([
         routes: routesConf
     });
 
+    // Todo extend Backbone.Router directly?
+
     return /** @lends Router.prototype */{
 
         /**
          * Stores the Backbone.Router object.
-         * TODO extend Backbone.Router directly?
          */
 
         obj: null,
@@ -116,8 +117,9 @@ define([
                         /*
                          * Manage route changes.
                          */
-
+console.log(viewName);
                         self.obj.on('route:'+viewName, function() {
+                            console.warn(viewName);
 
                             /*
                              * Store the route parameters in <dXRouter.parameters> for the

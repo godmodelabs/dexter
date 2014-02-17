@@ -1,11 +1,10 @@
 define(function() {
 
     return {
-
         // <path>: <viewname>
-        // root path
-        '*path': 'helloworld'
 
-    }
+        // most general routes must be defined at the bottom of the route map
+        '*path': 'helloworld'
+    };
 
 });

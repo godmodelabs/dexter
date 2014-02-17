@@ -46,7 +46,7 @@ define([
                 typeof this.dXTemplateData === 'function'?
                     this.dXTemplateData() : this.dXTemplateData);
 
-            // Strange jQuery bug TODO investigate
+            // Todo Strange jQuery bug, investigate
             while (template[0] === '\r' ||
                 template[0] === '\n' ||
                 template[0] === '\t' ||
