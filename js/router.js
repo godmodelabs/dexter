@@ -117,9 +117,8 @@ define([
                         /*
                          * Manage route changes.
                          */
-console.log(viewName);
+
                         self.obj.on('route:'+viewName, function() {
-                            console.warn(viewName);
 
                             /*
                              * Store the route parameters in <dXRouter.parameters> for the
@@ -203,6 +202,16 @@ console.log(viewName);
             if ($.getUrlVar('debug')) {
                 debugBar(self.viewCache);
             }
+        },
+
+        /**
+         * Convenience navigation method.
+         *
+         * @param {string} path
+         */
+
+        goTo: function(path) {
+            this.obj.navigate(path, {trigger: true});
         }
     };
 

@@ -1,120 +1,229 @@
 /**
- * Get every view registered as global or routed
- * and pre load the view objects.
+ * Get every view registered as global, routed, subView or
+ * mentioned at dexter.conf.js for preloading.
  *
  * @author: Riplexus <riplexus@gmail.com>
  */
 
 define([
     'libs/debug',
+    'underscore',
     'configs/routes.conf',
     'configs/dexter.conf',
+    'libs/is',
     'libs/unique',
     'shim!Object.keys'
 ], function(
-    debug,
+    debug, _,
     routesConf,
     dexterConf,
+    is,
     unique
 ) {
 
     // Welcome message
-    debug('~>')('Welcome to Dexter 0.3.2');
+    debug('~>')('Welcome to Dexter 0.4.0');
 
-    var log = debug('DX');
+    var log = debug('DX'),
+        paths = [];
+
+    /**
+     * Returns the values of the provided object.
+     *
+     * @param obj
+     * @returns {Array}
+     * @source http://stackoverflow.com/a/15113739/795605
+     * @ignore
+     */
+
+    Object.values = function (obj) {
+        var vals = [], key;
+        for( key in obj ) {
+            if ( obj.hasOwnProperty(key) ) {
+                vals.push(obj[key]);
+            }
+        }
+        return vals;
+    };
+
+    /**
+     * This uniques an array containing view paths by the view name.
+     * The first, most specific path has priority.
+     *
+     * @param arr
+     * @returns {Array}
+     * @ignore
+     */
+
+    function specialUnique(arr) {
+        var u = {}, o = {}, a = [], i, l, str, key;
+
+        for(i = 0, l = arr.length; i < l; ++i) {
+            str = arr[i].split('/');
+            key = str[str.length-1];
+
+            if(u.hasOwnProperty(key) &&
+               u[key] >= str.length) { continue; }
+
+            u[key] = str.length;
+            o[key] = arr[i];
+        }
+
+        return Object.values(o);
+    }
+
+    /**
+     * Get the necessary view objects via require.js. Look for any
+     * subviews and get them recursively.
+     * Manage the real paths for the views by setting the dXPath
+     * and dXSubViewPaths values to the view prototypes (move this
+     * to another location maybe?)
+     *
+     * @param require
+     * @param list
+     * @param ret
+     * @param callback
+     * @ignore
+     */
 
     function getViewList(require, list, ret, callback) {
-        var views, i, j, view, subView, subViewList;
+        var views, i, j, view, subViews, subViewList, viewList, path, key;
 
-        subViewList = [];
+        viewList = [];
 
         require(list, function() {
             views = Array.prototype.slice.call(arguments, 0);
 
             for (i=views.length; i--;) {
                 view = views[i];
+                subViewList = [];
 
+                // Views without dXName are not working
                 if (!view.prototype.dXName) { continue; }
 
-                subView = view.prototype.dXSubViews;
+                // Tell the view his real path
+                view.prototype.dXPath = list[i].replace('views/', '');
 
-                if (subView) {
-                    for (j=subView.length; j--;) {
-                        subViewList.push('views/'+subView[j]);
+                // Reference the path for logging
+                paths.push(view.prototype.dXPath);
+
+                // Each view has to know the path of his subViews
+                view.prototype.dXSubViewPaths = {};
+
+                subViews = view.prototype.dXSubViews;
+                if (subViews) {
+                    for (j=subViews.length; j--;) {
+                        // Check system declarations
+                        path = checkSystem(subViews[j]);
+
+                        // dXName of the subview
+                        key = subViews[j].substr(subViews[j].search('!')+1);
+
+                        // The first, most specific path has priority if already defined
+                        if (!(key in view.prototype.dXSubViewPaths &&
+                            view.prototype.dXSubViewPaths[key].split('/').length >= path.split('/').length)) {
+                            // Save the subView path, (dXName => path)
+                            view.prototype.dXSubViewPaths[key] = path;
+                        }
+                        // Save the path to fetch the subView object
+                        subViewList.push('views/'+path);
                     }
                 }
 
-                ret[view.prototype.dXName] = views[i];
+                // Remove duplicate subViews (e.g. from system declarations)
+                subViewList = specialUnique(subViewList);
+
+                // Add the subViews of this view to the list for requiring
+                viewList = viewList.concat(subViewList);
+
+                // Save this view object for returning
+                ret[view.prototype.dXName] = view;
             }
 
-            subViewList = unique(subViewList);
-
-            if (subViewList.length === 0) {
+            // If there are any subViews who need to be fetched, do it
+            if (viewList.length === 0) {
                 callback(ret);
             } else {
-                getViewList(require, subViewList, ret, callback);
+                getViewList(require, viewList, ret, callback);
             }
 
         });
     }
 
+    /**
+     * Returns the appropriate view name for the user.
+     * If any system specific declarations are set, check the user os
+     * via libs/is. If the test fails, omit the keyword (e.g. android).
+     *
+     * @param name
+     * @returns {string}
+     * @ignore
+     */
+
+    function checkSystem(name) {
+        if (name.match(/[^!]+![^!]+/)) {
+            name = name.split('!');
+            if (is.hasOwnProperty(name[0]) &&
+                is[name[0]]()) {
+                name = name.join('/');
+
+            } else {
+                name = name[1];
+            }
+        }
+
+        return name;
+    }
+
+    /**
+     * Return a require.js plugin which loads every view
+     * (global, routed, subViews and views mentioned under
+     * dexterConf.preLoad.views (item views)) and returns
+     * the view objects for further instantiation.
+     *
+     * It manages the real paths for the views by setting the dXPath
+     * and dXSubViewPaths values to the view prototypes (move this
+     * to another location maybe?)
+     */
+
     return {
         load: function(resourceId, require, load, config) {
             if (config.isBuild) { return load(); }
 
-            var path, viewList, ret, i;
+            var viewPaths, ret, i, target;
 
-            viewList = [];
+            viewPaths = [];
             ret = {};
 
-            for (path in routesConf) {
-                if (routesConf.hasOwnProperty(path) &&
-                    routesConf[path] !== '') {
-                    viewList.push('views/'+routesConf[path]);
-                }
-            }
+            // Collect every view path, needed for rendering
+            // Resolve system specific declarations.
 
-            if (dexterConf.preLoad &&
-                dexterConf.preLoad.views) {
-                for (i=dexterConf.preLoad.views.length; i--;) {
-                    viewList.push('views/'+dexterConf.preLoad.views[i]);
-                }
-            }
+            _.each([
+                routesConf,
+                dexterConf.preLoad.views,
+                dexterConf.global
+            ], function(list) {
+                _.each(list, function(target) {
 
-            if (dexterConf.global) {
-                for (i=dexterConf.global.length; i--;) {
-                    viewList.push('views/'+dexterConf.global[i]);
-                }
-            }
+                    if (_.isArray(target)) {
+                        _.each(target, function(view) {
+                            viewPaths.push('views/'+checkSystem(view));
+                        });
 
-            getViewList(require, viewList, ret, function(ret) {
-                var missing, found, i, j,
-                    keys = Object.keys(ret);
-                log.yellow('registered views:\n     #'+keys.join(',\n     #'));
-
-                /*
-                 * Look for not loaded views and report it.
-                 */
-
-                if (keys.length < viewList.length) {
-                    missing = [];
-
-                    for (i = viewList.length; i--;) {
-                        found = false;
-
-                        for (j = keys.length; j--;) {
-                            if (viewList[i].indexOf(keys[j]) !== -1) {
-                                found = true;
-                            }
-                        }
-                        if (!found) {
-                            missing.push(viewList[i]);
-                        }
+                    } else {
+                        viewPaths.push('views/'+checkSystem(target));
                     }
 
-                    debug('Error').red('Following views not found! Check the paths ' +
-                        'and dXNames', '\n     #'+missing.join(',\n     #'));
-                }
+                });
+            });
+
+            viewPaths = specialUnique(viewPaths);
+
+            // Retrieve the views recursively.
+
+            getViewList(require, viewPaths, ret, function(ret) {
+                var missing, found, i, j;
+                log.yellow('registered views:\n     '+paths.join(',\n     '));
 
                 load(ret);
             });

@@ -6,10 +6,6 @@ method. But the main goal is to provide the developer an easy All-in-One package
 of your application right after `make install`.
 
 ### Views
-global views, independent, defined in configs/debug.conf.js, automatically loaded by the router on init
-
-routed views, defined in routes.conf.js, will be loaded on navigation
-
 
 ```javascript
 // file: /js/views/myView.js
@@ -24,11 +20,24 @@ define([ /* ... */ ], function(dXView) {
 
 ```html
 <!-- file: /templates/myView.html -->
-<p>Hello there, i'm proud to present myself to you!</p>
-<p>I will be loaded and displayed inside /index.html</p>
+<p>Minions ipsum gelatooo tulaliloo tank yuuu!</p>
 ```
 
-### Subviews
+```html
+<!-- file: /index.html -->
+<!-- ... -->
+<section data-dX='myView'></section>
+<!-- ... -->
+```
+
+
+#### Global Views
+independent, defined in configs/dexter.conf.js, automatically loaded by the router on init
+
+#### Routed Views
+defined in routes.conf.js, will be loaded on navigation
+
+#### Subviews
 Each view can incorporate any number of other views.
 
 ```javascript
@@ -51,6 +60,105 @@ define([ /* ... */ ], function(dXView) {
 Views used as subviews can itself again contain subviews. One warning though, don't use too deep constructs to maintain
 high performance, subviews will be rendered after the parent view to fulfill dependencies on DOM nodes and can slow
 the application.
+
+#### Item Views
+used in collections, preloaded in configs/dexter.conf.js
+
+### Dependent view loading
+Global, Routed and Subviews can be different for each user agent. The navigation for example should follow a different
+style guide and behave differently for android than for iOS. Dexter allows you to simply use keywords on the entry
+points of view declaration to fulfill this often used requirement.
+
+```javascript
+// file: /js/views/myView.js
+define([ /* ... */ ], function(dXView) {
+
+    return dXView.extend({
+        dXName: 'myView',
+        dXSubViews: [
+            'android!navigation'
+            'iOS!navigation'
+        ],
+    });
+
+});
+```
+
+```javascript
+// file: /configs/dexter.conf.js
+define(function() {
+
+    return {
+        // ...
+        global: [
+            'android!navigation',
+            'iOS!navigation'
+        ]
+    };
+
+});
+```
+
+```javascript
+// file: /configs/routes.conf.js
+define(function() {
+
+    return {
+        // ...
+        'user': 'iOS!user',
+        'profile': [
+            'android!profile',
+            'iOS!profile',
+        ]
+    };
+
+});
+```
+
+If no definition is found for the current user system, it omits the first keyword (e.g. 'android!navigation' -> 'navigation').
+Deeper and more specific declarations have priority ('android!navigation' > 'navigation').
+
+
+The specific views and templates must be named equally and have to be stored in corresponding folders:
+
+/js/views/
+|- android/
+|--- navigation.js
+|- iOS/
+|--- navigation.js
+
+/templates/
+|- android/
+|--- navigation.html
+|- iOS/
+|--- navigation.html
+
+Hint: If you just want to differ simple js statements instead of whole views, you can use libs/is for the same system
+checks used here.
+
+#### Currently supported keywords
+- android
+- iOS
+- blackBerry
+- windowsPhone
+- mobile (For every OS listed above)
+- desktop (not mobile)
+
+If you want to create custom keywords, you can just add a new test in libs/is, the key is your new keyword.
+Note that this feature is not responsive, thus a full reload is needed if the result of your test changes and you want
+it to take effect.
+
+### State dependent template loading
+
+
+
+### State dependent stylesheet loading
+
+
+
+### Data Binding
+
+
 
 ### Templating
 The dXView class provides a renderer function, which can be overwritten to support any templating engine you want
@@ -185,8 +293,27 @@ Mario = dXModel.extend({
 });
 ```
 
+#### Events
+* enter/:dXName
+* enter/:state/:dXName
+* leave/:dXName
+
+### Folder structure
+
+|- assets/
+|- configs/
+|- js/
+|--- collections/
+|--- libs/
+|--- models/
+|--- plugins/
+|--- tests/...
+|--- views/
+|- templates/
+|- index.html
+
 ### Install script
-todo doc
+
 
 ### Debugging
 Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable full report,
@@ -259,8 +386,7 @@ file under /configs/. You can compile it with the provided template or your own 
 - Script: create a new view
 - CSS: css file loading via javascript, without media queries, dependent on current state
 - HTML: template loading via plugin, dependent on current state
-- Filesystem cached main-build.js
-- Replace jquery with underscore only?
+- Filesystem cached main-build.js?
 
 ## Special thanks to:
 - The contributors of [Backbone.js]

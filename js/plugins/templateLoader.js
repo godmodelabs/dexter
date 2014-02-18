@@ -35,7 +35,7 @@ define([
 
             for (name in viewList) {
                 if (viewList.hasOwnProperty(name)) {
-                    templateList.push('text!templates/'+name+'.html');
+                    templateList.push('text!templates/'+viewList[name].prototype.dXPath+'.html');
                 }
             }
 

@@ -9,6 +9,6 @@ define(function() {
         },
 
         global: []
-    }
+    };
 
 });
