@@ -1,4 +1,4 @@
-# Dexter (DX)
+# Dexter
 Dexter is a full featured framework using backbone.js combined with requireJS and other libraries useful for
 the development of responsive Single Page Applications. It adds a few ideas of its own and tries to maintain high
 flexibility by providing simple feature interfaces. Want to use your own library? Simply overwrite the feature
@@ -65,14 +65,13 @@ the application.
 used in collections, preloaded in configs/dexter.conf.js
 
 ### Dependent view loading
-Global, Routed and Subviews can be different for each user agent. The navigation for example should follow a different
-style guide and behave differently for android than for iOS. Dexter allows you to simply use keywords on the entry
+Global, Routed and Subviews can be different for each user agent. The navigation, for example, should follow a different
+style guide and behave differently on android than on iOS. Dexter allows you to simply use keywords on the entry
 points of view declaration to fulfill this often used requirement.
 
 ```javascript
 // file: /js/views/myView.js
 define([ /* ... */ ], function(dXView) {
-
     return dXView.extend({
         dXName: 'myView',
         dXSubViews: [
@@ -80,14 +79,12 @@ define([ /* ... */ ], function(dXView) {
             'iOS!navigation'
         ],
     });
-
 });
 ```
 
 ```javascript
 // file: /configs/dexter.conf.js
 define(function() {
-
     return {
         // ...
         global: [
@@ -95,14 +92,12 @@ define(function() {
             'iOS!navigation'
         ]
     };
-
 });
 ```
 
 ```javascript
 // file: /configs/routes.conf.js
 define(function() {
-
     return {
         // ...
         'user': 'iOS!user',
@@ -111,7 +106,6 @@ define(function() {
             'iOS!profile',
         ]
     };
-
 });
 ```
 
