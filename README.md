@@ -1,20 +1,17 @@
 # Dexter
-Dexter is a full featured framework using backbone.js combined with requireJS and other libraries useful for
-the development of responsive Single Page Applications. It adds a few ideas of its own and tries to maintain high
-flexibility by providing simple feature interfaces. Want to use your own library? Simply overwrite the feature
-method. But the main goal is to provide the developer an easy All-in-One package to start the implementation
-of your application right after `make install`.
+Dexter is a full featured framework with [Backbone.js] and [Epoxy.js], [RequireJS] and other libraries useful for 
+the development of responsive Single Page Applications and Mobile Web Apps. It adds a few ideas of its own and 
+maintains high flexibility, but primarily provides an easy All-in-One package to start the development of your 
+application right after `make install`.
 
 ### Views
 
 ```javascript
 // file: /js/views/myView.js
 define([ /* ... */ ], function(dXView) {
-
     return dXView.extend({
         dXName: 'myView',
     });
-
 });
 ```
 
@@ -29,7 +26,6 @@ define([ /* ... */ ], function(dXView) {
 <section data-dX='myView'></section>
 <!-- ... -->
 ```
-
 
 #### Global Views
 independent, defined in configs/dexter.conf.js, automatically loaded by the router on init
@@ -64,111 +60,25 @@ the application.
 #### Item Views
 used in collections, preloaded in configs/dexter.conf.js
 
-### Dependent view loading
-Global, Routed and Subviews can be different for each user agent. The navigation, for example, should follow a different
-style guide and behave differently on android than on iOS. Dexter allows you to simply use keywords on the entry
-points of view declaration to fulfill this often used requirement.
-
-```javascript
-// file: /js/views/myView.js
-define([ /* ... */ ], function(dXView) {
-    return dXView.extend({
-        dXName: 'myView',
-        dXSubViews: [
-            'android!navigation'
-            'iOS!navigation'
-        ],
-    });
-});
-```
-
-```javascript
-// file: /configs/dexter.conf.js
-define(function() {
-    return {
-        // ...
-        global: [
-            'android!navigation',
-            'iOS!navigation'
-        ]
-    };
-});
-```
-
-```javascript
-// file: /configs/routes.conf.js
-define(function() {
-    return {
-        // ...
-        'user': 'iOS!user',
-        'profile': [
-            'android!profile',
-            'iOS!profile',
-        ]
-    };
-});
-```
-
-If no definition is found for the current user system, it omits the first keyword (e.g. 'android!navigation' -> 'navigation').
-Deeper and more specific declarations have priority ('android!navigation' > 'navigation').
-
-
-The specific views and templates must be named equally and have to be stored in corresponding folders:
-
-```bash
-/js/views/  
-|- android/  
-|--- navigation.js  
-|- iOS/  
-|--- navigation.js
-```
-
-```bash
-/templates/  
-|- android/  
-|--- navigation.html  
-|- iOS/  
-|--- navigation.html  
-```
-
-Hint: If you just want to differ simple js statements instead of whole views, you can use libs/is for the same system
-checks used here.
-
-#### Currently supported keywords
-- android
-- iOS
-- blackBerry
-- windowsPhone
-- mobile (For every OS listed above)
-- desktop (not mobile)
-
-If you want to create custom keywords, you can just add a new test in libs/is, the key is your new keyword.
-Note that this feature is not responsive, thus a full reload is needed if the result of your test changes and you want
-it to take effect.
-
-### State dependent template loading
-
-
-
-### State dependent stylesheet loading
-
-
-
 ### Data Binding
 
 
-
 ### Templating
-The dXView class provides a renderer function, which can be overwritten to support any templating engine you want
-to use.
+If you want, you can use any templating engine besides the dynamic bindings mentioned above for static data. The dXView 
+class provides a method called dXTemplateRenderer, which can be overwritten.
 
 ```javascript
-// Somewhere in your code, for example in your /js/app.js
-var Mustache = require('mustache');
-
-dXView.prototype.dXTemplateRenderer = function(template, data) {
-    return Mustache.render(template, data);
-};
+define([
+    // ...
+    'mustache',
+    'views/dXView'
+], function(Mustache, dXView) {
+    
+    // ...
+    // Somewhere in your code, for example in your /js/app.js init method
+    dXView.prototype.dXTemplateRenderer = function(template, data) {
+        return Mustache.render(template, data);
+    };
 ```
 
 The example branch uses [Mustache] to show one of many possible and easy solutions.
@@ -220,6 +130,94 @@ define([ /* ... */ ], function(dXResponsiveView) {
 <!-- file: /templates/myResponsiveView.html -->
 <p>I'm more fancy than the boring basic view.</p>
 ```
+
+### State dependent template loading
+
+
+### State dependent stylesheet loading
+
+
+### Dependent view loading
+Global, Routed and Subviews can be different for each user agent. The navigation, for example, should follow a different
+style guide and behave differently on android than on iOS. Dexter allows you to simply use keywords on the entry
+points of view declaration to fulfill this often used requirement.
+
+```javascript
+// file: /js/views/myView.js
+define([ /* ... */ ], function(dXView) {
+    return dXView.extend({
+        dXName: 'myView',
+        dXSubViews: [
+            'android!navigation'
+            'iOS!navigation'
+        ],
+    });
+});
+```
+
+```javascript
+// file: /configs/dexter.conf.js
+define(function() {
+    return {
+        // ...
+        global: [
+            'android!navigation',
+            'iOS!navigation'
+        ]
+    };
+});
+```
+
+```javascript
+// file: /configs/routes.conf.js
+define(function() {
+    return {
+        // ...
+        'user': 'iOS!user',
+        'profile': [
+            'android!profile',
+            'iOS!profile',
+        ]
+    };
+});
+```
+
+If no definition is found for the current user system, it omits the first keyword (e.g. "android!navigation" -> "navigation").
+Deeper and more specific declarations have priority ("android!navigation" > "navigation").
+
+
+The specific views and templates must be named equally and have to be stored in corresponding folders:
+
+```bash
+/js/views/  
+|- android/  
+|--- navigation.js  
+|- iOS/  
+|--- navigation.js
+```
+
+```bash
+/templates/  
+|- android/  
+|--- navigation.html  
+|- iOS/  
+|--- navigation.html  
+``
+
+Hint: If you just want to differ simple js statements instead of whole views, you can use libs/is for the same system
+checks used here.
+
+#### Currently supported keywords
+- android
+- iOS
+- blackBerry
+- windowsPhone
+- mobile (For every OS listed above)
+- desktop (not mobile)
+
+If you want to create custom keywords, you can just add a new test in libs/is, the key is your new keyword.
+Note that this feature is not responsive, thus a full reload is needed if the result of your test changes and you want
+it to take effect.
 
 ### Shim support
 To enhance the use of shims, DX provides a plugin for requireJS. Combined with the awesome [Modernizr], it delivers a
@@ -298,17 +296,19 @@ Mario = dXModel.extend({
 
 ### Folder structure
 
-|- assets/
-|- configs/
-|- js/
-|--- collections/
-|--- libs/
-|--- models/
-|--- plugins/
-|--- tests/...
-|--- views/
-|- templates/
-|- index.html
+```bash
+|- assets/  
+|- configs/  
+|- js/  
+|--- collections/  
+|--- libs/  
+|--- models/  
+|--- plugins/  
+|--- tests/  
+|--- views/  
+|- templates/  
+|- index.html  
+```
 
 ### Install script
 
@@ -396,6 +396,7 @@ and of course every contributor of the libraries listed above, awesome work!
 [Jonathan Fielding]: <https://github.com/jonathan-fielding>
 [Simple State Manager]: <https://github.com/jonathan-fielding/SimpleStateManager/>
 [Backbone.js]: <https://github.com/documentcloud/backbone/>
+[Epoxy.js]: <http://epoxyjs.org/>
 [James Burke]: <https://github.com/jrburke>
 [RequireJS]: <https://github.com/jrburke/requirejs>
 [NPM]: <http://npmjs.org/>
