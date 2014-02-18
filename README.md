@@ -219,9 +219,9 @@ If you want to create custom keywords, you can just add a new test in libs/is, t
 Note that this feature is not responsive, thus a full reload is needed if the result of your test changes and you want
 it to take effect.
 
-### Shim support
-To enhance the use of shims, DX provides a plugin for requireJS. Combined with the awesome [Modernizr], it delivers a
-powerful conditional loader.
+### Shim / Polyfill support
+To enhance the use of shims / polyfills, DX provides a plugin for requireJS. Combined with the awesome [Modernizr], 
+it delivers a powerful conditional loader.
 
 ```javascript
 define([
