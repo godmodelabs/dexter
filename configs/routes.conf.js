@@ -6,6 +6,6 @@ define(function() {
 
         // root path
         '*path': 'space'
-    }
+    };
 
 });

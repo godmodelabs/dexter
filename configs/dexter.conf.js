@@ -13,6 +13,6 @@ define(function() {
         },
 
         global: []
-    }
+    };
 
 });

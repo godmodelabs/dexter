@@ -6,15 +6,18 @@ define([
     'libs/uuid',
     'libs/applyMaybe',
     'libs/pipe',
+    'libs/unique',
     'epoxy',
-    'shim!Function.prototype.bind'
+    'shim!Function.prototype.bind',
+    'shim!Object.keys'
 ], function(
     debug,
     _, $,
     Backbone,
     uuid,
     applyMaybe,
-    pipe
+    pipe,
+    unique
 ) {
 
     debug = debug('DX');
@@ -103,21 +106,42 @@ define([
         dXCache: null,
 
         /**
+         * The real, relative path to this view. It can be system
+         * specific (e.g. android/view) and will be set by the
+         * view loader.
+         * Used by the template loader to get the views template.
+         */
+
+        dXPath: null,
+
+        /**
+         * The real, relative paths to this views subViews, if there
+         * are any mentioned in {@link dXView#dXSubViews}. It can be
+         * system specific (e.g. android/view) and will be set by the
+         * view loader.
+         * Used by {@link dXView#dXGetSubViews}.
+         */
+
+        dXSubViewPaths: {},
+
+        /**
+         * This array contains a list of the required subviews for
+         * this view. They will be loaded and managed without
+         * further developer input.
+         * Overwrite this array to register subviews.
+         * It can contain any system specific declarations
+         * (e.g. 'android!view').
+         */
+
+        dXSubViews: [],
+
+        /**
          * The subview cache contains the instances of the subviews.
          * They are always extending dXView. The keys are the
          * subview dXNames.
          */
 
         dXSubViewCache: {},
-
-        /**
-         * This Array contains a list of the required subview names
-         * for this view. They will be loaded and managed without
-         * further developer input.
-         * Overwrite this array to load subviews.
-         */
-
-        dXSubViews: [],
 
         /**
          * This object contains the behaviour configuration of a
@@ -138,13 +162,14 @@ define([
         },
 
         /**
-         *
+         * A reference to the application dXRouter. Will be set by the
+         * router himself.
          */
 
         dXRouter: null,
 
         /**
-         * Tries to return every subview mentioned in {@link dXView#dXSubViews}.
+         * Tries to return every subview mentioned in {@link dXView#dXSubViewPaths}.
          * If a view is not yet cached, create a new instance and
          * add this scope.
          *
@@ -152,12 +177,13 @@ define([
          */
 
         dXGetSubViews: function dXGetSubViews() {
-            var i, subView, SubView, subViews, subViewName;
+            var i, subView, SubView, subViews, subViewName, subViewNames;
 
             subViews = {};
+            subViewNames = Object.keys(this.dXSubViewPaths);
 
-            for (i=this.dXSubViews.length; i--;) {
-                subViewName = this.dXSubViews[i];
+            for (i=subViewNames.length; i--;) {
+                subViewName = subViewNames[i];
 
                 if (subViewName in this.dXSubViewCache) {
                     subView = this.dXSubViewCache[subViewName];
@@ -166,7 +192,7 @@ define([
                     }
 
                 } else {
-                    SubView = require('views/'+this.dXSubViews[i]);
+                    SubView = require('views/'+this.dXSubViewPaths[subViewName]);
                     SubView = SubView.extend({
                         dXScope: '#'+this.dXId,
                         dXRouter: this.dXRouter
@@ -216,7 +242,7 @@ define([
              */
 
             if (!this.dXCache) {
-                templateName = this.dXConfig.templateName || this.dXName;
+                templateName = this.dXConfig.templateName || this.dXPath;
                 template = require('text!templates/'+templateName+'.html');
 
                 try {
@@ -297,7 +323,8 @@ define([
         dXLeave: function dXLeave(propagate) {
             debug.palevioletred('leave #'+this.dXName);
 
-            var i, subView;
+            var i, subView,
+                subViewNames = Object.keys(this.dXSubViewPaths);
 
             this.dXCallLeave();
 
@@ -306,8 +333,8 @@ define([
              */
 
             if (propagate !== false) {
-                for (i=this.dXSubViews.length; i--;) {
-                    subView = this.dXSubViewCache[this.dXSubViews[i]];
+                for (i=subViewNames.length; i--;) {
+                    subView = this.dXSubViewCache[subViewNames[i]];
 
                     if ('dXLeave' in subView) {
                         subView.dXLeave();
@@ -345,6 +372,7 @@ define([
 
         dXCallLeave: function dXCallLeave() {
             applyMaybe(this, 'leave');
+            this.dXPipe.emit('leave/'+this.dXName);
         },
 
         /**
