@@ -407,3 +407,4 @@ and of course every contributor of the libraries listed above, awesome work!
 [Jasmine]: <http://jasmine.github.io/>
 [Karma]: <http://karma-runner.github.io/0.8/index.html>
 [Debug]: <https://github.com/visionmedia/debug>
+[Mustache]: <http://mustache.github.io/>
