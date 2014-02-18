@@ -104,7 +104,7 @@ define(function() {
 define([ /* ... */ ], function(dXResponsiveView) {
 
     return dXResponsiveView.extend({
-        dXName: 'myView',
+        dXName: 'myResponsiveView',
 
         enter: function() {
             // Default behaviour, will be called for every state first
@@ -202,7 +202,7 @@ The specific views and templates must be named equally and have to be stored in 
 |--- navigation.html  
 |- iOS/  
 |--- navigation.html  
-``
+```
 
 Hint: If you just want to differ simple js statements instead of whole views, you can use libs/is for the same system
 checks used here.
@@ -261,8 +261,8 @@ define(['shim!console'], function() {
 ### Pipe event emitter
 One of the problems we often see is the (mostly previously unknown) requirement to send data from one module to
 another across half of your application. To maintain flexibility, reduce the amount of object
-references between each other and prevent complicated tree traversal, Dexter comes with an Event Emitter
-integrated in every DX prototype. Imagine the Warp Zone in Super Mario Bros. They connect different worlds
+references between each other and prevent complicated tree traversal, every DX prototype is connected to an 
+Event Emitter. Imagine the Warp Zone in Super Mario Bros. They connect different worlds
 and places so you can send any data (like yourself) from one opening to the other, simply by providing the
 desired world number on your package.
 
