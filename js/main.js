@@ -61,19 +61,10 @@ require.config({
     enforceDefine: true
 });
 
-define([
-    'app'
-], function (
-    App
-) {
-
-    // Redirect #! to /
-    if (window.location.hash.indexOf('!') > -1) {
-        window.location = window.location.hash.substring(2);
-        return;
-    }
-
-    App.init();
+define(['dXBoot'], function (dXBoot) {
+    dXBoot();
+    
+    // Your startup code can be inserted here
 });
 
 define('main-build', [], function() {return {};});

@@ -354,6 +354,7 @@ Mario = dXModel.extend({
 * enter/:dXName
 * enter/:state/:dXName
 * leave/:dXName
+* dXRouter/goTo
 
 ### Folder structure
 

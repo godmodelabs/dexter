@@ -17,9 +17,7 @@ define([
     'configs/dexter.conf',
     'viewLoader!',
     'templateLoader!',
-    'libs/applyMaybe',
-    'libs/intersect',
-    'libs/debugBar',
+    'libs/pipe',
     'libs/getUrlVars',
     'shim!Object.keys'
 ], function(
@@ -31,9 +29,7 @@ define([
     dexterConf,
     viewList,
     templateList,
-    applyMaybe,
-    intersect,
-    debugBar
+    pipe
 ) {
 
     debug = debug('DX');
@@ -133,6 +129,15 @@ define([
 
                             debug.lightblue('navigate to /'+self.path);
 
+                            // Todo gscheit->master
+                            var classes = '',
+                                splitted = self.path.split('/');
+                            while(splitted.length) {
+                                classes += ' route-'+(splitted.join('-') || 'index');
+                                splitted.pop();
+                            }
+                            $('body').removeClass().addClass(classes);
+
                             /*
                              * Leave current view.
                              */
@@ -194,14 +199,12 @@ define([
                     self.obj.navigate(url, { trigger: true });
                 }
             });
-
+            
             /*
-             * Debugging tool
+             * Router events.
              */
-
-            if ($.getUrlVar('debug')) {
-                debugBar(self.viewCache);
-            }
+            
+            pipe.on('dXRouter/goTo', this.goTo.bind(this));
         },
 
         /**
