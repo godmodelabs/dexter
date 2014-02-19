@@ -61,7 +61,40 @@ the application.
 used in collections, preloaded in configs/dexter.conf.js
 
 ### Data Binding
+dXView extends Backbone.Epoxy.View from [Epoxy.js], thus we can use that neat Data Binding to seamlessly 
+update our views, if the data changes.
 
+```javascript
+// file: /js/views/myView.js
+define([/* ... */], function(/* ... */) {
+    
+    return dXView.extend({
+        dXName: 'myView',
+        model: new AuthorModel(),
+        
+        bindings: {
+            '.name': 'text:fullName',
+            '.desc': 'html:desc',
+            'a': 'attr:{href:url(id)}'
+        },
+        
+        computeds: {
+            fullName: function() {
+                return this.getBinding('firstName')+' '+
+                    this.getBinding('lastName');
+            }
+        },
+        
+        bindingFilters: {
+            url: function(id) {
+                return '/profile/'+id;
+            }
+        }
+    });
+});
+```
+
+This is just a sneak peak of the possibilities, for the full documentation see [Epoxy.js].
 
 ### Templating
 If you want, you can use any templating engine beside the dynamic bindings mentioned above for static data. The dXView 
@@ -80,6 +113,25 @@ define([
         return Mustache.render(template, data);
     };
 ```
+
+To send data to the Renderer set either an object or a function returning an object on dXTemplateData.
+
+```javascript
+// file: /js/views/myView.js
+define([
+    // ...
+    'views/dXView'
+], function(dXView) {
+    
+    return dXView.extend({
+        dXName: 'myView',
+        
+        dXTemplateData: {
+            "extUrl": "http://www.google.com"
+        }
+    });
+```
+
 
 The example branch uses [Mustache] to show one of many possible and easy solutions.
 
