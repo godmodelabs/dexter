@@ -1,7 +1,7 @@
 # Dexter
 Dexter is a full featured framework with [Backbone.js] and [Epoxy.js], [RequireJS] and other libraries useful for 
 the development of responsive Single Page Applications and Mobile Web Apps. It adds a few ideas of its own and 
-maintains high flexibility, but primarily provides an easy All-in-One package to start the development of your 
+maintains high flexibility, but primarily provides a neat All-in-One package to start the development of your 
 application right after `make install`.
 
 ### Views
@@ -64,7 +64,7 @@ used in collections, preloaded in configs/dexter.conf.js
 
 
 ### Templating
-If you want, you can use any templating engine besides the dynamic bindings mentioned above for static data. The dXView 
+If you want, you can use any templating engine beside the dynamic bindings mentioned above for static data. The dXView 
 class provides a method called dXTemplateRenderer, which can be overwritten.
 
 ```javascript
@@ -83,9 +83,12 @@ define([
 
 The example branch uses [Mustache] to show one of many possible and easy solutions.
 
-### Responsive JavaScript
-One of the key features of DX is the native integration of [Simple State Manager] in our view loader and router for
-true responsive JavaScript execution defined by states.
+### States
+One of the key features of DX is the native integration of [Simple State Manager] for responsive JavaScript execution 
+and seamless template and stylesheet replacement.
+
+States are defined by the minimum page width of the user window. You can target, for example, mobile, tablet 
+and desktop clients or differentiate between screen orientations.
 
 ```javascript
 // file: /configs/states.conf.js
@@ -98,6 +101,12 @@ define(function() {
     }
 });
 ```
+
+#### Responsive JavaScript
+If you extend the provided dXResponsiveView, you get an enter method and can execute appropriate JavaScript 
+code for each state.
+
+Responsive views will leave and reenter on state change.
 
 ```javascript
 // file: /js/views/myResponsiveView.js
@@ -131,10 +140,10 @@ define([ /* ... */ ], function(dXResponsiveView) {
 <p>I'm more fancy than the boring basic view.</p>
 ```
 
-### State dependent template loading
+#### State dependent templates
 
 
-### State dependent stylesheet loading
+#### State dependent stylesheets
 
 
 ### Dependent view loading
