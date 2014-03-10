@@ -20,6 +20,7 @@ requirejs.config({
         jquery: '../bower_components/jquery/jquery',
         underscore: '../bower_components/underscore/underscore',
         backbone: '../bower_components/backbone/backbone',
+        epoxy: 'libs/backbone.epoxy',
         modernizr: '../bower_components/modernizr/modernizr',
         mustache: '../bower_components/mustache/mustache',
         ssm: '../bower_components/SimpleStateManager/src/ssm',
