@@ -18,7 +18,8 @@ define([
     'viewLoader!',
     'templateLoader!',
     'libs/pipe',
-    'libs/getUrlVars',
+    'libs/flip',
+    'libs/removeClasses',
     'shim!Object.keys'
 ], function(
     debug,
@@ -29,7 +30,9 @@ define([
     dexterConf,
     viewList,
     templateList,
-    pipe
+    pipe,
+    flip,
+    removeClasses
 ) {
 
     debug = debug('DX');
@@ -64,7 +67,19 @@ define([
          * An object with every view prototype.
          */
 
-        viewList: null,
+        viewList: viewList,
+
+        /**
+         * 
+         */
+        
+        viewRoutes: flip(routesConf),
+
+        /**
+         * 
+         */
+        
+        routeClasses: {},
 
         /**
          * The current routing parameters.
@@ -79,11 +94,9 @@ define([
          */
 
         init: function() {
-            var i, view, viewName, self;
+            var i, view, viewName;
 
-            self = this;
-            self.obj = new AppRouter();
-            self.viewList = viewList;
+            this.obj = new AppRouter();
 
             /*
              * Load global, navigation independent views.
@@ -92,12 +105,12 @@ define([
             for (i=dexterConf.global.length; i--;) {
                 viewName = dexterConf.global[i];
 
-                if (viewName in self.viewList) {
-                    view = new (self.viewList[viewName].extend({
-                        dXRouter: self
+                if (viewName in this.viewList) {
+                    view = new (this.viewList[viewName].extend({
+                        dXRouter: this
                     }))();
 
-                    self.viewCache[viewName] = view;
+                    this.viewCache[viewName] = view;
                 }
             }
 
@@ -106,71 +119,80 @@ define([
              * render it dynamically.
              */
 
-            for (viewName in self.viewList) {
-                if (self.viewList.hasOwnProperty(viewName)) {
-                    (function(viewName) {
+            for (viewName in this.viewList) {
+                if (!this.viewList.hasOwnProperty(viewName)) { continue; }
+
+                (function(viewName) {
+
+                    /*
+                     * Manage route changes.
+                     */
+
+                    this.obj.on('route:'+viewName, function() {
+                        var path, $body;
 
                         /*
-                         * Manage route changes.
+                         * Store the route parameters in <dXRouter.parameters> for the
+                         * views.
                          */
 
-                        self.obj.on('route:'+viewName, function() {
+                        this.parameters = Array.prototype.slice.call(arguments);
+                        this.path = Backbone.history.fragment;
 
-                            /*
-                             * Store the route parameters in <dXRouter.parameters> for the
-                             * views. The <isRouting> flag will be used to clear and leave
-                             * the currentView after initializing the new view with his
-                             * template in <dXUpdate>.
-                             */
+                        debug.lightblue('navigate to /'+this.path);
 
-                            self.isRouting = true;
-                            self.parameters = Array.prototype.slice.call(arguments);
-                            self.path = Backbone.history.fragment;
-
-                            debug.lightblue('navigate to /'+self.path);
-
-                            // Todo gscheit->master
-                            var classes = '',
-                                splitted = self.path.split('/');
-                            while(splitted.length) {
-                                classes += ' route-'+(splitted.join('-') || 'index');
-                                splitted.pop();
+                        /*
+                         * Create a list of route classes for the current view, will
+                         * be assigned to the body for any route specific css code.
+                         */
+                        
+                        if (!(viewName in this.routeClasses)) {
+                            path = this.viewRoutes[viewName][0];
+                            this.routeClasses[viewName] = [];
+                            
+                            path = path.replace(/(\*path|:)/g, '').split('/');
+                            while(path.length) {
+                                this.routeClasses[viewName]
+                                    .push('route-'+(path.join('-') || 'index'));
+                                path.pop();
                             }
-                            $('body').removeClass().addClass(classes);
+                        }
+                        $body = $('body');
+                        removeClasses($body[0], 'route-');
+                        $body.addClass(this.routeClasses[viewName].join(' '));
 
-                            /*
-                             * Leave current view.
-                             */
+                        /*
+                         * Leave current view.
+                         */
 
-                            if ('dXLeave' in self.currentView) {
-                                self.currentView.dXLeave();
+                        if ('dXLeave' in this.currentView) {
+                            this.currentView.dXLeave();
+                        }
+
+                        /*
+                         * Get or create the desired view instance and render
+                         * it with his subviews with <dXEnter>. If the view is
+                         * not yet cached, the initialization will call <dXEnter>.
+                         */
+
+                        if (!(viewName in this.viewCache)) {
+                            view = new (this.viewList[viewName].extend({
+                                dXRouter: this
+                            }))();
+                            this.viewCache[viewName] = view;
+
+                        } else {
+                            view = this.viewCache[viewName];
+                            if ('dXEnter' in view) {
+                                view.dXEnter();
                             }
+                        }
 
-                            /*
-                             * Get or create the desired view instance and render
-                             * it with his subviews with <dXEnter>. If the view is
-                             * not yet cached, the initialization will call <dXEnter>.
-                             */
+                        // Reference current router-enabled view
+                        this.currentView = view;
+                    }.bind(this));
 
-                            if (!(viewName in self.viewCache)) {
-                                view = new (self.viewList[viewName].extend({
-                                    dXRouter: self
-                                }))();
-                                self.viewCache[viewName] = view;
-
-                            } else {
-                                view = self.viewCache[viewName];
-                                if ('dXEnter' in view) {
-                                    view.dXEnter();
-                                }
-                            }
-
-                            // Reference current router-enabled view
-                            self.currentView = view;
-                        });
-
-                    })(viewName);
-                }
+                }.bind(this))(viewName);
             }
 
             /*
@@ -196,9 +218,9 @@ define([
 
                     event.preventDefault();
                     url = href.replace(/^\//,'').replace(/#!/, '');
-                    self.obj.navigate(url, { trigger: true });
+                    this.obj.navigate(url, { trigger: true });
                 }
-            });
+            }.bind(this));
             
             /*
              * Router events.
