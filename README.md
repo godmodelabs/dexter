@@ -372,7 +372,19 @@ Mario = dXModel.extend({
 |- index.html  
 ```
 
-### Install script
+### Makefile
+The makefile included in Dexter provides an easy way to install dependencies and build your application. The
+following targets are included:
+
+* install
+* test
+* update
+* list
+* release
+* unrelease 
+
+The release target starts a build script to generate the required config file for r.js, runs the optimizer and
+links the requirejs entry point inside index.html to the newly generated main-build.js
 
 
 ### Debugging

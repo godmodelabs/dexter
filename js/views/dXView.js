@@ -6,7 +6,6 @@ define([
     'libs/uuid',
     'libs/applyMaybe',
     'libs/pipe',
-    'libs/unique',
     'epoxy',
     'shim!Function.prototype.bind',
     'shim!Object.keys'
@@ -16,8 +15,7 @@ define([
     Backbone,
     uuid,
     applyMaybe,
-    pipe,
-    unique
+    pipe
 ) {
 
     debug = debug('DX');
@@ -310,7 +308,8 @@ define([
                 .empty()
                 .append(template)
                 .attr('id', this.dXId)
-                .removeAttr('data-dX');
+                .removeAttr('data-dX')
+                .show();
         },
 
         /**
@@ -351,6 +350,7 @@ define([
             }
 
             this.$el.attr('data-dX', this.dXName);
+            this.$el.hide();
         },
 
         /**

@@ -4,8 +4,7 @@
  * @author: Riplexus <riplexus@gmail.com>
  */
 
-require.config({
-
+var config = {
     baseUrl: '/js',
 
     paths: {
@@ -59,12 +58,19 @@ require.config({
 
     // Enforce define to catch 404 errors in IE
     enforceDefine: true
-});
+};
 
-define(['dXBoot'], function (dXBoot) {
-    dXBoot();
+if (typeof module !== 'undefined') {
+    module.exports = config;
     
-    // Your startup code can be inserted here
-});
-
-define('main-build', [], function() {return {};});
+} else {
+    require.config(config);
+    
+    define(['dXBoot'], function (dXBoot) {
+        dXBoot();
+        
+        // Your startup code can be inserted here
+    });
+    
+    define('main-build', [], function() {return {};});
+}

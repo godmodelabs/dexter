@@ -1,75 +1,40 @@
-//noinspection BadExpressionStatementJS
-({
-    "baseUrl": "../js",
+var fs = require('fs'),
+    mainConfig = require('../js/main.js'),  
+    target = './build/config.js',
+    viewFolder = './js/views',
+    views,
+    templateFolder = './templates',
+    templates,
+    includes = [],
+    result;
 
-    "name": "main",
-    "out": "../js/main-build.js",
+views = fs.readdirSync(viewFolder);
+includes = includes.concat(views.map(function(v) {
+    return 'views/'+v.replace('.js', '');
+}));
+
+templates = fs.readdirSync(templateFolder);
+includes = includes.concat(templates.map(function(v) {
+    return 'text!templates/'+v.replace('.js', '');
+}));
+
+result = {
+    baseUrl: '../js',
+
+    name: 'main',
+    out: '../js/main-build.js',
     //optimize: 'none',
+    findNestedDependencies: true,
+    preserveLicenseComments: false,
     "insertRequire": ["main"],
-    include: [
-        "views/dXItem",
-        "views/dXResponsiveView",
-        "views/dXView",
-        "views/control",
-        "views/editor",
-        "views/enemy",
-        "views/player",
-        "views/playground",
-        "views/shot",
-        "views/space"
-    ],
+    include: includes,
+    uglify: { max_line_length: 500 },
 
-    uglify: {
-        max_line_length: 1000
-    },
+    paths: mainConfig.paths,
+    shim: mainConfig.shim,
 
-    paths: {
-        templates: '../templates',
-        configs: '../configs',
+    // Enforce define to catch 404 errors in IE
+    enforceDefine: true
+};
 
-        // Bower components
-        jquery: '../bower_components/jquery/jquery',
-        underscore: '../bower_components/underscore/underscore-min',
-        backbone: '../bower_components/backbone/backbone-min',
-        epoxy: 'libs/backbone.epoxy.min',
-        modernizr: '../bower_components/modernizr/modernizr',
-        mustache: '../bower_components/mustache/mustache',
-        ssm: '../bower_components/SimpleStateManager/src/ssm',
-        eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
-
-        // Plugins
-        text: './plugins/text',
-        viewLoader: './plugins/viewLoader',
-        templateLoader: './plugins/templateLoader',
-        shim: './plugins/shim',
-        json: '../bower_components/requirejs-plugins/lib/require/json',
-        noext: '../bower_components/requirejs-plugins/lib/require/noext'
-    },
-
-    shim: {
-        underscore: {
-            exports: '_'
-        },
-        modernizr: {
-            exports: 'Modernizr'
-        },
-        backbone: {
-            deps: ['underscore', 'jquery'],
-            exports: 'Backbone'
-        },
-        ssm: {
-            exports: 'ssm'
-        },
-        'libs/debug': {
-            deps: ['configs/debug.conf'],
-            exports: 'debug'
-        },
-        'epoxy': {
-            deps: ['backbone'],
-            exports: 'Backbone'
-        },
-        'libs/uuid': {
-            exports: 'uuid'
-        }
-    }
-})
+fs.writeFileSync(target, '('+JSON.stringify(result)+')');

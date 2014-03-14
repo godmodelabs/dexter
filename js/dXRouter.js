@@ -70,13 +70,13 @@ define([
         viewList: viewList,
 
         /**
-         * 
+         * Maps the view names to routes.
          */
         
         viewRoutes: flip(routesConf),
 
         /**
-         * 
+         * Cached route classes, will be added to the body.
          */
         
         routeClasses: {},

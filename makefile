@@ -32,7 +32,11 @@ update:
 list:
 	@$(NPM) list
 	@(cd ./configs && $(BOWER) list)
-deploy:
-	@$(NODE) ./build/r.js -o ./build/build.js
+release:
+	@$(NODE) ./build/build.js
+	@$(NODE) ./build/r.js -o ./build/config.js logLevel=4
+	@$(NODE) ./build/link.js set
+unrelease:
+	@$(NODE) ./build/link.js reset
 
 .PHONY: install
