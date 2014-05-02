@@ -421,7 +421,7 @@ The colors will be provided to the logger as methods:
 log.green('message'/* , ...*/);
 ```
 
-You should definitely check out the project home ([Debug]) for more information about this useful tool.
+You can check out the project home ([Debug]) for more information about this library.
 
 ### Testing
 We provide a pre-configured [Karma] file (using [Jasmine] as testing framework) and activated code coverage. Put
@@ -454,13 +454,10 @@ file under /configs/. You can compile it with the provided template or your own 
 - [Simple State Manager]
 - [Debug]
 
-## In Development
-- Extend backbone.js Router
-- Script: automatic installation of new components
-- Script: create a new view
+## Ideas
+- Refactor Router
 - CSS: css file loading via javascript, without media queries, dependent on current state
 - HTML: template loading via plugin, dependent on current state
-- Filesystem cached main-build.js?
 
 ## Special thanks to:
 - The contributors of [Backbone.js]
