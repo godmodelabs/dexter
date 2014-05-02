@@ -7,7 +7,8 @@
 define([
     'dXRouter',
     'configs/dXRoutes.conf',
-    'configs/dXViews.conf'
+    'configs/dXViews.conf',
+    'shim!console.log'
 ], function(
     dXRouter,
     routesConf,

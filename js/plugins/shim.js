@@ -4,12 +4,11 @@
  * be loaded for that user with this plugin, thanks to
  * modernizr.
  *
- * @author: Riplexus <riplexus@gmail.com>
+ * @author Riplexus <riplexus@gmail.com>
  */
 
 define(function() {
-
-    var window = window || {},
+    var window = this,
         exists;
 
     exists = function(name) {
@@ -31,11 +30,9 @@ define(function() {
 
     return {
         load: function(name, require, load) {
-
             if (!exists(name)) {
-                var file = name.split('.');
                 require([
-                    'libs/'+file[file.length-1]+'.shim'
+                    'libs/shims/'+name
                 ], function() {
                     load();
                 });
@@ -43,7 +40,6 @@ define(function() {
             } else {
                 load();
             }
-
         }
     };
 

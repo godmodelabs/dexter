@@ -293,14 +293,15 @@ define([
 });
 ```
 
-If one of the required features are not present, it tries to load a corresponding *.shim.js file from /js/libs.
-In our example, it will load /js/libs/indexOf.shim.js and /js/libs/history.shim.js for viewer 1 on IE 8 and
-since Chrome supports both features, it will load no additional files for viewer 2 on Chrome.
+If one of the required features are not available, it tries to load a corresponding file from /js/libs/shims.
+In our example, it will load /js/libs/shims/Array.prototype.indexOf.js and /js/libs/shims/Modernizr.history.js 
+for viewer 1 on IE 8 and since Chrome supports both features, it will load no additional files for viewer 2 
+on Chrome.
 
-You can easily create your own shims by placing a *.shim.js file under /js/libs:
+You can easily create your own shims by placing it under /js/libs/shims:
 
 ```javascript
-// file: /js/libs/console.shim.js
+// file: /js/libs/shims/console.js
 define(function() {
 
     window.console = {
@@ -514,4 +515,4 @@ THE SOFTWARE.
 - Prefixed config files for Dexter
 - Prefixed requirejs plugin files for Dexter
 - Moved libs for Dexter into dX subfolder
-- Moved shims into libs/shim with better naming TODO
+- Moved shims into libs/shim with better naming
