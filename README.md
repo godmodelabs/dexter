@@ -512,5 +512,5 @@ THE SOFTWARE.
 - More than one container for the same view will create multiple view instances
 - NPM config moved to configs
 - Prefixed config files for Dexter
-- Prefixed requirejs plugin files for Dexter TODO
+- Prefixed requirejs plugin files for Dexter
 - Moved libs for Dexter into dX subfolder TODO

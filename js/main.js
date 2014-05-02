@@ -23,8 +23,8 @@ var config = {
 
         // Plugins
         text: './plugins/text',
-        viewLoader: './plugins/viewLoader',
-        templateLoader: './plugins/templateLoader',
+        dXViewLoader: './plugins/dXViewLoader',
+        dXTemplateLoader: './plugins/dXTemplateLoader',
         shim: './plugins/shim',
         json: '../bower_components/requirejs-plugins/lib/require/json',
         noext: '../bower_components/requirejs-plugins/lib/require/noext'

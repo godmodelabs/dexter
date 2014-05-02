@@ -226,7 +226,7 @@ define([
          * This is one of the main methods of a dXView. It will be
          * called on initializing and further entering.
          * The template will be required synchronously (preloaded
-         * with the templateLoader plugin), any static template data
+         * with the dXTemplateLoader plugin), any static template data
          * will be rendered from {@link dXView#dXTemplateData} and
          * inserted with {@link dXView#dXInsert}. The loading screen
          * will be injected and removed if configured and the subviews
@@ -252,7 +252,7 @@ define([
             /*
              * Insert view template. We can use synchronous require
              * here, because the templates are already loaded by the
-             * templateLoader plugin. Use cached nodes if available.
+             * dXTemplateLoader plugin. Use cached nodes if available.
              */
 
             if (!this.dXCache) {

@@ -9,7 +9,7 @@ define([
     'libs/debug',
     'configs/dXViews.conf',
     'libs/unique',
-    'viewLoader!',
+    'dXViewLoader!',
     'shim!Object.keys'
 ], function(
     debug,
