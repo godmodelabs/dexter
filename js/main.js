@@ -15,16 +15,16 @@ var config = {
         jquery: '../bower_components/jquery/jquery',
         underscore: '../bower_components/underscore/underscore-min',
         backbone: '../bower_components/backbone/backbone-min',
-        epoxy: 'libs/backbone.epoxy',
+        epoxy: 'libs/dX/backbone.epoxy',
         modernizr: '../bower_components/modernizr/modernizr',
         mustache: '../bower_components/mustache/mustache',
         ssm: '../bower_components/SimpleStateManager/src/ssm',
         eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
 
         // Plugins
-        text: './plugins/text',
         dXViewLoader: './plugins/dXViewLoader',
         dXTemplateLoader: './plugins/dXTemplateLoader',
+        text: './plugins/text',
         shim: './plugins/shim',
         json: '../bower_components/requirejs-plugins/lib/require/json',
         noext: '../bower_components/requirejs-plugins/lib/require/noext'
@@ -43,7 +43,7 @@ var config = {
         ssm: {
             exports: 'ssm'
         },
-        'libs/debug': {
+        'libs/dX/debug': {
             deps: ['configs/dXDebug.conf'],
             exports: 'debug'
         },
@@ -51,7 +51,7 @@ var config = {
             deps: ['backbone'],
             exports: 'Backbone'
         },
-        'libs/uuid': {
+        'libs/dX/uuid': {
             exports: 'uuid'
         }
     },

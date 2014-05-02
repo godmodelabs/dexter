@@ -8,7 +8,6 @@
  */
 
 define([
-    'libs/debug',
     'underscore',
     'jquery',
     'backbone',
@@ -17,12 +16,12 @@ define([
     'configs/dXViews.conf',
     'dXViewLoader!',
     'dXTemplateLoader!',
-    'libs/pipe',
+    'libs/dX/debug',
+    'libs/dX/pipe',
     'libs/flip',
     'libs/removeClasses',
     'shim!Object.keys'
 ], function(
-    debug,
     _, $,
     Backbone,
     Modernizr,
@@ -30,6 +29,7 @@ define([
     dexterConf,
     viewList,
     templateList,
+    debug,
     pipe,
     flip,
     removeClasses

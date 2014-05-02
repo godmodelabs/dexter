@@ -1,16 +1,16 @@
 define([
-    'libs/debug',
     'underscore',
     'jquery',
     'backbone',
+    'libs/dX/debug',
     'views/dXView',
     'configs/dXStates.conf',
     'ssm',
     'libs/applyMaybe'
 ], function(
-    debug,
     _, $,
     Backbone,
+    debug,
     dXView,
     statesConf,
     ssm,

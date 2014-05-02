@@ -3,7 +3,7 @@
  *
  * @param obj1
  * @param obj2
- * @returns obj3 a new object based on obj1 and obj2
+ * @returns new object based on obj1 and obj2
  * @source http://stackoverflow.com/a/171256/795605
  * @ignore
  */

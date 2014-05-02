@@ -1,5 +1,5 @@
 define([
-    'libs/debug',
+    'libs/dX/debug',
     'libs/override',
     'eventemitter2'
 ], function(

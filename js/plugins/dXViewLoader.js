@@ -6,17 +6,18 @@
  */
 
 define([
-    'libs/debug',
     'underscore',
     'configs/dXRoutes.conf',
     'configs/dXViews.conf',
-    'libs/is',
+    'libs/dX/debug',
+    'libs/dX/is',
     'libs/unique',
     'shim!Object.keys'
 ], function(
-    debug, _,
+    _,
     routesConf,
     dexterConf,
+    debug,
     is,
     unique
 ) {
@@ -153,7 +154,7 @@ define([
     /**
      * Returns the appropriate view name for the user.
      * If any system specific declarations are set, check the user os
-     * via libs/is. If the test fails, omit the keyword (e.g. android).
+     * via libs/dX/is. If the test fails, omit the keyword (e.g. android).
      *
      * @param name
      * @returns {string}

@@ -1,21 +1,21 @@
 define([
-    'libs/debug',
     'underscore',
     'jquery',
     'backbone',
-    'libs/uuid',
+    'libs/dX/debug',
+    'libs/dX/uuid',
+    'libs/dX/pipe',
     'libs/applyMaybe',
-    'libs/pipe',
     'epoxy',
     'shim!Function.prototype.bind',
     'shim!Object.keys'
 ], function(
-    debug,
     _, $,
     Backbone,
+    debug,
     uuid,
-    applyMaybe,
-    pipe
+    pipe,
+    applyMaybe
 ) {
 
     debug = debug('DX');

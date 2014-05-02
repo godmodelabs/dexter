@@ -1,18 +1,18 @@
 define([
-    'libs/debug',
     'underscore',
     'jquery',
     'backbone',
-    'libs/uuid',
-    'views/dXView',
-    'libs/applyMaybe'
+    'libs/dX/debug',
+    'libs/dX/uuid',
+    'libs/applyMaybe',
+    'views/dXView'
 ], function(
-    debug,
     _, $,
     Backbone,
+    debug,
     uuid,
-    dXView,
-    applyMaybe
+    applyMaybe,
+    dXView
 ) {
 
     debug = debug('DX');

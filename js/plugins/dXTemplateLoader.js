@@ -6,14 +6,14 @@
  */
 
 define([
-    'libs/debug',
     'configs/dXViews.conf',
+    'libs/dX/debug',
     'libs/unique',
     'dXViewLoader!',
     'shim!Object.keys'
 ], function(
-    debug,
     dexterConf,
+    debug,
     unique,
     viewList
 ) {

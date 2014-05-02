@@ -265,7 +265,7 @@ Views and templates must be named equally and have to be stored in corresponding
 |--- navigation.html  
 ```
 
-Hint: If you just want to differ simple js statements instead of whole views, you can use libs/is for the same system
+Hint: If you just want to differ simple js statements instead of whole views, you can use libs/dX/is for the same system
 checks used here.
 
 #### Currently supported keywords
@@ -276,7 +276,7 @@ checks used here.
 - mobile (For every OS listed above)
 - desktop (not mobile)
 
-If you want to create custom keywords, you can just add a new test in libs/is, the key is your new keyword.
+If you want to create custom keywords, you can just add a new test in libs/dX/is, the key is your new keyword.
 Note that this feature is not responsive, thus a full reload is needed if the result of your test changes and you want
 it to take effect.
 
@@ -397,7 +397,7 @@ debug.enable('*');
 
 Quick usage:
 ```javascript
-var log = require('libs/debug')('myModule');
+var log = require('libs/dX/debug')('myModule');
 
 log('message'/* , ...*/);
 ```
@@ -513,4 +513,5 @@ THE SOFTWARE.
 - NPM config moved to configs
 - Prefixed config files for Dexter
 - Prefixed requirejs plugin files for Dexter
-- Moved libs for Dexter into dX subfolder TODO
+- Moved libs for Dexter into dX subfolder
+- Moved shims into libs/shim with better naming TODO

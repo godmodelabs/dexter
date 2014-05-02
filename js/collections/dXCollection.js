@@ -1,13 +1,13 @@
 define([
-    'libs/debug',
     'underscore',
     'jquery',
     'backbone',
-    'libs/pipe'
+    'libs/dX/debug',
+    'libs/dX/pipe'
 ], function(
-    debug,
     _, $,
     Backbone,
+    debug,
     pipe
 ) {
 
