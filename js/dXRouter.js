@@ -94,7 +94,8 @@ define([
          */
 
         init: function() {
-            var i, view, viewName;
+            var i, view, viewName,
+                that = this;
 
             this.obj = new AppRouter();
 
@@ -106,9 +107,17 @@ define([
                 viewName = dexterConf.global[i];
 
                 if (viewName in this.viewList) {
-                    view = new (this.viewList[viewName].extend({
-                        dXRouter: this
-                    }))();
+                    // TODO test!
+                    view = [];
+                    $('body').find('[data-dX='+viewName+']').each(function(index) {
+                        var $this = $(this);
+                        $this.attr('data-dX', viewName+'-'+index);
+
+                        view = new (that.viewList[viewName].extend({
+                            dXRouter: that,
+                            dXIndex: index
+                        }))();
+                    });
 
                     this.viewCache[viewName] = view;
                 }
@@ -129,7 +138,8 @@ define([
                      */
 
                     this.obj.on('route:'+viewName, function() {
-                        var path, $body;
+                        var path, $body,
+                            that = this;
 
                         /*
                          * Store the route parameters in <dXRouter.parameters> for the
@@ -165,9 +175,11 @@ define([
                          * Leave current view.
                          */
 
-                        if ('dXLeave' in this.currentView) {
-                            this.currentView.dXLeave();
-                        }
+                        _.each(this.currentView, function(view) {
+                            if ('dXLeave' in view) {
+                                view.dXLeave();
+                            }
+                        });
 
                         /*
                          * Get or create the desired view instance and render
@@ -176,16 +188,25 @@ define([
                          */
 
                         if (!(viewName in this.viewCache)) {
-                            view = new (this.viewList[viewName].extend({
-                                dXRouter: this
-                            }))();
-                            this.viewCache[viewName] = view;
+                            view = [];
+                            $body.find('[data-dX='+viewName+']').each(function(index) {
+                                var $this = $(this);
+                                $this.attr('data-dX', viewName+'-'+index);
+
+                                view.push(new (that.viewList[viewName].extend({
+                                    dXRouter: that,
+                                    dXIndex: index
+                                }))());
+                            });
+                            that.viewCache[viewName] = view;
 
                         } else {
                             view = this.viewCache[viewName];
-                            if ('dXEnter' in view) {
-                                view.dXEnter();
-                            }
+                            _.each(view, function(item) {
+                                if ('dXEnter' in item) {
+                                    item.dXEnter();
+                                }
+                            });
                         }
 
                         // Reference current router-enabled view

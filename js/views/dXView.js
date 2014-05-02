@@ -64,7 +64,7 @@ define([
          */
 
         el: function el() {
-            return this.dXScope += ' [data-dX='+this.dXName+']';
+            return this.dXScope += ' [data-dX='+this.dXName+'-'+this.dXIndex+']';
         },
 
         /**
@@ -81,6 +81,12 @@ define([
          */
 
         dXId: null,
+
+        /**
+         *
+         */
+
+        dXIndex: 0,
 
         /**
          *
@@ -175,27 +181,37 @@ define([
          */
 
         dXGetSubViews: function dXGetSubViews() {
-            var i, subView, SubView, subViews, subViewName, subViewNames;
+            var i, subView, SubView, subViews, subViewName, subViewNames,
+                that = this;
 
             subViews = {};
             subViewNames = Object.keys(this.dXSubViewPaths);
 
             for (i=subViewNames.length; i--;) {
                 subViewName = subViewNames[i];
+                subView = [];
 
                 if (subViewName in this.dXSubViewCache) {
                     subView = this.dXSubViewCache[subViewName];
-                    if ('dXEnter' in subView) {
-                        subView.dXEnter();
-                    }
+                    _.each(subView, function(view) {
+                        if ('dXEnter' in view) {
+                            view.dXEnter();
+                        }
+                    });
 
                 } else {
                     SubView = require('views/'+this.dXSubViewPaths[subViewName]);
-                    SubView = SubView.extend({
-                        dXScope: '#'+this.dXId,
-                        dXRouter: this.dXRouter
+                    this.$el.find('[data-dX='+subViewName+']').each(function(index) {
+                        var $this = $(this);
+                        $this.attr('data-dX', subViewName+'-'+index);
+
+                        SubView = SubView.extend({
+                            dXScope: '#'+that.dXId,
+                            dXRouter: that.dXRouter,
+                            dXIndex: index
+                        });
+                        subView.push(new SubView());
                     });
-                    subView = new SubView();
                 }
 
                 subViews[subViewName] = subView;
@@ -246,7 +262,7 @@ define([
                 try {
                     template = this.dXTemplateRenderer(template,
                         typeof this.dXTemplateData === 'function' ?
-                            this.dXTemplateData() : this.dXTemplateData);
+                            this.dXTemplateData(this) : this.dXTemplateData);
 
                 } catch(err) {
                     debug.palevioletred('stopped #'+this.dXName+': '+err);
@@ -335,9 +351,11 @@ define([
                 for (i=subViewNames.length; i--;) {
                     subView = this.dXSubViewCache[subViewNames[i]];
 
-                    if ('dXLeave' in subView) {
-                        subView.dXLeave();
-                    }
+                    _.each(subView, function(view) {
+                        if ('dXLeave' in view) {
+                            view.dXLeave();
+                        }
+                    });
                 }
             }
 
@@ -349,7 +367,7 @@ define([
                 this.dXCache = this.$el.contents().detach();
             }
 
-            this.$el.attr('data-dX', this.dXName);
+            this.$el.attr('data-dX', this.dXName+'-'+this.dXIndex);
             this.$el.hide();
         },
 
@@ -413,9 +431,11 @@ define([
          * This method can be overridden to provide static
          * data for the template. It can be an object or a
          * function returning an object.
+         *
+         * @param {object} item
          */
 
-        dXTemplateData: function() {},
+        dXTemplateData: function(item) {},
 
         /**
          * Overwrite this method with the template renderer of

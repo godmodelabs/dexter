@@ -28,10 +28,10 @@ define([ /* ... */ ], function(dXView) {
 ```
 
 #### Global Views
-independent, defined in configs/dexter.conf.js, automatically loaded by the router on init
+independent, defined in configs/dXViews.conf.js, automatically loaded by the router on init
 
 #### Routed Views
-defined in routes.conf.js, will be loaded on navigation
+defined in dXRoutes.conf.js, will be loaded on navigation
 
 #### Subviews
 Each view can incorporate any number of other views.
@@ -58,7 +58,7 @@ high performance, subviews will be rendered after the parent view to fulfill dep
 the application.
 
 #### Item Views
-used in collections, preloaded in configs/dexter.conf.js
+used in collections, preloaded in configs/dXViews.conf.js
 
 ### Data Binding
 dXView extends Backbone.Epoxy.View from [Epoxy.js], thus we can use that neat Data Binding to seamlessly 
@@ -143,7 +143,7 @@ States are defined by the minimum page width of the user window. You can target,
 and desktop clients or differentiate between screen orientations.
 
 ```javascript
-// file: /configs/states.conf.js
+// file: /configs/dXStates.conf.js
 define(function() {
     return {
         // <state name>: <minimum page width>
@@ -217,7 +217,7 @@ define([ /* ... */ ], function(dXView) {
 ```
 
 ```javascript
-// file: /configs/dexter.conf.js
+// file: /configs/dXViews.conf.js
 define(function() {
     return {
         // ...
@@ -230,7 +230,7 @@ define(function() {
 ```
 
 ```javascript
-// file: /configs/routes.conf.js
+// file: /configs/dXRoutes.conf.js
 define(function() {
     return {
         // ...
@@ -247,11 +247,11 @@ If no definition is found for the current user system, it omits the first keywor
 Deeper and more specific declarations have priority ("android!navigation" > "navigation").
 
 
-The specific views and templates must be named equally and have to be stored in corresponding folders:
+Views and templates must be named equally and have to be stored in corresponding folders, in order for Dexter to find them.
 
 ```bash
-/js/views/  
-|- android/  
+/js/views/
+|- android/
 |--- navigation.js  
 |- iOS/  
 |--- navigation.js
@@ -404,7 +404,7 @@ log('message'/* , ...*/);
 
 Custom colors for an improved console overview (if supported by the browser):
 ```javascript
-// file: /configs/debug.conf.js
+// file: /configs/dXDebug.conf.js
 define(function() {
     return {
         colors: {
@@ -485,7 +485,6 @@ and of course every contributor of the libraries listed above, awesome work!
 [Mustache]: <http://mustache.github.io/>
 
 ## License
-
 (MIT)
 
 Copyright (c) 2014 BörseGo AG, http://www.boerse-go.ag
@@ -507,3 +506,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+## ChangeLog
+0.5.0
+- More than one container for the same view will create multiple view instances
+- NPM config moved to configs
+- Prefixed config files for Dexter TODO
+- Prefixed requirejs plugin files for Dexter TODO
+- Moved libs for Dexter into dX subfolder TODO

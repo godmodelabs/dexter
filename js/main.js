@@ -69,7 +69,7 @@ if (typeof module !== 'undefined') {
     define(['dXBoot'], function (dXBoot) {
         dXBoot();
         
-        // Your startup code can be inserted here
+        // Your startup code
     });
     
     define('main-build', [], function() {return {};});

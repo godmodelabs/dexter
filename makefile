@@ -1,28 +1,19 @@
-ifdef SystemRootre
-	WINDOWS = 1
-endif
-
-ifdef WINDOWS
+ifdef SystemRootre # Windows
 	NODE = node
 	NPM = npm
 	BOWER = .\node_modules\.bin\bower.cmd
 else
 	UNAME_S := $(shell uname -s)
-	ifeq ($(UNAME_S),Darwin)
-		NODE = node
-		NPM = npm
-		BOWER = $(NODE) ../node_modules/.bin/bower
-	else
-		NODE = node
-		NPM = npm
-		BOWER = $(NODE) ../node_modules/.bin/bower
-	endif
+    NODE = node
+    NPM = npm
+    BOWER = $(NODE) ../node_modules/.bin/bower
 endif
 
 NODE_ENV = production
 
 install:
-	@$(NPM) install
+	@(cd ./configs && $(NPM) install)
+	@(mv ./configs/node_modules ./node_modules)
 	@(cd ./configs && $(BOWER) install)
 test:
 	@(cd ./configs && karma start)
