@@ -1,5 +1,5 @@
 define([
-    'views/dXResponsiveView'
+    'dX/ResponsiveView'
 ], function(
     dXResponsiveView
 ) {

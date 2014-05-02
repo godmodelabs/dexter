@@ -7,10 +7,10 @@
 
 define([
     'configs/dXViews.conf',
-    'libs/dX/debug',
-    'libs/unique',
+    'dX/libs/debug',
+    'dX/libs/unique',
     'dXViewLoader!',
-    'shim!Object.keys'
+    'dXShim!Object.keys'
 ], function(
     dexterConf,
     debug,

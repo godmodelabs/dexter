@@ -9,10 +9,10 @@ define([
     'underscore',
     'configs/dXRoutes.conf',
     'configs/dXViews.conf',
-    'libs/dX/debug',
-    'libs/dX/is',
-    'libs/unique',
-    'shim!Object.keys'
+    'dX/libs/debug',
+    'dX/libs/is',
+    'dX/libs/unique',
+    'dXShim!Object.keys'
 ], function(
     _,
     routesConf,
@@ -154,7 +154,7 @@ define([
     /**
      * Returns the appropriate view name for the user.
      * If any system specific declarations are set, check the user os
-     * via libs/dX/is. If the test fails, omit the keyword (e.g. android).
+     * via dX/libs/is. If the test fails, omit the keyword (e.g. android).
      *
      * @param name
      * @returns {string}

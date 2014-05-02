@@ -2,16 +2,17 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'libs/dX/debug',
-    'libs/dX/uuid',
-    'libs/dX/pipe',
-    'libs/applyMaybe',
     'epoxy',
-    'shim!Function.prototype.bind',
-    'shim!Object.keys'
+    'dX/libs/debug',
+    'dX/libs/uuid',
+    'dX/libs/pipe',
+    'dX/libs/applyMaybe',
+    'dXShim!Function.prototype.bind',
+    'dXShim!Object.keys'
 ], function(
     _, $,
     Backbone,
+    epoxy,
     debug,
     uuid,
     pipe,

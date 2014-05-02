@@ -2,19 +2,19 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'libs/dX/debug',
-    'views/dXView',
+    'dX/libs/debug',
+    'dX/libs/applyMaybe',
+    'dX/View',
     'configs/dXStates.conf',
-    'ssm',
-    'libs/applyMaybe'
+    'ssm'
 ], function(
     _, $,
     Backbone,
     debug,
+    applyMaybe,
     dXView,
     statesConf,
-    ssm,
-    applyMaybe
+    ssm
 ) {
 
     debug = debug('DX');

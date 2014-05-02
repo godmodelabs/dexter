@@ -2,8 +2,8 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'libs/dX/debug',
-    'libs/dX/pipe'
+    'dX/libs/debug',
+    'dX/libs/pipe'
 ], function(
     _, $,
     Backbone,
@@ -12,19 +12,19 @@ define([
 ) {
 
     /**
-     * This basic model in the dexter framework
-     * is used to connect the model to the pipe
+     * This basic collection in the dexter framework
+     * is used to connect the collections to the pipe
      * event emitter network for further communication
      * between distant views, models and collections.
      * It provides the necessary (dis)connect methods
      * and initializes the pipe connection on
-     * {@link dXModel#initialize}.
+     * {@link dXCollection#initialize}.
      *
-     * @class dXModel
+     * @class dXCollection
      * @author Riplexus <riplexus@gmail.com>
      */
 
-    var dXModel = Backbone.Model.extend(/** @lends dXModel.prototype */{
+    var dXCollection = Backbone.Collection.extend(/** @lends dXCollection.prototype */{
 
         /**
          * Connect with the dXPipe network on initializing.
@@ -87,5 +87,5 @@ define([
         }
     });
 
-    return dXModel;
+    return dXCollection;
 });

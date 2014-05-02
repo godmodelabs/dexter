@@ -2,10 +2,10 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'libs/dX/debug',
-    'libs/dX/uuid',
-    'libs/applyMaybe',
-    'views/dXView'
+    'dX/libs/debug',
+    'dX/libs/uuid',
+    'dX/libs/applyMaybe',
+    'dX/View'
 ], function(
     _, $,
     Backbone,

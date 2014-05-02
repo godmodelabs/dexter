@@ -5,7 +5,7 @@
  */
 
 define([
-    'dXRouter',
+    'dX/Router',
     'configs/dXRoutes.conf',
     'configs/dXViews.conf',
     'shim!console.log'

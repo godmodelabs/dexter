@@ -16,11 +16,11 @@ define([
     'configs/dXViews.conf',
     'dXViewLoader!',
     'dXTemplateLoader!',
-    'libs/dX/debug',
-    'libs/dX/pipe',
-    'libs/flip',
-    'libs/removeClasses',
-    'shim!Object.keys'
+    'dX/libs/debug',
+    'dX/libs/pipe',
+    'dX/libs/flip',
+    'dX/libs/removeClasses',
+    'dXShim!Object.keys'
 ], function(
     _, $,
     Backbone,

@@ -357,22 +357,6 @@ Mario = dXModel.extend({
 * leave/:dXName
 * dXRouter/goTo
 
-### Folder structure
-
-```bash
-|- assets/  
-|- configs/  
-|- js/  
-|--- collections/  
-|--- libs/  
-|--- models/  
-|--- plugins/  
-|--- tests/  
-|--- views/  
-|- templates/  
-|- index.html  
-```
-
 ### Makefile
 The makefile included in Dexter provides an easy way to install dependencies and build your application. The
 following targets are included:
@@ -513,3 +497,4 @@ THE SOFTWARE.
 - Prefixed requirejs plugin files for Dexter
 - Moved libs for Dexter into dX subfolder
 - Moved shims into libs/shim with better naming
+- Extracted Dexter from application code

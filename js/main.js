@@ -8,24 +8,35 @@ var config = {
     baseUrl: '/js',
 
     paths: {
+        dX: '../dX',
         templates: '../templates',
         configs: '../configs',
+        
+        // Dexter mappings
+        dXViewLoader: '../dX/plugins/dXViewLoader',
+        dXTemplateLoader: '../dX/plugins/dXTemplateLoader',
+        dXShim: '../dX/plugins/dXShim',
+        'dX/Collection': '../dX/collections/Collection',
+        'dX/Model': '../dX/models/Model',
+        'dX/ItemView': '../dX/views/ItemView',
+        'dX/ResponsiveView': '../dX/views/ResponsiveView',
+        'dX/View': '../dX/views/View',
+        'dX/Boot': '../dX/Boot',
+        'dX/Router': '../dX/Router',
 
         // Bower components
         jquery: '../bower_components/jquery/jquery',
         underscore: '../bower_components/underscore/underscore-min',
         backbone: '../bower_components/backbone/backbone-min',
-        epoxy: 'libs/dX/backbone.epoxy',
+        epoxy: '../dX/libs/backbone.epoxy',
         modernizr: '../bower_components/modernizr/modernizr',
         mustache: '../bower_components/mustache/mustache',
         ssm: '../bower_components/SimpleStateManager/src/ssm',
         eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
 
         // Plugins
-        dXViewLoader: './plugins/dXViewLoader',
-        dXTemplateLoader: './plugins/dXTemplateLoader',
-        text: './plugins/text',
-        shim: './plugins/shim',
+        text: '../dX/plugins/text',
+        shim: '../dX/plugins/shim',
         json: '../bower_components/requirejs-plugins/lib/require/json',
         noext: '../bower_components/requirejs-plugins/lib/require/noext'
     },
@@ -40,18 +51,18 @@ var config = {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
         },
-        ssm: {
-            exports: 'ssm'
-        },
-        'libs/dX/debug': {
-            deps: ['configs/dXDebug.conf'],
-            exports: 'debug'
-        },
         'epoxy': {
             deps: ['backbone'],
             exports: 'Backbone'
         },
-        'libs/dX/uuid': {
+        ssm: {
+            exports: 'ssm'
+        },
+        'dX/libs/debug': {
+            deps: ['configs/dXDebug.conf'],
+            exports: 'debug'
+        },
+        'dX/libs/uuid': {
             exports: 'uuid'
         }
     },
@@ -66,7 +77,7 @@ if (typeof module !== 'undefined') {
 } else {
     require.config(config);
     
-    define(['dXBoot'], function (dXBoot) {
+    define(['dX/Boot'], function (dXBoot) {
         dXBoot();
         
         // Your startup code
