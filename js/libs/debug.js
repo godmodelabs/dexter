@@ -70,7 +70,7 @@ function debug(name) {
      * color plugin by Riplexus
      */
 
-    var colors = require('configs/debug.conf').colors;
+    var colors = require('configs/dXDebug.conf').colors;
     obj.colored = function() {
         var args = Array.prototype.slice.call(arguments);
         var color = args.pop();

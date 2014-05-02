@@ -7,7 +7,7 @@
 
 define([
     'libs/debug',
-    'configs/dexter.conf',
+    'configs/dXViews.conf',
     'libs/unique',
     'viewLoader!',
     'shim!Object.keys'

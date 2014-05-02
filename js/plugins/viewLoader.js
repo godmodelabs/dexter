@@ -1,6 +1,6 @@
 /**
  * Get every view registered as global, routed, subView or
- * mentioned at dexter.conf.js for preloading.
+ * mentioned at dXViews.conf.js for preloading.
  *
  * @author: Riplexus <riplexus@gmail.com>
  */
@@ -8,8 +8,8 @@
 define([
     'libs/debug',
     'underscore',
-    'configs/routes.conf',
-    'configs/dexter.conf',
+    'configs/dXRoutes.conf',
+    'configs/dXViews.conf',
     'libs/is',
     'libs/unique',
     'shim!Object.keys'

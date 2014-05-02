@@ -242,7 +242,7 @@ define([
 
             /*
              * Prepend loading screen, if configured. The template
-             * is preloaded as configured in dexter.conf.js.
+             * is preloaded as configured in dXViews.conf.js.
              */
 
             if (this.dXConfig.setLoading) {
@@ -395,7 +395,7 @@ define([
 
         /**
          * Prepend the loading screen. The template
-         * is preloaded as configured in dexter.conf.js.
+         * is preloaded as configured in dXViews.conf.js.
          * To support absolute positioned loading elements,
          * save the current position attribute and replace
          * 'static' with 'relative' until the loading

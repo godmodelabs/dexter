@@ -44,7 +44,7 @@ var config = {
             exports: 'ssm'
         },
         'libs/debug': {
-            deps: ['configs/debug.conf'],
+            deps: ['configs/dXDebug.conf'],
             exports: 'debug'
         },
         'epoxy': {

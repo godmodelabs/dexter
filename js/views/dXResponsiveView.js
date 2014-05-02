@@ -4,7 +4,7 @@ define([
     'jquery',
     'backbone',
     'views/dXView',
-    'configs/states.conf',
+    'configs/dXStates.conf',
     'ssm',
     'libs/applyMaybe'
 ], function(
@@ -64,7 +64,7 @@ define([
      * dXResponsiveView extends the basic dXView of the dexter
      * framework. It provides additional enter functions, dependent
      * of the current application state. States are defined in the
-     * configs/states.conf.js file as a key value pair of the state
+     * configs/dXStates.conf.js file as a key value pair of the state
      * name and the minimum width of the page. E.g. mobile: 400
      * describes, that the application is in the state 'mobile'
      * if the page width is under 400 px.

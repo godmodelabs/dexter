@@ -6,8 +6,8 @@
 
 define([
     'dXRouter',
-    'configs/routes.conf',
-    'configs/dexter.conf'
+    'configs/dXRoutes.conf',
+    'configs/dXViews.conf'
 ], function(
     dXRouter,
     routesConf,
