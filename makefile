@@ -21,6 +21,8 @@ test:
 update:
 	@$(NPM) update
 	@(cd ./configs && $(BOWER) update)
+docs:
+	@(jsdoc -c bower_components/dexter-docs/jsdoc.json ./README.md)
 list:
 	@$(NPM) list
 	@(cd ./configs && $(BOWER) list)
@@ -31,4 +33,4 @@ release:
 unrelease:
 	@$(NODE) ./bower_components/dexter-core/build/link.js reset
 
-.PHONY: install
+.PHONY: install docs
