@@ -12,6 +12,7 @@ endif
 NODE_ENV = production
 
 install:
+	@(mv ./node_modules ./configs/node_modules)
 	@(cd ./configs && $(NPM) install)
 	@(mv ./configs/node_modules ./node_modules)
 	@(cd ./configs && $(BOWER) install)
@@ -24,10 +25,10 @@ list:
 	@$(NPM) list
 	@(cd ./configs && $(BOWER) list)
 release:
-	@$(NODE) ./build/build.js
-	@$(NODE) ./build/r.js -o ./build/config.js logLevel=4
-	@$(NODE) ./build/link.js set
+	@$(NODE) ./bower_components/dexter-core/build/build.js
+	@$(NODE) ./bower_components/dexter-core/build/r.js -o ./configs/dXBuild.min.js logLevel=4
+	@$(NODE) ./bower_components/dexter-core/build/link.js set
 unrelease:
-	@$(NODE) ./build/link.js reset
+	@$(NODE) ./bower_components/dexter-core/build/link.js reset
 
 .PHONY: install

@@ -1,42 +1,42 @@
 /**
  *
  *
- * @author: Riplexus <riplexus@gmail.com>
+ * @author Riplexus <riplexus@gmail.com>
  */
 
 var config = {
     baseUrl: '/js',
 
     paths: {
-        dX: '../dX',
         templates: '../templates',
         configs: '../configs',
         
         // Dexter mappings
-        dXViewLoader: '../dX/plugins/dXViewLoader',
-        dXTemplateLoader: '../dX/plugins/dXTemplateLoader',
-        dXShim: '../dX/plugins/dXShim',
-        'dX/Collection': '../dX/collections/Collection',
-        'dX/Model': '../dX/models/Model',
-        'dX/ItemView': '../dX/views/ItemView',
-        'dX/ResponsiveView': '../dX/views/ResponsiveView',
-        'dX/View': '../dX/views/View',
-        'dX/Boot': '../dX/Boot',
-        'dX/Router': '../dX/Router',
+        'dX/ViewLoader': '../bower_components/dexter-core/js/plugins/dXViewLoader',
+        'dX/TemplateLoader': '../bower_components/dexter-core/js/plugins/dXTemplateLoader',
+        'dX/Shim': '../bower_components/dexter-core/js/plugins/dXShim',
+        'dX/Collection': '../bower_components/dexter-core/js/collections/Collection',
+        'dX/Model': '../bower_components/dexter-core/js/models/Model',
+        'dX/ItemView': '../bower_components/dexter-core/js/views/ItemView',
+        'dX/ResponsiveView': '../bower_components/dexter-core/js/views/ResponsiveView',
+        'dX/View': '../bower_components/dexter-core/js/views/View',
+        'dX/Boot': '../bower_components/dexter-core/js/Boot',
+        'dX/Router': '../bower_components/dexter-core/js/Router',
+        'dX/libs': '../bower_components/dexter-core/js/libs',
 
         // Bower components
         jquery: '../bower_components/jquery/jquery',
         underscore: '../bower_components/underscore/underscore-min',
         backbone: '../bower_components/backbone/backbone-min',
-        epoxy: '../dX/libs/backbone.epoxy',
+        epoxy: '../bower_components/epoxy/backbone.epoxy.min',
         modernizr: '../bower_components/modernizr/modernizr',
         mustache: '../bower_components/mustache/mustache',
         ssm: '../bower_components/SimpleStateManager/src/ssm',
         eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
 
-        // Plugins
-        text: '../dX/plugins/text',
-        shim: '../dX/plugins/shim',
+        // Requirejs plugins
+        text: '../bower_components/dexter-core/js/plugins/text',
+        shim: '../bower_components/dexter-core/js/plugins/shim',
         json: '../bower_components/requirejs-plugins/lib/require/json',
         noext: '../bower_components/requirejs-plugins/lib/require/noext'
     },
