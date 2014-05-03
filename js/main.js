@@ -9,62 +9,46 @@ var config = {
 
     paths: {
         templates: '../templates',
-        configs: '../configs',
+        configs:   '../configs',
         
         // Dexter mappings
-        'dX/ViewLoader': '../bower_components/dexter-core/js/plugins/dXViewLoader',
+        'dX/ViewLoader':     '../bower_components/dexter-core/js/plugins/dXViewLoader',
         'dX/TemplateLoader': '../bower_components/dexter-core/js/plugins/dXTemplateLoader',
-        'dX/Shim': '../bower_components/dexter-core/js/plugins/dXShim',
-        'dX/Collection': '../bower_components/dexter-core/js/collections/Collection',
-        'dX/Model': '../bower_components/dexter-core/js/models/Model',
-        'dX/ItemView': '../bower_components/dexter-core/js/views/ItemView',
+        'dX/Shim':           '../bower_components/dexter-core/js/plugins/dXShim',
+        'dX/Collection':     '../bower_components/dexter-core/js/collections/Collection',
+        'dX/Model':          '../bower_components/dexter-core/js/models/Model',
+        'dX/ItemView':       '../bower_components/dexter-core/js/views/ItemView',
         'dX/ResponsiveView': '../bower_components/dexter-core/js/views/ResponsiveView',
-        'dX/View': '../bower_components/dexter-core/js/views/View',
-        'dX/Boot': '../bower_components/dexter-core/js/Boot',
-        'dX/Router': '../bower_components/dexter-core/js/Router',
-        'dX/libs': '../bower_components/dexter-core/js/libs',
+        'dX/View':           '../bower_components/dexter-core/js/views/View',
+        'dX/Boot':           '../bower_components/dexter-core/js/Boot',
+        'dX/Router':         '../bower_components/dexter-core/js/Router',
+        'dX/libs':           '../bower_components/dexter-core/js/libs',
 
         // Bower components
-        jquery: '../bower_components/jquery/jquery',
-        underscore: '../bower_components/underscore/underscore-min',
-        backbone: '../bower_components/backbone/backbone-min',
-        epoxy: '../bower_components/epoxy/backbone.epoxy.min',
-        modernizr: '../bower_components/modernizr/modernizr',
-        mustache: '../bower_components/mustache/mustache',
-        ssm: '../bower_components/SimpleStateManager/src/ssm',
+        jquery:        '../bower_components/jquery/jquery',
+        underscore:    '../bower_components/underscore/underscore-min',
+        backbone:      '../bower_components/backbone/backbone-min',
+        epoxy:         '../bower_components/epoxy/backbone.epoxy.min',
+        modernizr:     '../bower_components/modernizr/modernizr',
+        mustache:      '../bower_components/mustache/mustache',
+        ssm:           '../bower_components/SimpleStateManager/src/ssm',
         eventemitter2: '../bower_components/eventemitter2/lib/eventemitter2',
 
         // Requirejs plugins
-        text: '../bower_components/dexter-core/js/plugins/text',
-        shim: '../bower_components/dexter-core/js/plugins/shim',
-        json: '../bower_components/requirejs-plugins/lib/require/json',
+        text:  '../bower_components/dexter-core/js/plugins/text',
+        shim:  '../bower_components/dexter-core/js/plugins/shim',
+        json:  '../bower_components/requirejs-plugins/lib/require/json',
         noext: '../bower_components/requirejs-plugins/lib/require/noext'
     },
     shim: {
-        underscore: {
-            exports: '_'
-        },
-        modernizr: {
-            exports: 'Modernizr'
-        },
-        backbone: {
-            deps: ['underscore', 'jquery'],
-            exports: 'Backbone'
-        },
-        'epoxy': {
-            deps: ['backbone'],
-            exports: 'Backbone'
-        },
-        ssm: {
-            exports: 'ssm'
-        },
-        'dX/libs/debug': {
-            deps: ['configs/dXDebug.conf'],
-            exports: 'debug'
-        },
-        'dX/libs/uuid': {
-            exports: 'uuid'
-        }
+        'dX/libs/debug': { exports: 'debug', deps: ['configs/dXDebug.conf'] },
+        'dX/libs/uuid':  { exports: 'uuid' },
+        
+        underscore: { exports: '_' },
+        modernizr:  { exports: 'Modernizr' },
+        backbone:   { exports: 'Backbone', deps: ['underscore', 'jquery'] },
+        epoxy:      { exports: 'Backbone', deps: ['backbone'] },
+        ssm:        { exports: 'ssm' }
     },
 
     // Enforce define to catch 404 errors in IE
