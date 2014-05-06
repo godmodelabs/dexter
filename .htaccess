@@ -1,15 +1,5 @@
 RewriteEngine On
 
-#RewriteCond %{DOCUMENT_ROOT}/js/main-build.js -f
-#RewriteCond %{SCRIPT_FILENAME} main.js
-#RewriteRule ^.*$ /js/main-build.js [L]
-
-#RewriteCond %{SCRIPT_FILENAME} main.js
-#RewriteRule ^(.*(?:main\.js))$ /js/main-build.js [L]
-#
-#RewriteCond %{SCRIPT_FILENAME} main-build.js
-#RewriteRule ^.*$ main.js
-
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} (.*)$
 RewriteRule ^(.+)/$ /$1 [R=301,L]

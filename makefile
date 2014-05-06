@@ -12,10 +12,10 @@ endif
 NODE_ENV = production
 
 install:
-	@(mv ./node_modules ./configs/node_modules)
-	@(cd ./configs && $(NPM) install)
-	@(mv ./configs/node_modules ./node_modules)
-	@(cd ./configs && $(BOWER) install)
+	@if [ -e "node_modules" ]; then mv ./node_modules ./configs/node_modules; fi
+    @(cd ./configs && $(NPM) install)
+    @if [ -e "./configs/node_modules" ]; then mv ./configs/node_modules ./node_modules; fi
+    @(cd ./configs && $(BOWER) install)
 test:
 	@(cd ./configs && karma start)
 update:
