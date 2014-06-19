@@ -19,6 +19,7 @@ var config = {
         'dX/Model':          '../bower_components/dexter-core/js/models/Model',
         'dX/ItemView':       '../bower_components/dexter-core/js/views/ItemView',
         'dX/ResponsiveView': '../bower_components/dexter-core/js/views/ResponsiveView',
+        'dX/StaticView':     '../bower_components/dexter-core/js/views/StaticView',
         'dX/View':           '../bower_components/dexter-core/js/views/View',
         'dX/Boot':           '../bower_components/dexter-core/js/Boot',
         'dX/Router':         '../bower_components/dexter-core/js/Router',

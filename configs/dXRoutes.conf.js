@@ -4,7 +4,8 @@ define(function() {
         // <path>: <viewname>
         // most general routes must be defined at the bottom of the route map
 
-        '*path': 'HelloWorld'
+        'down': 'Second',
+        '*path': 'First'
     };
 
 });

@@ -27,7 +27,7 @@ define([ /* ... */ ], function(dXView) {
 <!-- ... -->
 ```
 
-#### Global Views
+#### Static Views
 independent, defined in configs/dXViews.conf.js, automatically loaded by the router on init
 
 #### Routed Views
@@ -58,7 +58,7 @@ high performance, subviews will be rendered after the parent view to fulfill dep
 the application.
 
 #### Item Views
-used in collections, preloaded in configs/dXViews.conf.js
+used by collections, declared in configs/dXViews.conf.js
 
 ### Data Binding
 dXView extends Backbone.Epoxy.View from [Epoxy.js], thus we can use that neat Data Binding to seamlessly 
@@ -219,13 +219,10 @@ define([ /* ... */ ], function(dXView) {
 ```javascript
 // file: /configs/dXViews.conf.js
 define(function() {
-    return {
-        // ...
-        global: [
-            'android!navigation',
-            'iOS!navigation'
-        ]
-    };
+    return [
+        'android!navigation',
+        'iOS!navigation'
+    ];
 });
 ```
 

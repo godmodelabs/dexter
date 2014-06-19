@@ -1,6 +1,6 @@
 {
     "name": "dexter",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "main": "../index.html",
     "directory": "../bower_components",
     "ignore": [
@@ -19,7 +19,7 @@
         "SimpleStateManager": "1.3.x",
         "requirejs-plugins": "1.0.x",
         "eventemitter2": "0.4.x",
-        "dexter-core": "https://github.com/godmodelabs/dexter-core.git#0.5.x",
+        "dexter-core": "https://github.com/godmodelabs/dexter-core.git",
         "dexter-docs": "https://github.com/godmodelabs/dexter-docs.git"
     }
 }

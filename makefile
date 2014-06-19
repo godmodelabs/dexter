@@ -18,14 +18,8 @@ install:
 	@(cd ./configs && $(BOWER) install)
 test:
 	@(cd ./configs && karma start)
-update:
-	@$(NPM) update
-	@(cd ./configs && $(BOWER) update)
 docs:
 	@(jsdoc -c bower_components/dexter-docs/jsdoc.json ./README.md)
-list:
-	@$(NPM) list
-	@(cd ./configs && $(BOWER) list)
 release:
 	@$(NODE) ./bower_components/dexter-core/build/build.js
 	@$(NODE) ./bower_components/dexter-core/build/r.js -o ./configs/dXBuild.min.js logLevel=4

@@ -1,14 +1,10 @@
 define(function() {
 
-    return {
-        preLoad: {
-            views: [],
-            templates: [
-                'loading'
-            ]
-        },
-
-        global: []
-    };
+    return [
+        'First',
+        'desktop!Second',
+        's-Static',
+        'i-Item'
+    ];
 
 });
