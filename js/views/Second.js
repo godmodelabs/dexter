@@ -7,11 +7,11 @@ define([
     /**
      * Example of a second view.
      *
-     * @class SecondView
+     * @class Second
      * @author Riplexus <riplexus@gmail.com>
      */
 
-    return dXResponsiveView.extend(/** @lends SecondView.prototype */{
+    return dXResponsiveView.extend(/** @lends Second.prototype */{
         dXName: 'Second',
 
         /**

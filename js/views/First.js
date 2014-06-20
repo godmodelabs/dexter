@@ -1,7 +1,7 @@
 define([
     'dX/ResponsiveView',
     'collections/items',
-    'views/i-Item'
+    'views/item/Item'
 ], function(
     dXResponsiveView,
     ItemsCollection,
@@ -11,12 +11,20 @@ define([
     /**
      * Example of a simple view with a collection of items.
      *
-     * @class HelloWorld
+     * @class First
      * @author Riplexus <riplexus@gmail.com>
      */
 
-    return dXResponsiveView.extend(/** @lends HelloWorld.prototype */{
+    return dXResponsiveView.extend(/** @lends First.prototype */{
         dXName: 'First',
+
+        /**
+         * Example of subview declarations.
+         */
+        
+        dXSubViews: [
+            'First__Third'
+        ],
 
         /**
          * We want to show the entries of an ItemsCollection 

@@ -27,11 +27,23 @@ define([ /* ... */ ], function(dXView) {
 <!-- ... -->
 ```
 
-#### Static Views
-independent, defined in configs/dXViews.conf.js, automatically loaded by the router on init
+You can organize your views in as many folders as you wish inside /views, as long as you add 
+the folder name as a prefix to the dXName attribute. 
+E.g. /views/folder/calendar.js must have the dXName of 'folder__calendar'.
+
+Dexter is client-only and can be run on any server, but one caveat of being server agnostic is 
+the missing file system access. To be able to load every required view of the application, even 
+the static and item ones, every view has to be declared in an array in configs/dXViews.conf.js. 
+The make target 'viewlist' generates this config file automatically for convenience.
+```bash
+make viewlist
+```
 
 #### Routed Views
-defined in dXRoutes.conf.js, will be loaded on navigation
+
+
+#### Static Views
+
 
 #### Subviews
 Each view can incorporate any number of other views.
@@ -50,7 +62,7 @@ define([ /* ... */ ], function(dXView) {
 ```html
 <!-- file: /templates/myView.html -->
 <p>Hello again! I'm injecting one of the other views to reuse some work!</p>
-<div id="subView"></div>
+<div data-dX="mySubView"></div>
 ```
 
 Views used as subviews can itself again contain subviews. One warning though, don't use too deep constructs to maintain
@@ -58,7 +70,7 @@ high performance, subviews will be rendered after the parent view to fulfill dep
 the application.
 
 #### Item Views
-used by collections, declared in configs/dXViews.conf.js
+
 
 ### Data Binding
 dXView extends Backbone.Epoxy.View from [Epoxy.js], thus we can use that neat Data Binding to seamlessly 
@@ -199,52 +211,39 @@ define([ /* ... */ ], function(dXResponsiveView) {
 
 
 ### Dependent view loading
-Global, Routed and Subviews can be different for each user agent. The navigation, for example, should follow a different
-style guide and behave differently on android than on iOS. Dexter allows you to simply use keywords on the entry
-points of view declaration to fulfill this often used requirement.
+Views can be different for each user system. The navigation, for example, should follow a different
+style guide and behave differently on android than on iOS. Dexter allows you to simply put them in keyword folders 
+to fulfill this often used requirement. If no view is found for the current user system, it tries 
+to load a generic one under /js/views. 
 
 ```javascript
-// file: /js/views/myView.js
+// file: /js/views/navigation.js
 define([ /* ... */ ], function(dXView) {
     return dXView.extend({
-        dXName: 'myView',
-        dXSubViews: [
-            'android!navigation'
-            'iOS!navigation'
-        ],
+        dXName: 'navigation',
     });
 });
 ```
 
 ```javascript
-// file: /configs/dXViews.conf.js
-define(function() {
-    return [
-        'android!navigation',
-        'iOS!navigation'
-    ];
+// file: /js/views/android/navigation.js
+define([ /* ... */ ], function(dXView) {
+    return dXView.extend({
+        dXName: 'navigation',
+    });
 });
 ```
 
 ```javascript
-// file: /configs/dXRoutes.conf.js
-define(function() {
-    return {
-        // ...
-        'user': 'iOS!user',
-        'profile': [
-            'android!profile',
-            'iOS!profile',
-        ]
-    };
+// file: /js/views/iOS/navigation.js
+define([ /* ... */ ], function(dXView) {
+    return dXView.extend({
+        dXName: 'navigation',
+    });
 });
 ```
 
-If no definition is found for the current user system, it omits the first keyword (e.g. "android!navigation" -> "navigation").
-Deeper and more specific declarations have priority ("android!navigation" > "navigation").
-
-
-Views and templates must be named equally and have to be stored in corresponding folders, in order for Dexter to find them.
+The templates must be named and stored equally, in order for Dexter to find them.
 
 ```bash
 /js/views/
@@ -252,17 +251,17 @@ Views and templates must be named equally and have to be stored in corresponding
 |--- navigation.js  
 |- iOS/  
 |--- navigation.js
-```
+|- navigation.js
 
-```bash
-/templates/  
-|- android/  
+/templates/
+|- android/
 |--- navigation.html  
 |- iOS/  
-|--- navigation.html  
+|--- navigation.html
+|- navigation.html
 ```
 
-Hint: If you just want to differ simple js statements instead of whole views, you can use libs/dX/is for the same system
+Hint: If you just want to differ simple js statements instead of whole views, you can use dX/libs/is for the same system
 checks used here.
 
 #### Currently supported keywords
@@ -273,13 +272,13 @@ checks used here.
 - mobile (For every OS listed above)
 - desktop (not mobile)
 
-If you want to create custom keywords, you can just add a new test in libs/dX/is, the key is your new keyword.
+If you want to create custom keywords, you can add new tests in dexter-core under js/libs/is with your new keyword as key.
 Note that this feature is not responsive, thus a full reload is needed if the result of your test changes and you want
 it to take effect.
 
 ### Shim / Polyfill support
-To enhance the use of shims / polyfills, DX provides a plugin for requireJS. Combined with the awesome [Modernizr], 
-it delivers a powerful conditional loader.
+To enhance the use of shims / polyfills, DX provides a requireJS plugin. Combined with the awesome [Modernizr] it 
+delivers a powerful conditional loader.
 
 ```javascript
 define([

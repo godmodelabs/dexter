@@ -20,11 +20,13 @@ test:
 	@(cd ./configs && karma start)
 docs:
 	@(jsdoc -c bower_components/dexter-docs/jsdoc.json ./README.md)
-release:
+release: | viewlist
 	@$(NODE) ./bower_components/dexter-core/build/build.js
 	@$(NODE) ./bower_components/dexter-core/build/r.js -o ./configs/dXBuild.min.js logLevel=4
 	@$(NODE) ./bower_components/dexter-core/build/link.js set
 unrelease:
 	@$(NODE) ./bower_components/dexter-core/build/link.js reset
+viewlist:
+	@$(NODE) ./bower_components/dexter-core/build/viewlist.js
 
-.PHONY: install docs
+.PHONY: install docs release unrelease viewlist

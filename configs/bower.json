@@ -1,6 +1,6 @@
 {
     "name": "dexter",
-    "version": "0.6.0",
+    "version": "0.6.3",
     "main": "../index.html",
     "directory": "../bower_components",
     "ignore": [

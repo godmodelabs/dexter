@@ -7,11 +7,11 @@ define([
     /**
      * Example of a second view, desktop systems only.
      *
-     * @class SecondDesktop
+     * @class Second
      * @author Riplexus <riplexus@gmail.com>
      */
 
-    return SecondView.extend(/** @lends SecondDesktop.prototype */{
+    return SecondView.extend(/** @lends Second.prototype */{
 
         /**
          * Will be called on enter.

@@ -1,10 +1,12 @@
 define(function() {
-
     return [
-        'First',
-        'desktop!Second',
-        's-Static',
-        'i-Item'
+        "First",
+        "First__Third",
+        "First__Third__Fourth",
+        "Second",
+        "desktop!First__Third__Fourth",
+        "desktop!Second",
+        "item/Item",
+        "static/Static"
     ];
-
 });
