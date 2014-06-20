@@ -1,14 +1,51 @@
 # Dexter
-Dexter is a full featured framework with [Backbone.js] and [Epoxy.js], [RequireJS] and other libraries useful for 
-the development of responsive Single Page Applications and Mobile Web Apps. It adds a few ideas of its own and 
-maintains high flexibility, but primarily provides a neat All-in-One package to start the development of your 
-application right after `make install`.
+Dexter is a client-side, full-featured framework with [Backbone.js] and [Epoxy.js], [RequireJS] and other libraries 
+useful for a super fast development of responsive Single Page Applications and Mobile Web Apps.
+ 
+Your possibilities are endless. You can create a quick mockup of your upcoming native app, a responsive web tool 
+or even a mobile, hybrid game to be packed and deployed with apache cordova. Dexter's [Backbone] with its custom
+prototypes are powerful enough to manage any complex, client-side applications. 
+
+It also provides a lot of tools to maintain high performance and low maintenance, 
+like building with r.js, support for TDD with karma as test runner or generating useful documentation with jsdoc.
+
+So, what is the killer feature of Dexter? It is one of the most used buzzwords in the last years: RWD or Responsive
+Web Design, but it goes further than that. Dexter is optimized to provide the user only the necessary javascript code, 
+html templates and stylesheets for his device. Do you want a new layout in landscape mode? No problem, Dexter swaps 
+the templates on the fly. Need custom javascript for android only? Just put your code in the specified folder 
+and it will only be loaded for android devices. 
+
+Create and maintain only one application with one data structure for every user with any device. 
+
+*tl;dr*
+Create an awesome, responsive and device-optimized application with Dexter.
+
+### Getting started
+This repository provides you a basic application with example configurations to get you started. 
+Most of Dexter will be installed as a dependency and is encapsulated.
+
+You need node.js and npm in your path.
+
+1. Download the latest release of this project and extract it somewhere on your server.
+2. Go to your application folder and start installation with `make install`.
+3. Open your folder with a browser and see the beauty of this sample app (todo: create beautiful sample app).
 
 ### Views
+In Dexter, everything is modular and follows the basic structure of Backbone.js. Lets quote from their great 
+documentation to explain the concept of views:
+
+"The general idea is to organize your interface into logical views, backed by models, each of which 
+can be updated independently when the model changes, without having to redraw the page."
+
+Every view in Dexter is identified by his dXName and contains of 3 Parts. The behaviour defined in a .js file 
+under /js/views, the layout as a .html template under /templates and an entry point in which the view 
+will be inserted. This can be any node with the attribute data-dX set to the dXName.
+
+The file names and locations are important and the .js and .html file have to be named alike. 
 
 ```javascript
 // file: /js/views/myView.js
-define([ /* ... */ ], function(dXView) {
+define([ dX/View ], function(dXView) {
     return dXView.extend({
         dXName: 'myView',
     });
@@ -33,23 +70,55 @@ E.g. /views/folder/calendar.js must have the dXName of 'folder__calendar'.
 
 Dexter is client-only and can be run on any server, but one caveat of being server agnostic is 
 the missing file system access. To be able to load every required view of the application, even 
-the static and item ones, every view has to be declared in an array in configs/dXViews.conf.js. 
-The make target 'viewlist' generates this config file automatically for convenience.
+the static and item ones (will be explained later), every view has to be declared in an array 
+in /configs/dXViews.conf.js. The make target 'viewlist' generates this config file automatically 
+for convenience.
 ```bash
 make viewlist
 ```
+
+There are basically three types of views supported in Dexter, each with different behaviour and
+their corresponding prototype to be extended from.
 
 #### Routed Views
 
 
 #### Static Views
+Unlike routed views, the static view does not depend on the current position (route) of the user within your 
+application. They will be entered on load and never leaved. Navigation headers, sidebars or overlays like 
+toasts or modals are good examples for this kind of views, which need to be loaded and available most of the time.
+
+In order to recognize your view as static, extend dX/StaticView. You can place them anywhere you like, 
+inside your /views folder.
+ 
+```javascript
+// file: /views/navigation.js
+define([ dX/StaticView ], function(dXStaticView) {
+
+    return dXStaticView.extend({
+        dXName: 'navigation'
+    });
+
+});
+```
+
+```html
+<!-- file: /templates/navigation.html -->
+<ul>
+<li><a href="/subpage1">SubPage1</a></li>
+<li><a href="/subpage2">SubPage2</a></li>
+</ul>
+```
+
+#### Item Views
 
 
 #### Subviews
-Each view can incorporate any number of other views.
+To reuse code and follow the principle of modularization, it is possible to use views inside another view. They 
+have to be declared as SubViews and their entry point is inside the parent view template.
 
 ```javascript
-define([ /* ... */ ], function(dXView) {
+define([ dX/View ], function(dXView) {
 
     return dXView.extend({
         dXName: 'myView',
@@ -66,19 +135,16 @@ define([ /* ... */ ], function(dXView) {
 ```
 
 Views used as subviews can itself again contain subviews. One warning though, don't use too deep constructs to maintain
-high performance, subviews will be rendered after the parent view to fulfill dependencies on DOM nodes and can slow
-the application.
-
-#### Item Views
-
+high performance, subviews will be rendered after the parent view to fulfill dependencies on DOM nodes and can slow 
+down the application.
 
 ### Data Binding
-dXView extends Backbone.Epoxy.View from [Epoxy.js], thus we can use that neat Data Binding to seamlessly 
-update our views, if the data changes.
+Every Dexter view extends Backbone.Epoxy.View from [Epoxy.js], thus we can use that neat Data Binding to seamlessly 
+update our views, on data change.
 
 ```javascript
 // file: /js/views/myView.js
-define([/* ... */], function(/* ... */) {
+define([ dX/View ], function(dXView) {
     
     return dXView.extend({
         dXName: 'myView',
@@ -106,11 +172,11 @@ define([/* ... */], function(/* ... */) {
 });
 ```
 
-This is just a sneak peak of the possibilities, for the full documentation see [Epoxy.js].
+This is just a sneak peak of the many possibilities, for the full documentation see [Epoxy.js].
 
 ### Templating
-If you want, you can use any templating engine beside the dynamic bindings mentioned above for static data. The dXView 
-class provides a method called dXTemplateRenderer, which can be overwritten.
+If you want, you can use any templating engine beside the dynamic bindings mentioned above for static data. 
+dXView, the basic class of every Dexter view, provides a method called dXTemplateRenderer which can be overwritten.
 
 ```javascript
 define([
@@ -145,7 +211,7 @@ define([
 ```
 
 
-The example branch uses [Mustache] to show one of many possible and easy solutions.
+The examples use [Mustache] to show one of many possible and easy solutions.
 
 ### States
 One of the key features of DX is the native integration of [Simple State Manager] for responsive JavaScript execution 
@@ -210,7 +276,7 @@ define([ /* ... */ ], function(dXResponsiveView) {
 #### State dependent stylesheets
 
 
-### Dependent view loading
+### Platform dependent view loading
 Views can be different for each user system. The navigation, for example, should follow a different
 style guide and behave differently on android than on iOS. Dexter allows you to simply put them in keyword folders 
 to fulfill this often used requirement. If no view is found for the current user system, it tries 
@@ -243,7 +309,7 @@ define([ /* ... */ ], function(dXView) {
 });
 ```
 
-The templates must be named and stored equally, in order for Dexter to find them.
+The templates must be named alike in order for Dexter to find them.
 
 ```bash
 /js/views/
@@ -269,8 +335,8 @@ checks used here.
 - iOS
 - blackBerry
 - windowsPhone
-- mobile (For every OS listed above)
-- desktop (not mobile)
+- mobile (Any OS listed above)
+- desktop (Not mobile)
 
 If you want to create custom keywords, you can add new tests in dexter-core under js/libs/is with your new keyword as key.
 Note that this feature is not responsive, thus a full reload is needed if the result of your test changes and you want
@@ -359,14 +425,12 @@ following targets are included:
 
 * install
 * test
-* update
-* list
 * release
-* unrelease 
+* unrelease
+* viewlist
 
 The release target starts a build script to generate the required config file for r.js, runs the optimizer and
 links the requirejs entry point inside index.html to the newly generated main-build.js
-
 
 ### Debugging
 Dexter uses a [Debug] utility based on ideas from node.js for easy and powerful output. To enable full report,
@@ -434,20 +498,16 @@ file under /configs/. You can compile it with the provided template or your own 
 - [Simple State Manager]
 - [Debug]
 
-## Ideas
-- Refactor Router
-- CSS: css file loading via javascript, without media queries, dependent on current state
-- HTML: template loading via plugin, dependent on current state
-
 ## Special thanks to:
 - The contributors of [Backbone.js]
-- [James Burke] for the beloved [RequireJS]
+- [James Burke] for the awesome [RequireJS]
 - [Jonathan Fielding] for his very nice [Simple State Manager]
 
 and of course every contributor of the libraries listed above, awesome work!
 
 [Jonathan Fielding]: <https://github.com/jonathan-fielding>
 [Simple State Manager]: <https://github.com/jonathan-fielding/SimpleStateManager/>
+[Backbone]: <https://github.com/documentcloud/backbone/>
 [Backbone.js]: <https://github.com/documentcloud/backbone/>
 [Epoxy.js]: <http://epoxyjs.org/>
 [James Burke]: <https://github.com/jrburke>
@@ -484,13 +544,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-## ChangeLog
-0.5.0
-- More than one container for the same view will create multiple view instances
-- NPM config moved to configs
-- Prefixed config files for Dexter
-- Prefixed requirejs plugin files for Dexter
-- Moved libs for Dexter into dX subfolder
-- Moved shims into libs/shim with better naming
-- Extracted Dexter from application code
