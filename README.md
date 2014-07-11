@@ -45,7 +45,7 @@ The file names and locations are important and the .js and .html file have to be
 
 ```javascript
 // file: /js/views/myView.js
-define([ dX/View ], function(dXView) {
+define([ 'dX/View' ], function(dXView) {
     return dXView.extend({
         dXName: 'myView',
     });
@@ -93,7 +93,7 @@ inside your /views folder.
  
 ```javascript
 // file: /views/navigation.js
-define([ dX/StaticView ], function(dXStaticView) {
+define([ 'dX/StaticView' ], function(dXStaticView) {
 
     return dXStaticView.extend({
         dXName: 'navigation'
@@ -118,7 +118,7 @@ To reuse code and follow the principle of modularization, it is possible to use 
 have to be declared as SubViews and their entry point is inside the parent view template.
 
 ```javascript
-define([ dX/View ], function(dXView) {
+define([ 'dX/View' ], function(dXView) {
 
     return dXView.extend({
         dXName: 'myView',
@@ -144,7 +144,7 @@ update our views, on data change.
 
 ```javascript
 // file: /js/views/myView.js
-define([ dX/View ], function(dXView) {
+define([ 'dX/View' ], function(dXView) {
     
     return dXView.extend({
         dXName: 'myView',
