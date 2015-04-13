@@ -9,8 +9,8 @@
         "components"
     ],
     "dependencies": {
-        "jquery": "1.9.x",
-        "underscore": "1.4.x",
+        "jquery": ">=1.11.0",
+        "underscore": ">=1.4.3",
         "backbone": "1.0.x",
         "epoxy": "https://github.com/gmac/backbone.epoxy.git#master",
         "requirejs": "2.1.x",

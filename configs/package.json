@@ -7,6 +7,7 @@
         "test": "test"
     },
     "dependencies": {
+        "tmp": "0.0.23",
         "bower": "git+https://github.com/Riplexus/bower.git"
     },
     "devDependencies": {

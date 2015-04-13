@@ -484,44 +484,6 @@ If you want to use JSDoc for automated documentation, you can easily do so with 
 file under /configs/. You can compile it with the provided template or your own by declaring the path in the
 /configs/jsdoc.json or by replacing the content of /docs/template.
 
-## Libraries used in this framework
-
-- [Backbone.js]
-    - Underscore
-    - [Epoxy.js]
-- [RequireJS]
-    - Text Plugin
-    - RequireJS-plugins
-- [jQuery]
-- [Modernizr]
-- [EventEmitter2]
-- [Simple State Manager]
-- [Debug]
-
-## Special thanks to:
-- The contributors of [Backbone.js]
-- [James Burke] for the awesome [RequireJS]
-- [Jonathan Fielding] for his very nice [Simple State Manager]
-
-and of course every contributor of the libraries listed above, awesome work!
-
-[Jonathan Fielding]: <https://github.com/jonathan-fielding>
-[Simple State Manager]: <https://github.com/jonathan-fielding/SimpleStateManager/>
-[Backbone]: <https://github.com/documentcloud/backbone/>
-[Backbone.js]: <https://github.com/documentcloud/backbone/>
-[Epoxy.js]: <http://epoxyjs.org/>
-[James Burke]: <https://github.com/jrburke>
-[RequireJS]: <https://github.com/jrburke/requirejs>
-[NPM]: <http://npmjs.org/>
-[Bower]: <http://bower.io/>
-[jQuery]: <http://jquery.com/>
-[Modernizr]: <http://modernizr.com/>
-[EventEmitter2]: <https://github.com/hij1nx/EventEmitter2>
-[Jasmine]: <http://jasmine.github.io/>
-[Karma]: <http://karma-runner.github.io/0.8/index.html>
-[Debug]: <https://github.com/visionmedia/debug>
-[Mustache]: <http://mustache.github.io/>
-
 ## License
 (MIT)
 

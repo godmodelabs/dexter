@@ -1,0 +1,13 @@
+root = true
+
+# global
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+
+# deviation
+[*.{html,htm,less}]
+indent_style = tab

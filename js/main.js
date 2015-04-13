@@ -5,7 +5,7 @@
  */
 
 var config = {
-    baseUrl: '/js',
+    baseUrl: 'js',
 
     paths: {
         templates: '../templates',
@@ -26,10 +26,10 @@ var config = {
         'dX/libs':           '../bower_components/dexter-core/js/libs',
 
         // Bower components
-        jquery:        '../bower_components/jquery/jquery',
+        jquery:        '../bower_components/jquery/dist/jquery.min',
         underscore:    '../bower_components/underscore/underscore-min',
         backbone:      '../bower_components/backbone/backbone-min',
-        epoxy:         '../bower_components/epoxy/backbone.epoxy.min',
+        epoxy:         '../bower_components/epoxy/backbone.epoxy',
         modernizr:     '../bower_components/modernizr/modernizr',
         mustache:      '../bower_components/mustache/mustache',
         ssm:           '../bower_components/SimpleStateManager/src/ssm',
