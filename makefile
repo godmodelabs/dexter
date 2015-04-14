@@ -4,9 +4,9 @@ ifdef SystemRootre # Windows
 	BOWER = .\node_modules\.bin\bower.cmd
 else
 	UNAME_S := $(shell uname -s)
-    NODE = node
-    NPM = npm
-    BOWER = $(NODE) ../node_modules/.bin/bower
+	NODE = node
+	NPM = npm
+	BOWER = $(NODE) ../node_modules/.bin/bower
 endif
 
 NODE_ENV = production
@@ -20,13 +20,16 @@ test:
 	@(cd ./configs && karma start)
 docs:
 	@(jsdoc -c bower_components/dexter-docs/jsdoc.json ./README.md)
-release: | viewlist
-	@$(NODE) ./bower_components/dexter-core/build/build.js
-	@$(NODE) ./bower_components/dexter-core/build/r.js -o ./configs/dXBuild.min.js logLevel=4
+release: | config
+	@(cd ./bower_components/dexter-core/build/ && $(NODE) ./build.js)
+	@$(NODE) ./bower_components/dexter-core/build/r.js -o ./configs/dXBuild.min.js logLevel=1
 	@$(NODE) ./bower_components/dexter-core/build/link.js set
+	@rm ./configs/dXBuild.min.js
 unrelease:
 	@$(NODE) ./bower_components/dexter-core/build/link.js reset
-viewlist:
-	@$(NODE) ./bower_components/dexter-core/build/viewlist.js
+config:
+	@(cd ./bower_components/dexter-core/build/ && $(NODE) ./config.js)
+
+
 
 .PHONY: install docs release unrelease viewlist

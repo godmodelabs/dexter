@@ -1,14 +1,8 @@
 define([
     'dX/ResponsiveView',
-    'collections/items',
-    'views/item/Item',
-    'dX/libs/override',
-    'text!templates/snippets/loading.html'
+    'text!snippets/loading.html'
 ], function(
     dXResponsiveView,
-    ItemsCollection,
-    ItemView,
-    override,
     loading
 ) {
 
@@ -34,40 +28,6 @@ define([
          *
          */
 
-        dXLoading: loading,
-
-        /**
-         * We want to show the entries of an ItemsCollection
-         * in this view, so we need to reference it.
-         */
-
-        collection: new ItemsCollection(),
-
-        /**
-         * Every entry of the collection in our #First view
-         * will use this item view.
-         */
-
-        itemView: ItemView,
-
-        /**
-         * Bind the collection items to a .list container.
-         */
-
-        bindings: {
-            '.list': 'collection:$collection'
-        },
-
-        /**
-         * Fill our collection with three dummy entries.
-         */
-
-        initialize: function() {
-            dXResponsiveView.prototype.initialize.call(this);
-
-            this.collection.add({});
-            this.collection.add({});
-            this.collection.add({});
-        }
+        dXLoading: loading
     });
 });

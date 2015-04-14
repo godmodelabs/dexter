@@ -5,7 +5,7 @@ define([
 ) {
 
     /**
-     * Example of a second view, desktop systems only.
+     * Example of a second view, iOS systems only.
      *
      * @class Second
      * @author Riplexus <riplexus@gmail.com>
@@ -15,12 +15,12 @@ define([
 
         /**
          * Will be called on enter.
-         * 
+         *
          * @augments dXView
          */
-            
+
         enter: function() {
-            console.log("You are on a desktop!");
+            console.log("You got an iOS device!");
         }
     });
 });

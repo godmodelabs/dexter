@@ -1,0 +1,30 @@
+html, body {
+    font-family: 'Open Sans', 'Droid Sans', Arial, sans-serif;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+content {
+    display: block;
+    width: 600px;
+    margin: auto;
+    border: 1px solid black;
+}
+
+h1 {
+    background: green;
+    padding: 1rem;
+    margin: 0;
+}
+
+div {
+    background: lightblue;
+    padding: 1rem;
+    border-top: 1px solid black;
+}
+
+div > div {
+    border: 1px solid black;
+    padding: 0 .5rem;
+    margin: .5rem;
+}
