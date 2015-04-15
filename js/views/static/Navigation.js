@@ -14,6 +14,17 @@ define([
      */
 
     return dXStaticView.extend(/** @lends Static.prototype */{
-        dXName: 'static__Navigation'
+        dXName: 'static__Navigation',
+
+        initialize: function() {
+            dXStaticView.prototype.initialize.call(this);
+
+            // listen to navigation change to highlight current path
+            this.dXPipe.on('navigation', function(path) {
+                this.$el.find('a').css('font-weight', 'normal');
+                this.$el.find('[href="/'+path+'"]').css('font-weight', 'bold');
+                // current path also available in this.dXRouter.path
+            });
+        }
     });
 });

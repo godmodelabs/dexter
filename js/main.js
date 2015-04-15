@@ -5,7 +5,7 @@
  */
 
 var config = {
-    baseUrl: 'js',
+    baseUrl: '/js',
 
     paths: {
         templates: '../templates',
