@@ -29,16 +29,16 @@
     },
     "snippets": [
         "footer.html",
-        "header.html",
         "loading.html"
     ],
     "views": [
         "First",
-        "First__Third",
+        "First__Sub",
         "Second",
         "iOS!Second",
         "item/Item",
         "static/Navigation",
-        "static/Static"
+        "static/MyList",
+        "static/Wrapper"
     ]
 }

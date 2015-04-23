@@ -13,6 +13,6 @@ define([
      */
 
     return dXView.extend(/** @lends FirstThird.prototype */{
-        dXName: 'First__Third'
+        dXName: 'First__Sub'
     });
 });

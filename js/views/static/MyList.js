@@ -18,7 +18,7 @@ define([
      */
 
     return dXStaticView.extend(/** @lends Static.prototype */{
-        dXName: 'static__Static',
+        dXName: 'static__MyList',
 
         /**
          * We want to show the entries of an ItemsCollection
@@ -42,6 +42,11 @@ define([
             '.list': 'collection:$collection'
         },
 
+        events: {
+            'click .add': 'add',
+            'click .pop': 'pop'
+        },
+
         /**
          * Fill our collection with three dummy entries.
          */
@@ -49,9 +54,27 @@ define([
         initialize: function() {
             dXStaticView.prototype.initialize.call(this);
 
-            this.collection.add({});
-            this.collection.add({});
-            this.collection.add({});
+            this.collection.add({ key: 'one' });
+            this.collection.add({ key: 'two' });
+            this.collection.add({ key: 'three' });
+        },
+
+        /**
+         * Add a dummy entry to the collection.
+         */
+
+        add: function() {
+            this.collection.add({
+                key: this.$el.find('input').val()
+            });
+        },
+
+        /**
+         * Remove the last entry from the collection.
+         */
+
+        pop: function() {
+            this.collection.pop();
         }
     });
 });

@@ -21,7 +21,7 @@ define([
          */
 
         dXSubViews: [
-            'First__Third'
+            'First__Sub'
         ],
 
         /**
